@@ -3,12 +3,31 @@
     x:Class="PianoLessons.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:PianoLessons"
+    xmlns:pages="clr-namespace:PianoLessons.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab
+            Title="Home">
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate pages:SchedulePage}"
+                Route="SchedulePage" />
+        </Tab>
+        <Tab
+            Title="Practice Log">
+            <ShellContent
+                Title="Practice Log"
+                ContentTemplate="{DataTemplate pages:PracticeLogPage}" 
+                Route="PracticeLogPage" />
+        </Tab>
+        <Tab
+            Title="Scoreboard">
+            <ShellContent
+                Title="Scoreboard"
+                ContentTemplate="{DataTemplate pages:ScoreboardPage}"
+                Route="ScoreboardPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>
