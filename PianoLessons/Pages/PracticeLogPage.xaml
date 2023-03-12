@@ -1,12 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PianoLessons.Pages.PracticeLogPage"
-             Title="Practice Log">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PianoLessons.Pages.PracticeLogPage"
+    Title="Practice Log">
+    <ScrollView
+        WidthRequest="500"
+        VerticalScrollBarVisibility="Always">
+        <VerticalStackLayout
+            HorizontalOptions="Center">
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Practice Logs" />
+            <Button
+                BackgroundColor="ForestGreen"
+                Command="{Binding ToAddLogCommand}"
+                HorizontalOptions="End"
+                Text="Add Log" />
+            <Grid
+                RowDefinitions="*"
+                Padding="5,0,0,0"
+                ColumnDefinitions="75,150,75">
+                <Label
+                    FontAttributes="Bold"
+                    Text="Date" />
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="1"
+                    Text="Name" />
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="2"
+                    Text="Duration" />
+            </Grid>
+            <CollectionView
+                HorizontalOptions="Center"
+                ItemsSource="{Binding Logs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            Margin="0,2"
+                            Padding="5,0,0,0">
+                            <Grid
+                                RowDefinitions="Auto"
+                                WidthRequest="450"
+                                ColumnDefinitions="75,150,75,Auto,Auto">
+
+                                <Label
+                                    VerticalOptions="Center"
+                                    Text="{Binding Date, StringFormat='{0:MM/dd/yy}'}" />
+                                <Label
+                                    VerticalOptions="Center"
+                                    Grid.Column="1"
+                                    Text="{Binding Name}" />
+                                <Label
+                                    VerticalOptions="Center"
+                                    Grid.Column="2"
+                                    Text="{Binding Duration, StringFormat='{0:h\\:mm}'}" />
+                                <Button
+                                    Grid.Column="3"
+                                    BackgroundColor="Gray"
+                                    Text="Edit" />
+                                <Button
+                                    BackgroundColor="IndianRed"
+                                    Grid.Column="4"
+                                    Text="Delete" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

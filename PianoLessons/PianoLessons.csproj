@@ -57,10 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Pages\SchedulePage.xaml.cs">
 	    <DependentUpon>SchedulePage.xaml</DependentUpon>
 	  </Compile>
