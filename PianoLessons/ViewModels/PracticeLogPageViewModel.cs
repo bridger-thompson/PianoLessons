@@ -72,8 +72,6 @@ public partial class PracticeLogPageViewModel : ObservableObject
 			SelectedStudent = Students[0];
 		}
 		Logs = new();
-		//change to execute
-		//await FilterLogs();
 		FilterLogsCommand.Execute(this);
 		IsTeacher = true;
 	}

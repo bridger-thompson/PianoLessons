@@ -77,7 +77,6 @@
                                 RowDefinitions="Auto"
                                 WidthRequest="450"
                                 ColumnDefinitions="75,150,75,Auto,Auto">
-
                                 <Label
                                     VerticalOptions="Center"
                                     Text="{Binding Date, StringFormat='{0:MM/dd/yy}'}" />
