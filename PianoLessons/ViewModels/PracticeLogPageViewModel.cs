@@ -73,7 +73,8 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		}
 		Logs = new();
 		//change to execute
-		await FilterLogs();
+		//await FilterLogs();
+		FilterLogsCommand.Execute(this);
 		IsTeacher = true;
 	}
 
