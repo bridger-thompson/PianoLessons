@@ -3,12 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Pages;
 using PianoLessons.Services;
 using Syncfusion.Maui.Scheduler;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PianoLessons.ViewModels;
 
@@ -34,14 +29,22 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		DateTime today = DateTime.Today;
+		DateTime yesterday = new(today.Year, today.Month, today.Day - 1);
 		//get all from db
 		var appointment = new ObservableCollection<SchedulerAppointment>
 		{
 			new SchedulerAppointment()
 			{
-				StartTime = DateTime.Today.AddHours(9),
-				EndTime = DateTime.Today.AddHours(11),
+				StartTime = today.AddHours(9),
+				EndTime = today.AddHours(11),
 				Subject = "Client Meeting",
+			},
+			new SchedulerAppointment()
+			{
+				StartTime = yesterday.AddHours(9),
+				EndTime = today.AddHours(10),
+				Subject = "Long Meeting",
 			}
 		};
 		Events = appointment;

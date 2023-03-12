@@ -16,18 +16,18 @@
             Spacing="5"
             Padding="30,0">
 
+            <Button
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Text="Add New Item"
+                BackgroundColor="ForestGreen"
+                Command="{Binding ToAddScheduleItemCommand}" />
             <scheduler:SfScheduler
                 x:Name="Scheduler"
                 AppointmentsSource="{Binding Events}"
                 HeightRequest="500"
                 AllowedViews="Day,Week"
                 View="Week" />
-            <Button
-                HorizontalOptions="Center"
-                VerticalOptions="Start"
-                WidthRequest="300"
-                Text="Add New Item"
-                Command="{Binding ToAddScheduleItemCommand}" />
 
         </VerticalStackLayout>
     </ScrollView>
