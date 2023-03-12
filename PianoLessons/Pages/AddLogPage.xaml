@@ -4,9 +4,48 @@
              x:Class="PianoLessons.Pages.AddLogPage"
              Title="Add Practice Log">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label
+            FontSize="Title"
+            HorizontalOptions="Center"
+            Text="New Practice Log" />
+        <HorizontalStackLayout
+            Spacing="5"
+            Margin="0,0,0,5"
+            HorizontalOptions="Center">
+            <Label
+                VerticalOptions="Center"
+                Text="Date: " />
+            <DatePicker
+                Date="{Binding Date}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout
+            Spacing="5"
+            HorizontalOptions="Center">
+            <Label
+                VerticalOptions="Center"
+                WidthRequest="60"
+                Text="Hours: " />
+            <Entry
+                Text="{Binding Hours}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout
+            Spacing="5"
+            HorizontalOptions="Center">
+            <Label
+                VerticalOptions="Center"
+                WidthRequest="60"
+                Text="Minutes: " />
+            <Entry
+                Text="{Binding Minutes}" />
+        </HorizontalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Margin="0,5"
+            FontSize="Small"
+            Text="{Binding Total, StringFormat='Total: {0:h\\:mm}'}" />
+        <Button
+            HorizontalOptions="Center"
+            Text="Add Log"
+            Command="{Binding SubmitCommand}" />
     </VerticalStackLayout>
 </ContentPage>

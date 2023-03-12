@@ -9,9 +9,4 @@ public partial class PracticeLogPage : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 	}
-
-	private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
-	{
-
-    }
 }
