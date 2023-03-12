@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PianoLessons.Models;
 using PianoLessons.Pages;
 using PianoLessons.Services;
+using PianoLessons.Shared.Data;
 using System.Collections.ObjectModel;
 
 namespace PianoLessons.ViewModels;
@@ -10,12 +10,13 @@ namespace PianoLessons.ViewModels;
 public partial class PracticeLogPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
+	private readonly PianoLessonsService service;
 
 	[ObservableProperty]
 	private ObservableCollection<PracticeLog> logs;
 
 	[ObservableProperty]
-	private List<string> students;
+	private ObservableCollection<string> studentNames;
 
 	[ObservableProperty]
 	private string selectedStudent;
@@ -50,9 +51,10 @@ public partial class PracticeLogPageViewModel : ObservableObject
 
 	public bool NoLogs { get => !HasLogs; }
 
-	public PracticeLogPageViewModel(INavigationService navService)
+	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service)
 	{
 		this.navService = navService;
+		this.service = service;
 	}
 
 	[RelayCommand]
@@ -64,29 +66,33 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		Students = new() {
-			"All", "Bob", "Steve", "Bridger"
-		}; ;
-		if (Students.Count > 0)
+		StudentNames = new()
 		{
-			SelectedStudent = Students[0];
+			"All"
+		};
+		var students = await service.GetStudentsForTeacher("1");
+		foreach (var student in students)
+		{
+			StudentNames.Add(student.Name);
 		}
-		Logs = new();
-		FilterLogsCommand.Execute(this);
+
+		if (StudentNames.Count > 0)
+		{
+			SelectedStudent = StudentNames[0];
+		}
+
+		//authentication/db
 		IsTeacher = true;
 	}
 
 	[RelayCommand]
-	public async Task FilterLogs()
+	public async Task GetLogs()
 	{
 		Logs = new();
-		//replace with request to db for selected students logs
-		foreach (var log in tempLogs)
+		var ls = await service.GetStudentLogs("1", SelectedStudent);
+		foreach (var log in ls)
 		{
-			if (SelectedStudent == "All" || log.Name == SelectedStudent)
-			{
-				Logs.Add(log);
-			}
+			Logs.Add(log);
 		}
 		HasLogs = Logs.Count > 0;
 	}

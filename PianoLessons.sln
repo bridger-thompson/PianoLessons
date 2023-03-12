@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessons", "PianoLessons\PianoLessons.csproj", "{60759085-D876-4E9B-AB90-34699470F10C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessonsApi", "PianoLessonsApi\PianoLessonsApi.csproj", "{222525AE-48D6-4F66-B633-DDD8E172FECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessons.Shared", "PianoLessons.Shared\PianoLessons.Shared.csproj", "{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{60759085-D876-4E9B-AB90-34699470F10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60759085-D876-4E9B-AB90-34699470F10C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60759085-D876-4E9B-AB90-34699470F10C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{222525AE-48D6-4F66-B633-DDD8E172FECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222525AE-48D6-4F66-B633-DDD8E172FECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222525AE-48D6-4F66-B633-DDD8E172FECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222525AE-48D6-4F66-B633-DDD8E172FECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

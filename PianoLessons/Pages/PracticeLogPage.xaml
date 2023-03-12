@@ -30,13 +30,13 @@
                         VerticalOptions="Center"
                         Text="Student:" />
                     <Picker
-                        ItemsSource="{Binding Students}"
+                        ItemsSource="{Binding StudentNames}"
                         WidthRequest="150"
                         SelectedItem="{Binding SelectedStudent}">
                         <Picker.Behaviors>
                             <toolkit:EventToCommandBehavior
                                 EventName="SelectedIndexChanged"
-                                Command="{Binding FilterLogsCommand}" />
+                                Command="{Binding GetLogsCommand}" />
                         </Picker.Behaviors>
                     </Picker>
                 </HorizontalStackLayout>

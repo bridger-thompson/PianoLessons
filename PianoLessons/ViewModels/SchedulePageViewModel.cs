@@ -10,13 +10,14 @@ namespace PianoLessons.ViewModels;
 public partial class SchedulePageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
-
+	private readonly PianoLessonsService service;
 	[ObservableProperty]
 	private ObservableCollection<SchedulerAppointment> events;
 
-	public SchedulePageViewModel(INavigationService navService)
+	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service)
 	{
 		this.navService = navService;
+		this.service = service;
 	}
 
 	[RelayCommand]
@@ -29,25 +30,16 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		DateTime today = DateTime.Today;
-		DateTime yesterday = new(today.Year, today.Month, today.Day - 1);
-		//get all from db
-		var appointment = new ObservableCollection<SchedulerAppointment>
+		Events = new();
+		var appointments = await service.GetAppointmentsForUser("1");
+		foreach (var appointment in appointments)
 		{
-			new SchedulerAppointment()
+			Events.Add(new SchedulerAppointment()
 			{
-				StartTime = today.AddHours(9),
-				EndTime = today.AddHours(11),
-				Subject = "Client Meeting",
-			},
-			new SchedulerAppointment()
-			{
-				StartTime = yesterday.AddHours(9),
-				EndTime = today.AddHours(10),
-				Subject = "Long Meeting",
-			}
-		};
-		Events = appointment;
-
+				StartTime = appointment.StartTime,
+				EndTime = appointment.EndTime,
+				Subject = appointment.Subject,
+			});
+		}
 	}
 }

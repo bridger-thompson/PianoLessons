@@ -33,6 +33,12 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AddScheduleItemPageViewModel>();
 		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 
+		builder.Services.AddSingleton<PianoLessonsService>();
+		builder.Services.AddSingleton(client => new HttpClient
+		{
+			BaseAddress = new Uri("http://localhost:5050")
+		});
+		
 		builder.UseMauiCommunityToolkit();
 
 #if DEBUG

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PianoLessons.Models;
+namespace PianoLessons.Shared.Data;
 
 public class PracticeLog
 {
