@@ -70,7 +70,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		{
 			"All"
 		};
-		var students = await service.GetStudentsForTeacher("1");
+		var students = await service.GetStudentsForTeacher(1);
 		foreach (var student in students)
 		{
 			StudentNames.Add(student.Name);
@@ -87,7 +87,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	{
 		Logs = new();
 		if (SelectedStudent == null) { SelectedStudent = "All"; }
-		var ls = await service.GetStudentLogs("1", SelectedStudent);
+		var ls = await service.GetAllStudentLogsForTeacher(1);
 		foreach (var log in ls)
 		{
 			Logs.Add(log);

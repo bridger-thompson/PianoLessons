@@ -31,7 +31,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	public async Task GetScores()
 	{
 		Students = new();
-		var studs = await service.GetStudentsScoresForTeacher("1", SelectedTime);
+		var studs = await service.GetStudentsScoresForTeacher(1, SelectedTime);
 		foreach (var student in studs)
 		{
 			Students.Add(student);

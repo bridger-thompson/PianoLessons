@@ -14,24 +14,24 @@ public class PianoLessonsService
 		this.client = client;
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForUser(string userId)
+	public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
 	{
-		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/{userId}");
+		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/{teacherId}");
 		return appointments;
 	}
 
-	public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
+	public async Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time)
 	{
 		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}/{time}");
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
 	{
 		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
 	}
 
-	public async Task<List<PracticeLog>> GetStudentLogs(string teacherId, string student)
+	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
 	{
-		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{teacherId}/{student}");
+		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{teacherId}");
 	}
 }

@@ -31,7 +31,7 @@ public partial class SchedulePageViewModel : ObservableObject
 	public async Task Loaded()
 	{
 		Events = new();
-		var appointments = await service.GetAppointmentsForUser("1");
+		var appointments = await service.GetAppointmentsForTeacher(1);
 		foreach (var appointment in appointments)
 		{
 			Events.Add(new SchedulerAppointment()

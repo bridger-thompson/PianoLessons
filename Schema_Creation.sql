@@ -64,5 +64,20 @@ create table payment_history (
 	pay_date	timestamp not null default now()
 );
 
-
+INSERT INTO piano_lessons.teacher (id, "name") VALUES(1, 'Bridger');
+INSERT INTO piano_lessons.student (id, "name") VALUES(1, 'Bob');
+INSERT INTO piano_lessons.student (id, "name") VALUES(2, 'Anthony');
+INSERT INTO piano_lessons.student (id, "name") VALUES(3, 'Steve');
+INSERT INTO piano_lessons.course (id, "name", teacher_id) VALUES(1, 'Piano', 1);
+INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(1, 1, 1);
+INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(2, 1, 2);
+INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(3, 1, 3);
+INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(1, 'Bob', '2023-03-14 09:00:00.000', '2023-03-14 10:00:00.000', 1, 1);
+INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(2, 'Anthony', '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 1, 2);
+INSERT INTO piano_lessons.practice_assignment (id, "name", course_id) VALUES(1, 'Scales', 1);
+INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(1, '2023-03-12 00:00:00.000', 2, '00:12:00'::interval, NULL, 1);
+INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(2, '2023-03-13 00:00:00.000', 2, '00:35:00'::interval, 'Nailed it ;)', 1);
+INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(3, '2023-03-14 00:00:00.000', 1, '00:17:00'::interval, NULL, 1);
+INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(1, 1, 1);
+INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(2, 2, 1);
 

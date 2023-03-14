@@ -9,8 +9,6 @@ public partial class Student
 
     public string Name { get; set; } = null!;
 
-    public int? Score { get; set; }
-
     public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
 
     public virtual ICollection<PaymentHistory> PaymentHistories { get; } = new List<PaymentHistory>();

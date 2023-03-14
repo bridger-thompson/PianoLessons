@@ -52,11 +52,11 @@
                                     LineBreakMode="TailTruncation"
                                     HorizontalOptions="Center"
                                     Text="{Binding Name}" />
-                                <Label
+                                <!--<Label
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Text="{Binding Score, TargetNullValue=0}"
-                                    Grid.Column="1" />
+                                    Grid.Column="1" />-->
                             </Grid>
                         </Border>
                     </DataTemplate>
