@@ -44,4 +44,28 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.Where(l => l.StudentId == studentId)
 			.ToListAsync();
 	}
+
+	public async Task DeleteLog(int logId)
+	{
+		var log = await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == logId);
+		if (log != null)
+		{
+			context.PracticeLogs.Remove(log);
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task UpdateLog(PracticeLog newLog)
+	{
+		var log = await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == newLog.Id);
+		if (log != null)
+		{
+			log.Duration = newLog.Duration;
+			log.LogDate = newLog.LogDate;
+			log.Notes = newLog.Notes;
+			log.AssignmentId = newLog.AssignmentId;
+			log.StudentId = newLog.StudentId;
+			await context.SaveChangesAsync();
+		}
+	}
 }

@@ -47,5 +47,17 @@ namespace PianoLessonsApi.Controllers
 		{
 			return await app.GetLogsForStudent(studentId);
 		}
+
+		[HttpDelete("logs/{logId}")]
+		public async Task DeleteLog(int logId)
+		{
+			await app.DeleteLog(logId);
+		}
+
+		[HttpPut("logs")]
+		public async Task UpdateLog([FromBody] PracticeLog newLog)
+		{
+			await app.UpdateLog(newLog);
+		}
 	}
 }

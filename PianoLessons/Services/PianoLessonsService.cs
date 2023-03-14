@@ -1,7 +1,10 @@
 ﻿using PianoLessons.Shared.Data;
 using Syncfusion.Maui.Scheduler;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text;
 
 namespace PianoLessons.Services;
 
@@ -38,5 +41,17 @@ public class PianoLessonsService
 	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
 	{
 		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{studentId}");
+	}
+
+	public async Task DeleteLog(int logId)
+	{
+		await client.DeleteAsync($"api/PianoLessons/logs/{logId}");
+	}
+
+	public async Task UpdateLog(PracticeLog newLog)
+	{
+		var log = JsonSerializer.Serialize(newLog);
+		var requestContent = new StringContent(log, Encoding.UTF8, "application/json");
+		await client.PutAsync($"api/PianoLessons/logs", requestContent);
 	}
 }

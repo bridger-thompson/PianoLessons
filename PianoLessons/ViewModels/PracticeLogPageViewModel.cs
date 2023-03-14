@@ -40,7 +40,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task ToAddLog()
 	{
-		await navService.NavigateToAsync($"{nameof(AddLogPage)}");
+		await navService.NavigateToAsync($"{nameof(AddLogPage)}?Id=-1");
 	}
 
 	[RelayCommand]
@@ -83,5 +83,18 @@ public partial class PracticeLogPageViewModel : ObservableObject
 			Logs.Add(log);
 		}
 		HasLogs = Logs.Count > 0;
+	}
+
+	[RelayCommand]
+	public async Task DeleteLog(int logId)
+	{
+		await service.DeleteLog(logId);
+		GetLogsCommand.Execute(this);
+	}
+
+	[RelayCommand]
+	public async Task EditLog(int logId)
+	{
+		await navService.NavigateToAsync($"{nameof(AddLogPage)}?Id={logId}");
 	}
 }

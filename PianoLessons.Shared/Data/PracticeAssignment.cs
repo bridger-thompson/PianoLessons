@@ -5,6 +5,11 @@ namespace PianoLessons.Shared.Data;
 
 public partial class PracticeAssignment
 {
+    public PracticeAssignment()
+    {
+        Name = "";
+        Course = new();
+    }
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;

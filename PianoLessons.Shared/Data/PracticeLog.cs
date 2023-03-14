@@ -5,6 +5,11 @@ namespace PianoLessons.Shared.Data;
 
 public partial class PracticeLog
 {
+    public PracticeLog()
+    {
+        Assignment = new();
+        Student = new();
+    }
     public int Id { get; set; }
 
     public DateTime LogDate { get; set; }

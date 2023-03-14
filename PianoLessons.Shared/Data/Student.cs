@@ -5,6 +5,10 @@ namespace PianoLessons.Shared.Data;
 
 public partial class Student
 {
+    public Student()
+    {
+        Name = "";
+    }
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
