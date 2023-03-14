@@ -32,7 +32,7 @@
                     <Picker
                         ItemsSource="{Binding StudentNames}"
                         WidthRequest="150"
-                        SelectedItem="{Binding SelectedStudent}">
+                        SelectedItem="{Binding SelectedStudentName}">
                         <Picker.Behaviors>
                             <toolkit:EventToCommandBehavior
                                 EventName="SelectedIndexChanged"
@@ -83,6 +83,7 @@
                                 <Label
                                     VerticalOptions="Center"
                                     Grid.Column="1"
+                                    LineBreakMode="TailTruncation"
                                     Text="{Binding Student.Name}" />
                                 <Label
                                     VerticalOptions="Center"

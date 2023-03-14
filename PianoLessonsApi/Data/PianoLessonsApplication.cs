@@ -23,6 +23,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetAppointmentsForTeacher(teacherId);
 	}
 
+	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+	{
+		return await repo.GetLogsForStudent(studentId);
+	}
+
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
 	{
 		return await repo.GetStudentsForTeacher(teacherId);

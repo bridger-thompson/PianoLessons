@@ -36,4 +36,12 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.Where(s => s.StudentCourses.Any(c => c.Course.TeacherId == teacherId))
 			.ToListAsync();
 	}
+
+	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+	{
+		return await context.PracticeLogs
+			.Include(l => l.Student)
+			.Where(l => l.StudentId == studentId)
+			.ToListAsync();
+	}
 }

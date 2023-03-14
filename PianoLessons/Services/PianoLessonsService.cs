@@ -32,6 +32,11 @@ public class PianoLessonsService
 
 	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
 	{
-		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{teacherId}");
+		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/all/{teacherId}");
+	}
+
+	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+	{
+		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{studentId}");
 	}
 }

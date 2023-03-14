@@ -19,13 +19,15 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	private ObservableCollection<string> studentNames;
 
 	[ObservableProperty]
-	private string selectedStudent;
+	private string selectedStudentName;
 
 	[ObservableProperty]
 	private bool isTeacher;
 
 	[ObservableProperty, NotifyPropertyChangedFor(nameof(NoLogs))]
 	private bool hasLogs;
+
+	private List<Student> students = new();
 
 	public bool NoLogs { get => !HasLogs; }
 
@@ -48,13 +50,13 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		{
 			"All"
 		};
-		var students = await service.GetStudentsForTeacher(1);
+		students = await service.GetStudentsForTeacher(1);
 		foreach (var student in students)
 		{
 			StudentNames.Add(student.Name);
 		}
 
-		SelectedStudent = StudentNames[0];
+		SelectedStudentName = StudentNames[0];
 
 		//authentication/db
 		IsTeacher = true;
@@ -64,8 +66,18 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	public async Task GetLogs()
 	{
 		Logs = new();
-		if (SelectedStudent == null) { SelectedStudent = "All"; }
-		var ls = await service.GetAllStudentLogsForTeacher(1);
+		SelectedStudentName ??= "All";
+		List<PracticeLog> ls = new();
+		if (SelectedStudentName == "All")
+		{
+			ls = await service.GetAllStudentLogsForTeacher(1);
+		}
+		else
+		{
+			var selectedStudent = students.Where(s => s.Name == SelectedStudentName)
+				.FirstOrDefault();
+			ls = await service.GetLogsForStudent(selectedStudent.Id);
+		}
 		foreach (var log in ls)
 		{
 			Logs.Add(log);

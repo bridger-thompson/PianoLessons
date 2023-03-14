@@ -9,4 +9,6 @@ public interface IPianoLessonsRepo
 	public Task<List<Student>> GetStudentsForTeacher(int teacherId);
 
 	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId);
+
+	public Task<List<PracticeLog>> GetLogsForStudent(int studentId);
 }
