@@ -21,28 +21,6 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedStudent;
 
-	private readonly List<PracticeLog> tempLogs = new()
-	{
-		new PracticeLog()
-		{
-			StudentId = 2,
-			LogDate = DateTime.Now,
-			Duration = TimeSpan.FromHours(1),
-		},
-		new PracticeLog()
-		{
-			StudentId = 2,
-			LogDate = DateTime.Now,
-			Duration = TimeSpan.FromMinutes(90),
-		},
-		new PracticeLog()
-		{
-			StudentId = 1,
-			LogDate = DateTime.Now,
-			Duration = TimeSpan.FromMinutes(90),
-		},
-	};
-
 	[ObservableProperty]
 	private bool isTeacher;
 

@@ -79,11 +79,11 @@
                                 ColumnDefinitions="75,150,75,Auto,Auto">
                                 <Label
                                     VerticalOptions="Center"
-                                    Text="{Binding Date, StringFormat='{0:MM/dd/yy}'}" />
+                                    Text="{Binding LogDate, StringFormat='{0:MM/dd/yy}'}" />
                                 <Label
                                     VerticalOptions="Center"
                                     Grid.Column="1"
-                                    Text="{Binding Name}" />
+                                    Text="{Binding Student.Name}" />
                                 <Label
                                     VerticalOptions="Center"
                                     Grid.Column="2"

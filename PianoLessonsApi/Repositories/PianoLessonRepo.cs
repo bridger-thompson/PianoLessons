@@ -24,7 +24,8 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ThenInclude(s => s.StudentCourses)
 			.ThenInclude(sc => sc.Course)
 			.ThenInclude(c => c.Teacher)
-			.Where(t => t.Id== teacherId).ToListAsync();
+			.Where(l => l.Student.StudentCourses.Any(c => c.Course.TeacherId == teacherId))
+			.ToListAsync();
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
