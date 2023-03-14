@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  #pianolessonsapi:
+  #  image: ${DOCKER_REGISTRY-}pianolessonsapi
+  #  ports:
+  #    - 5050:80
+  #    - 5051:443
+  #  build:
+  #    context: .
+  #    dockerfile: PianoLessonsApi/Dockerfile
+
+  pianolessonsdb:
+    container_name: pianoLessonsDb
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=piano
+      - POSTGRES_PASSWORD=lessons
+    ports:
+      - 5432:5432
+    volumes:
+      - ./Schema_Creation.sql:/docker-entrypoint-initdb.d/Schema_Creation.sql
+      - ./piano_lessons_data:/var/lib/postgresql/data

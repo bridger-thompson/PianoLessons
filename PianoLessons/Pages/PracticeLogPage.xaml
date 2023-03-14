@@ -7,7 +7,7 @@
     Title="Practice Log">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
-            EventName="Loaded"
+            EventName="NavigatedTo"
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
     

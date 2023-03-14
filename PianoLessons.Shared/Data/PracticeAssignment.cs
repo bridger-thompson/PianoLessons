@@ -3,21 +3,17 @@ using System.Collections.Generic;
 
 namespace PianoLessons.Shared.Data;
 
-public partial class Student
+public partial class PracticeAssignment
 {
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public int? Score { get; set; }
+    public int CourseId { get; set; }
 
-    public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
-
-    public virtual ICollection<PaymentHistory> PaymentHistories { get; } = new List<PaymentHistory>();
+    public virtual Course Course { get; set; } = null!;
 
     public virtual ICollection<PracticeLog> PracticeLogs { get; } = new List<PracticeLog>();
 
     public virtual ICollection<StudentAssignment> StudentAssignments { get; } = new List<StudentAssignment>();
-
-    public virtual ICollection<StudentCourse> StudentCourses { get; } = new List<StudentCourse>();
 }

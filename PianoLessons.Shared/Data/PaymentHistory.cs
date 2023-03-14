@@ -3,19 +3,17 @@ using System.Collections.Generic;
 
 namespace PianoLessons.Shared.Data;
 
-public partial class Appointment
+public partial class PaymentHistory
 {
     public int Id { get; set; }
-
-    public string Subject { get; set; } = null!;
-
-    public DateTime StartAt { get; set; }
-
-    public DateTime EndAt { get; set; }
 
     public int TeacherId { get; set; }
 
     public int StudentId { get; set; }
+
+    public decimal Amount { get; set; }
+
+    public DateTime PayDate { get; set; }
 
     public virtual Student Student { get; set; } = null!;
 

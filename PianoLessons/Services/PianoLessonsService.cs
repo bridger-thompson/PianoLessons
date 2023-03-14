@@ -16,7 +16,8 @@ public class PianoLessonsService
 
 	public async Task<List<Appointment>> GetAppointmentsForUser(string userId)
 	{
-		return await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/{userId}");
+		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/{userId}");
+		return appointments;
 	}
 
 	public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)

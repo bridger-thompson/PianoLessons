@@ -7,7 +7,7 @@
     Title="Scoreboard">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
-            EventName="Loaded"
+            EventName="NavigatedTo"
             Command="{Binding GetScoresCommand}" />
     </ContentPage.Behaviors>
     <ScrollView

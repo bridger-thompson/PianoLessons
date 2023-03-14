@@ -36,8 +36,8 @@ public partial class SchedulePageViewModel : ObservableObject
 		{
 			Events.Add(new SchedulerAppointment()
 			{
-				StartTime = appointment.StartTime,
-				EndTime = appointment.EndTime,
+				StartTime = appointment.StartAt,
+				EndTime = appointment.EndAt,
 				Subject = appointment.Subject,
 			});
 		}

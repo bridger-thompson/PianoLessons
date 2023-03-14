@@ -5,9 +5,16 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessons", "PianoLessons\PianoLessons.csproj", "{60759085-D876-4E9B-AB90-34699470F10C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessonsApi", "PianoLessonsApi\PianoLessonsApi.csproj", "{222525AE-48D6-4F66-B633-DDD8E172FECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessonsApi", "PianoLessonsApi\PianoLessonsApi.csproj", "{222525AE-48D6-4F66-B633-DDD8E172FECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessons.Shared", "PianoLessons.Shared\PianoLessons.Shared.csproj", "{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessons.Shared", "PianoLessons.Shared\PianoLessons.Shared.csproj", "{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8651E065-424D-4A08-AB1A-8FA004AB9893}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41C85271-2702-4C38-9CE1-B1FD8A810A86}"
+	ProjectSection(SolutionItems) = preProject
+		Schema_Creation.sql = Schema_Creation.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +36,10 @@ Global
 		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EC8B4F4-27D6-4A03-A792-EC0D1D1C06EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

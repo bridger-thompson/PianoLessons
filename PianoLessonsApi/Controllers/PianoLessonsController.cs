@@ -46,14 +46,14 @@ namespace PianoLessonsApi.Controllers
 			{
 				new Appointment()
 				{
-					StartTime = today.AddHours(9),
-					EndTime = today.AddHours(11),
+					StartAt = today.AddHours(9),
+					EndAt = today.AddHours(11),
 					Subject = "Client Meeting",
 				},
 				new Appointment()
 				{
-					StartTime = yesterday.AddHours(9),
-					EndTime = today.AddHours(10),
+					StartAt = yesterday.AddHours(9),
+					EndAt = today.AddHours(10),
 					Subject = "Long Meeting",
 				}
 			};
@@ -81,26 +81,26 @@ namespace PianoLessonsApi.Controllers
 			{
 				new PracticeLog()
 				{
-					Name = "Bridger",
-					Date = DateTime.Now,
+					StudentId = 1,
+					LogDate = DateTime.Now,
 					Duration = TimeSpan.FromHours(1),
 				},
 				new PracticeLog()
 				{
-					Name = "Bridger",
-					Date = DateTime.Now,
+					StudentId = 1,
+					LogDate = DateTime.Now,
 					Duration = TimeSpan.FromMinutes(90),
 				},
 				new PracticeLog()
 				{
-					Name = "Bob",
-					Date = DateTime.Now,
+					StudentId = 2,
+					LogDate = DateTime.Now,
 					Duration = TimeSpan.FromMinutes(90),
 				},
 			};
 			foreach (var log in tempLogs)
 			{
-				if (student == "All" || log.Name == student)
+				if (student == "All")
 				{
 					logs.Add(log);
 				}

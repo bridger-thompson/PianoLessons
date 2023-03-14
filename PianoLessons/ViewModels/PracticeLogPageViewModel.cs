@@ -25,20 +25,20 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	{
 		new PracticeLog()
 		{
-			Name = "Bridger",
-			Date = DateTime.Now,
+			StudentId = 2,
+			LogDate = DateTime.Now,
 			Duration = TimeSpan.FromHours(1),
 		},
 		new PracticeLog()
 		{
-			Name = "Bridger",
-			Date = DateTime.Now,
+			StudentId = 2,
+			LogDate = DateTime.Now,
 			Duration = TimeSpan.FromMinutes(90),
 		},
 		new PracticeLog()
 		{
-			Name = "Bob",
-			Date = DateTime.Now,
+			StudentId = 1,
+			LogDate = DateTime.Now,
 			Duration = TimeSpan.FromMinutes(90),
 		},
 	};
@@ -76,10 +76,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 			StudentNames.Add(student.Name);
 		}
 
-		if (StudentNames.Count > 0)
-		{
-			SelectedStudent = StudentNames[0];
-		}
+		SelectedStudent = StudentNames[0];
 
 		//authentication/db
 		IsTeacher = true;
@@ -89,6 +86,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	public async Task GetLogs()
 	{
 		Logs = new();
+		if (SelectedStudent == null) { SelectedStudent = "All"; }
 		var ls = await service.GetStudentLogs("1", SelectedStudent);
 		foreach (var log in ls)
 		{

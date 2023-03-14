@@ -3,17 +3,11 @@ using System.Collections.Generic;
 
 namespace PianoLessons.Shared.Data;
 
-public partial class PracticeLog
+public partial class StudentAssignment
 {
     public int Id { get; set; }
 
-    public DateTime LogDate { get; set; }
-
     public int StudentId { get; set; }
-
-    public TimeSpan Duration { get; set; }
-
-    public string? Notes { get; set; }
 
     public int AssignmentId { get; set; }
 
