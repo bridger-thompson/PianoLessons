@@ -8,8 +8,9 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
-            Command="{Binding GetScoresCommand}" />
+            Command="{Binding GetTeacherCoursesCommand}" />
     </ContentPage.Behaviors>
+
     <ScrollView
         WidthRequest="500">
         <VerticalStackLayout>
@@ -17,15 +18,31 @@
                 Text="Practice High Scores:"
                 FontSize="Title"
                 HorizontalOptions="Center" />
-            <HorizontalStackLayout
+            <Grid
                 HorizontalOptions="Center"
-                Spacing="5">
+                ColumnDefinitions="Auto,150,Auto,150">
                 <Label
                     VerticalOptions="Center"
-                    Text="Last: " />
+                    Padding="5,0"
+                    Text="Course:" />
+                <Picker
+                    ItemsSource="{Binding CourseNames}"
+                    Grid.Column="1"
+                    SelectedItem="{Binding SelectedCourseName}">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding GetScoresCommand}" />
+                    </Picker.Behaviors>
+                </Picker>
+                <Label
+                    Padding="10,0,5,0"
+                    VerticalOptions="Center"
+                    Grid.Column="2"
+                    Text="Last:" />
                 <Picker
                     ItemsSource="{Binding Time}"
-                    WidthRequest="150"
+                    Grid.Column="3"
                     SelectedItem="{Binding SelectedTime}">
                     <Picker.Behaviors>
                         <toolkit:EventToCommandBehavior
@@ -33,10 +50,10 @@
                             Command="{Binding GetScoresCommand}" />
                     </Picker.Behaviors>
                 </Picker>
-            </HorizontalStackLayout>
+            </Grid>
             <CollectionView
                 HorizontalOptions="Center"
-                ItemsSource="{Binding Students}">
+                ItemsSource="{Binding StudentScores}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
@@ -52,11 +69,11 @@
                                     LineBreakMode="TailTruncation"
                                     HorizontalOptions="Center"
                                     Text="{Binding Name}" />
-                                <!--<Label
+                                <Label
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Text="{Binding Score, TargetNullValue=0}"
-                                    Grid.Column="1" />-->
+                                    Grid.Column="1" />
                             </Grid>
                         </Border>
                     </DataTemplate>

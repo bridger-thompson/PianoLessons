@@ -23,9 +23,9 @@ public class PianoLessonsService
 		return appointments;
 	}
 
-	public async Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time)
+	public async Task<List<StudentScore>> GetScoresForCourseAndTime(int courseId, string time)
 	{
-		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}/{time}");
+		return await client.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
@@ -53,5 +53,10 @@ public class PianoLessonsService
 		var log = JsonSerializer.Serialize(newLog);
 		var requestContent = new StringContent(log, Encoding.UTF8, "application/json");
 		await client.PutAsync($"api/PianoLessons/logs", requestContent);
+	}
+
+	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	{
+		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/{teacherId}");
 	}
 }

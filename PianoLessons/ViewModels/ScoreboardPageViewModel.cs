@@ -11,7 +11,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	private readonly PianoLessonsService service;
 
 	[ObservableProperty]
-	private ObservableCollection<Student> students;
+	private ObservableCollection<StudentScore> studentScores;
 
 	[ObservableProperty]
 	private List<string> time;
@@ -19,22 +19,54 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedTime;
 
+	private ObservableCollection<Course> courses;
+
+	[ObservableProperty]
+	private ObservableCollection<string> courseNames;
+
+	[ObservableProperty]
+	private string selectedCourseName;
+
 	public ScoreboardPageViewModel(PianoLessonsService service)
 	{
-		Students = new();
+		StudentScores = new();
+		courses = new();
+		SelectedCourseName = "No Courses";
 		Time = new() { "Week", "Month", "Year", "Ever" };
 		SelectedTime = Time[0];
 		this.service = service;
 	}
 
 	[RelayCommand]
+	public async Task GetTeacherCourses()
+	{
+		courses = new();
+		CourseNames = new();
+		var c = await service.GetTeacherCourses(1);
+		foreach (var course in c)
+		{
+			courses.Add(course);
+			CourseNames.Add(course.Name);
+		}
+		if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
+	}
+
+	[RelayCommand]
 	public async Task GetScores()
 	{
-		Students = new();
-		var studs = await service.GetStudentsScoresForTeacher(1, SelectedTime);
-		foreach (var student in studs)
+		StudentScores = new();
+		
+		var selectedCourse = courses.Where(c => c.Name == SelectedCourseName)
+			.FirstOrDefault();
+
+		if (selectedCourse != null)
 		{
-			Students.Add(student);
+			var scores = await service.GetScoresForCourseAndTime(1, SelectedTime);
+			foreach (var score in scores)
+			{
+				StudentScores.Add(score);
+			}
 		}
+
 	}
 }
