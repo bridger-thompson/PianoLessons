@@ -45,7 +45,7 @@ create table practice_log (
 	id 				serial primary key,
 	log_date		timestamp not null,
 	student_id 		int references student(id) not null,
-	duration		interval not null,
+	duration		interval not null CHECK (duration < '1 day'),
 	notes			text,
 	assignment_id	int references practice_assignment(id) not null
 );

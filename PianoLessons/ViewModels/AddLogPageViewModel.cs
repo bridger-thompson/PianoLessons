@@ -73,10 +73,6 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-        Date = DateTime.Today;
-        Hours = 0;
-        Minutes = 0;
-		Notes = "";
         if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
@@ -89,11 +85,15 @@ public partial class AddLogPageViewModel : ObservableObject
 		else
 		{
             PageTitle = "New Practice Log";
+            Date = DateTime.Today;
+            Hours = 0;
+            Minutes = 0;
+            Notes = "";
         }
 	}
 
 	private bool CanSubmit()
 	{
-		return Hours > 0 || Minutes > 0;
+		return (Hours > 0 || Minutes > 0) && Hours < 24;
 	}
 }
