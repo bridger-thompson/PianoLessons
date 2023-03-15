@@ -43,6 +43,7 @@
                 </HorizontalStackLayout>
                 <Button
                     Grid.Column="1"
+                    IsVisible="{Binding NotTeacher}"
                     BackgroundColor="ForestGreen"
                     Command="{Binding ToAddLogCommand}"
                     HorizontalOptions="End"

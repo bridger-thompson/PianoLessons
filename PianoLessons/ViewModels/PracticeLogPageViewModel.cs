@@ -21,7 +21,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedStudentName;
 
-	[ObservableProperty]
+	[ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
 	private bool isTeacher;
 
 	[ObservableProperty, NotifyPropertyChangedFor(nameof(NoLogs))]
@@ -30,6 +30,8 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	private List<Student> students = new();
 
 	public bool NoLogs { get => !HasLogs; }
+
+	public bool NotTeacher { get => !IsTeacher; }
 
 	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service)
 	{
