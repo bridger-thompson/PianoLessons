@@ -68,4 +68,15 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			await context.SaveChangesAsync();
 		}
 	}
+
+    public async Task AddLog(PracticeLog log)
+    {
+		await context.PracticeLogs.AddAsync(log);
+		await context.SaveChangesAsync();
+    }
+
+    public async Task<PracticeLog> GetLog(int logId)
+    {
+		return await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == logId);
+    }
 }

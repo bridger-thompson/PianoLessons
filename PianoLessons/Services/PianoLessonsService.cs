@@ -54,4 +54,14 @@ public class PianoLessonsService
 		var requestContent = new StringContent(log, Encoding.UTF8, "application/json");
 		await client.PutAsync($"api/PianoLessons/logs", requestContent);
 	}
+
+	public async Task AddLog(PracticeLog log)
+	{
+		await client.PostAsJsonAsync("api/PianoLessons/logs", log);
+	}
+
+	public async Task<PracticeLog> GetLog(int logId)
+	{
+		return await client.GetFromJsonAsync<PracticeLog>($"api/PianoLessons/logs/log/{logId}");
+	}
 }

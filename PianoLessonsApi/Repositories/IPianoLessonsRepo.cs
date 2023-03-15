@@ -12,6 +12,10 @@ public interface IPianoLessonsRepo
 
 	public Task<List<PracticeLog>> GetLogsForStudent(int studentId);
 
+	public Task<PracticeLog> GetLog(int logId);
+
+	public Task AddLog(PracticeLog log);
+
 	public Task DeleteLog(int logId);
 
 	public Task UpdateLog(PracticeLog newLog);

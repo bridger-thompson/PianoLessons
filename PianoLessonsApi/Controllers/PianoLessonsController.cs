@@ -48,6 +48,12 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetLogsForStudent(studentId);
 		}
 
+		[HttpGet("logs/log/{logId}")]
+		public async Task<PracticeLog> GetLog(int logId)
+		{
+			return await app.GetLog(logId);
+		}
+
 		[HttpDelete("logs/{logId}")]
 		public async Task DeleteLog(int logId)
 		{
@@ -58,6 +64,12 @@ namespace PianoLessonsApi.Controllers
 		public async Task UpdateLog([FromBody] PracticeLog newLog)
 		{
 			await app.UpdateLog(newLog);
+		}
+
+		[HttpPost("logs")]
+		public async Task AddLog(PracticeLog log)
+		{
+			await app.AddLog(log);
 		}
 	}
 }

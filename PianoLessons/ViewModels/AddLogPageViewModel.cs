@@ -49,12 +49,36 @@ public partial class AddLogPageViewModel : ObservableObject
 			};
 			await service.UpdateLog(newLog);
 		}
+		else
+		{
+			var log = new PracticeLog
+			{
+				LogDate = Date,
+				Duration = new TimeSpan(Hours, Minutes, 0),
+				Notes = "Need notes section",
+				AssignmentId = 1,
+				StudentId = 1
+			};
+			await service.AddLog(log);
+		}
 
 		//clear out values for next visit
 		Date = DateTime.Today;
 		Hours = 0;
 		Minutes = 0;
 		await navService.NavigateToAsync("..");
+	}
+
+	[RelayCommand]
+	public async Task Loaded()
+	{
+		if (Id != -1)
+		{
+			var log = await service.GetLog(Id);
+			Date = log.LogDate;
+			Hours = log.Duration.Hours;
+			Minutes = log.Duration.Minutes;
+		}
 	}
 
 	private bool CanSubmit()
