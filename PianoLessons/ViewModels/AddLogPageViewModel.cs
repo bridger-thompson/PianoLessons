@@ -24,6 +24,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	[NotifyCanExecuteChangedFor(nameof(SubmitCommand))]
 	private int minutes;
 
+	[ObservableProperty]
+	private string notes;
+
 	public string Total => $"{Hours} hour(s) {Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service)
@@ -43,7 +46,7 @@ public partial class AddLogPageViewModel : ObservableObject
 				Id = Id,
 				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
-				Notes = "Need notes section",
+				Notes = Notes,
 				AssignmentId = 1,
 				StudentId = 1
 			};
@@ -55,7 +58,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			{
 				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
-				Notes = "Need notes section",
+				Notes = Notes,
 				AssignmentId = 1,
 				StudentId = 1
 			};
@@ -78,6 +81,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			Date = log.LogDate;
 			Hours = log.Duration.Hours;
 			Minutes = log.Duration.Minutes;
+			Notes = log.Notes;	
 		}
 	}
 

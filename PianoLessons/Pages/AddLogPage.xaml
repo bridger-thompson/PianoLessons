@@ -51,6 +51,17 @@
             Margin="0,5"
             FontSize="Small"
             Text="{Binding Total, StringFormat='Total: {0:h\\:mm}'}" />
+        <Label 
+            Text="Notes:"
+            HorizontalOptions="Center"/>
+        <HorizontalStackLayout 
+            HorizontalOptions="Center"
+            Margin="0, 5">
+            <Editor 
+                Text="{Binding Notes}"
+                AutoSize="TextChanges"
+                WidthRequest="300"/>
+        </HorizontalStackLayout>
         <Button
             HorizontalOptions="Center"
             Text="Add Log"
