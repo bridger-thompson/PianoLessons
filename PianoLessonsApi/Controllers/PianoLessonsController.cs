@@ -71,5 +71,17 @@ namespace PianoLessonsApi.Controllers
 		{
 			await app.AddLog(log);
 		}
+
+		[HttpGet("courses/{teacherId}")]
+		public async Task<List<Course>> GetTeacherCourses(int teacherId)
+		{
+			return await app.GetTeacherCourses(teacherId);
+		}
+
+		[HttpGet("scores/{courseId}/{time}")]
+		public async Task<List<StudentScore>> GetPracticeScoresForCourse(int courseId, string time)
+		{
+			return await app.GetPracticeScores(courseId, time);
+		}
 	}
 }

@@ -79,4 +79,24 @@ public class PianoLessonRepo : IPianoLessonsRepo
     {
 		return await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == logId);
     }
+
+	public async Task<List<PracticeLog>> GetPracticeScores(int courseId, DateTime startDate)
+	{
+		return await context.PracticeLogs
+			.Include(l => l.Student)
+			.ThenInclude(s => s.StudentCourses)
+			.ThenInclude(sc => sc.Course)
+			.Where(s => s.Student.StudentCourses.Any(sc => sc.CourseId == courseId))
+			.Where(l => l.LogDate <= DateTime.Now && l.LogDate >= startDate)
+			.ToListAsync();
+	}
+
+	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	{
+		return await context.Courses
+			.Include(s => s.StudentCourses)
+			.ThenInclude(sc => sc.Student)
+			.Where(c => c.TeacherId == teacherId)
+			.ToListAsync();
+	}
 }

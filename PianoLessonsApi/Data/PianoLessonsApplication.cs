@@ -43,6 +43,41 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetLogsForStudent(studentId);
 	}
 
+	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time)
+	{
+		DateTime today = DateTime.Today;
+		var startDate = time switch
+		{
+			"Week" => new DateTime(today.Year, today.Month, today.Day - 7),
+			"Month" => new DateTime(today.Year, today.Month - 1, today.Day),
+			"Year" => new DateTime(today.Year - 1, today.Month, today.Day),
+			"Ever" => new DateTime(),
+			_ => new DateTime(),
+		};
+		var logs = await repo.GetPracticeScores(courseId, startDate);
+
+		List<StudentScore> scores = new();
+		foreach (var log in logs)
+		{
+			if (scores.Exists(s => s.Name == log.Student.Name))
+			{
+				var studentScore = scores.Find(s => s.Name == log.Student.Name);
+				var index = scores.IndexOf(studentScore);
+				scores[index].Score += (int)log.Duration.TotalMinutes;
+			}
+			else
+			{
+				scores.Add(new()
+				{
+					Id = log.StudentId,
+					Name = log.Student.Name,
+					Score = (int)log.Duration.TotalMinutes
+				});
+			}
+		}
+		return scores;
+	}
+
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
 	{
 		return await repo.GetStudentsForTeacher(teacherId);
@@ -51,6 +86,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	public async Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time)
 	{
 		return await repo.GetStudentsForTeacher(teacherId);
+	}
+
+	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	{
+		return await repo.GetTeacherCourses(teacherId);
 	}
 
 	public async Task UpdateLog(PracticeLog newLog)

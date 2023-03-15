@@ -19,4 +19,8 @@ public interface IPianoLessonsRepo
 	public Task DeleteLog(int logId);
 
 	public Task UpdateLog(PracticeLog newLog);
+
+	public Task<List<PracticeLog>> GetPracticeScores(int courseId, DateTime startDate);
+
+	public Task<List<Course>> GetTeacherCourses(int teacherId);
 }
