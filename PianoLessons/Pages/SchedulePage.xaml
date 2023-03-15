@@ -24,6 +24,7 @@
                 Command="{Binding ToAddScheduleItemCommand}" />
             <scheduler:SfScheduler
                 x:Name="Scheduler"
+                CellBorderBrush="DarkGray"
                 AppointmentsSource="{Binding Events}"
                 HeightRequest="500"
                 AllowedViews="Day,Week"

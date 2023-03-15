@@ -15,7 +15,7 @@
         <Label
             FontSize="Title"
             HorizontalOptions="Center"
-            Text="New Practice Log" />
+            Text="{Binding PageTitle}" />
         <HorizontalStackLayout
             Spacing="5"
             Margin="0,0,0,5"
@@ -64,7 +64,7 @@
         </HorizontalStackLayout>
         <Button
             HorizontalOptions="Center"
-            Text="Add Log"
+            Text="Submit"
             Command="{Binding SubmitCommand}" />
     </VerticalStackLayout>
 </ContentPage>

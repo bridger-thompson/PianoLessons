@@ -75,7 +75,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 				});
 			}
 		}
-		return scores;
+		return scores.OrderByDescending(s => s.Score).ToList();
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)

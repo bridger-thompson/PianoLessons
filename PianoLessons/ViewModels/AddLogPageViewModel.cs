@@ -27,6 +27,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string notes;
 
+	[ObservableProperty]
+	private string pageTitle;
+
 	public string Total => $"{Hours} hour(s) {Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service)
@@ -64,25 +67,29 @@ public partial class AddLogPageViewModel : ObservableObject
 			};
 			await service.AddLog(log);
 		}
-
-		//clear out values for next visit
-		Date = DateTime.Today;
-		Hours = 0;
-		Minutes = 0;
 		await navService.NavigateToAsync("..");
 	}
 
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		if (Id != -1)
+        Date = DateTime.Today;
+        Hours = 0;
+        Minutes = 0;
+		Notes = "";
+        if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
 			Date = log.LogDate;
 			Hours = log.Duration.Hours;
 			Minutes = log.Duration.Minutes;
-			Notes = log.Notes;	
+			Notes = log.Notes;
+			PageTitle = "Edit Practice Log";
 		}
+		else
+		{
+            PageTitle = "New Practice Log";
+        }
 	}
 
 	private bool CanSubmit()
