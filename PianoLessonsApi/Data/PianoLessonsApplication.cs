@@ -12,7 +12,12 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		this.repo = repo;
 	}
 
-	public async Task DeleteLog(int logId)
+    public async Task AddLog(PracticeLog log)
+    {
+        await repo.AddLog(log);	
+    }
+
+    public async Task DeleteLog(int logId)
 	{
 		await repo.DeleteLog(logId);
 	}
@@ -28,7 +33,12 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetAppointmentsForTeacher(teacherId);
 	}
 
-	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+    public async Task<PracticeLog> GetLog(int logId)
+    {
+        return await repo.GetLog(logId);	
+    }
+
+    public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
 	{
 		return await repo.GetLogsForStudent(studentId);
 	}

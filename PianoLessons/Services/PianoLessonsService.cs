@@ -59,4 +59,14 @@ public class PianoLessonsService
 	{
 		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/{teacherId}");
 	}
+
+	public async Task AddLog(PracticeLog log)
+	{
+		await client.PostAsJsonAsync("api/PianoLessons/logs", log);
+	}
+
+	public async Task<PracticeLog> GetLog(int logId)
+	{
+		return await client.GetFromJsonAsync<PracticeLog>($"api/PianoLessons/logs/log/{logId}");
+	}
 }
