@@ -25,4 +25,6 @@ public interface IPianoLessonsApplication
 	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time);
 
 	public Task<List<Course>> GetTeacherCourses(int teacherId);
+
+    public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
 }

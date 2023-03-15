@@ -83,5 +83,11 @@ namespace PianoLessonsApi.Controllers
 		{
 			return await app.GetPracticeScores(courseId, time);
 		}
-	}
+
+		[HttpGet("assignments/{studentId}")]
+        public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+		{
+			return await app.GetStudentAssignments(studentId);
+		}
+    }
 }

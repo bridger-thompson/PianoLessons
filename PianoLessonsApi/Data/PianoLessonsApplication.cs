@@ -97,4 +97,9 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	{
 		await repo.UpdateLog(newLog);
 	}
+
+    public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+	{
+		return await repo.GetStudentAssignments(studentId);
+	}
 }

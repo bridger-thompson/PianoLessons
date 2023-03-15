@@ -27,6 +27,17 @@
                 Date="{Binding Date}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Spacing="5">
+            <Label
+                VerticalOptions="Center"
+                Text="Assignment:" />
+            <Picker
+                ItemsSource="{Binding AssignmentNames}"
+                WidthRequest="150"
+                SelectedItem="{Binding SelectedAssignmentName}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout
             Spacing="5"
             HorizontalOptions="Center">
             <Label

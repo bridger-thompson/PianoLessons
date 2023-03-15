@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Services;
 using PianoLessons.Shared.Data;
+using System.Collections.ObjectModel;
 
 namespace PianoLessons.ViewModels;
 
@@ -30,19 +31,32 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string pageTitle;
 
-	public string Total => $"{Hours} hour(s) {Minutes} minute(s)";
+	[ObservableProperty]
+	private ObservableCollection<PracticeAssignment> assignments;
+
+	[ObservableProperty]
+	private ObservableCollection<string> assignmentNames;
+
+	[ObservableProperty]
+	private string selectedAssignmentName;
+
+    public string Total => $"{Hours} hour(s) {Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service)
 	{
 		this.navService = navService;
 		this.service = service;
 		Date = DateTime.Today;
-	}
+        Assignments = new();
+        AssignmentNames = new();
+    }
 
 	[RelayCommand(CanExecute = nameof(CanSubmit))]
 	public async Task Submit()
 	{
-		if (Id != -1)
+        var selectedAssignment = Assignments.Where(c => c.Name == SelectedAssignmentName)
+            .FirstOrDefault();
+        if (Id != -1)
 		{
 			PracticeLog newLog = new()
 			{
@@ -50,7 +64,7 @@ public partial class AddLogPageViewModel : ObservableObject
 				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
 				Notes = Notes,
-				AssignmentId = 1,
+				AssignmentId = selectedAssignment.Id,
 				StudentId = 1
 			};
 			await service.UpdateLog(newLog);
@@ -62,7 +76,7 @@ public partial class AddLogPageViewModel : ObservableObject
 				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
 				Notes = Notes,
-				AssignmentId = 1,
+				AssignmentId = selectedAssignment.Id,
 				StudentId = 1
 			};
 			await service.AddLog(log);
@@ -73,6 +87,8 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		Assignments = new();
+		AssignmentNames = new();
         if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
@@ -90,6 +106,13 @@ public partial class AddLogPageViewModel : ObservableObject
             Minutes = 0;
             Notes = "";
         }
+		var studentAssignments = await service.GetStudentAssignments(1);
+		foreach (var assignment in studentAssignments)
+		{
+			Assignments.Add(assignment);
+			AssignmentNames.Add(assignment.Name);
+		}
+		if (AssignmentNames.Count > 0) { SelectedAssignmentName = AssignmentNames[0]; }
 	}
 
 	private bool CanSubmit()

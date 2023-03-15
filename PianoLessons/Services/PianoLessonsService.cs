@@ -69,4 +69,9 @@ public class PianoLessonsService
 	{
 		return await client.GetFromJsonAsync<PracticeLog>($"api/PianoLessons/logs/log/{logId}");
 	}
+
+	public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+	{
+		return await client.GetFromJsonAsync<List<PracticeAssignment>>($"api/PianoLessons/assignments/{studentId}");
+	}
 }
