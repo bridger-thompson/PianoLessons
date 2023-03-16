@@ -34,6 +34,10 @@ public partial class PianoLessonDbContext : DbContext
 
     public virtual DbSet<Teacher> Teachers { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("host=localhost; database=piano; user id=piano; password=lessons");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -133,10 +137,13 @@ public partial class PianoLessonDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AssignmentId).HasColumnName("assignment_id");
             entity.Property(e => e.Duration).HasColumnName("duration");
-            entity.Property(e => e.LogDate)
+            entity.Property(e => e.EndTime)
                 .HasColumnType("timestamp without time zone")
-                .HasColumnName("log_date");
+                .HasColumnName("end_time");
             entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.StartTime)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("start_time");
             entity.Property(e => e.StudentId).HasColumnName("student_id");
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.PracticeLogs)

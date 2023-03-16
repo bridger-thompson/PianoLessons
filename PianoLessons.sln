@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Schema_Creation.sql = Schema_Creation.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessons.Tests", "..\PianoLessons.Tests\PianoLessons.Tests.csproj", "{FF9B97D8-6644-45BC-A913-18BF72C2B88A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
