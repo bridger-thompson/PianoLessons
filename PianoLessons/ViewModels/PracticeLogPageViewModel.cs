@@ -31,7 +31,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 
 	public bool NoLogs { get => !HasLogs; }
 
-	public bool NotTeacher { get => !IsTeacher; }
+	public bool NotTeacher { get => IsTeacher; }
 
 	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service)
 	{

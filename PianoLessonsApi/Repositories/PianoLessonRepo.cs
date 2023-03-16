@@ -60,8 +60,8 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		var log = await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == newLog.Id);
 		if (log != null)
 		{
-			log.Duration = newLog.Duration;
-			log.LogDate = newLog.LogDate;
+			log.StartTime = newLog.StartTime;
+			log.EndTime = newLog.EndTime;
 			log.Notes = newLog.Notes;
 			log.AssignmentId = newLog.AssignmentId;
 			log.StudentId = newLog.StudentId;
@@ -87,7 +87,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ThenInclude(s => s.StudentCourses)
 			.ThenInclude(sc => sc.Course)
 			.Where(s => s.Student.StudentCourses.Any(sc => sc.CourseId == courseId))
-			.Where(l => l.LogDate <= DateTime.Now && l.LogDate >= startDate)
+			.Where(l => l.StartTime <= DateTime.Now && l.StartTime >= startDate)
 			.ToListAsync();
 	}
 

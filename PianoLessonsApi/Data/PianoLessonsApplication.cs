@@ -63,7 +63,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 			{
 				var studentScore = scores.Find(s => s.Name == log.Student.Name);
 				var index = scores.IndexOf(studentScore);
-				scores[index].Score += (int)log.Duration.TotalMinutes;
+				scores[index].Score += (int)(log.EndTime - log.StartTime).TotalMinutes;
 			}
 			else
 			{
@@ -71,7 +71,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 				{
 					Id = log.StudentId,
 					Name = log.Student.Name,
-					Score = (int)log.Duration.TotalMinutes
+					Score = (int)(log.EndTime - log.StartTime).TotalMinutes
 				});
 			}
 		}
