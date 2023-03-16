@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PianoLessons\PianoLessonsApi\PianoLessonsApi.csproj" />
+    <ProjectReference Include="..\PianoLessonsApi\PianoLessonsApi.csproj" />
   </ItemGroup>
 
 </Project>

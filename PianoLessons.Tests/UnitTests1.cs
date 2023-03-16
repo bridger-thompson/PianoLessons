@@ -10,12 +10,14 @@ namespace PianoLessons.Tests
     {
         private PianoLessonsApplication app;
         private TestPianoLessonRepo repo;
+        private DateTime today;
 
         [SetUp]
         public void Setup()
         {
             repo = new();
             app = new(repo);
+            today = DateTime.Today;
         }
 
         [Test]
@@ -24,8 +26,8 @@ namespace PianoLessons.Tests
             repo.Logs.Count.Should().Be(0);
             await app.AddLog(new PracticeLog
             {
-                Duration= TimeSpan.FromMinutes(5),
-                LogDate = DateTime.Now,
+                StartTime = today,
+                EndTime = today.AddMinutes(5),   
                 StudentId = 1,
                 AssignmentId = 2
             });
@@ -39,8 +41,8 @@ namespace PianoLessons.Tests
             var log = new PracticeLog
             {
                 Id = 1,
-                Duration = TimeSpan.FromMinutes(5),
-                LogDate = DateTime.Now,
+                StartTime = today,
+                EndTime = today.AddMinutes(5),
                 StudentId = 1,
                 AssignmentId = 2
             };
@@ -56,8 +58,8 @@ namespace PianoLessons.Tests
             var log = new PracticeLog
             {
                 Id = 1,
-                Duration = TimeSpan.FromMinutes(5),
-                LogDate = DateTime.Now,
+                StartTime = today,
+                EndTime = today.AddMinutes(5),
                 StudentId = 1,
                 AssignmentId = 2
             };
@@ -74,8 +76,8 @@ namespace PianoLessons.Tests
             var log = new PracticeLog
             {
                 Id = 1,
-                Duration = TimeSpan.FromMinutes(5),
-                LogDate = DateTime.Now,
+                StartTime = today,
+                EndTime = today.AddMinutes(5),
                 StudentId = 1,
                 AssignmentId = 2
             };
@@ -84,8 +86,8 @@ namespace PianoLessons.Tests
             var updatedLog = new PracticeLog
             {
                 Id = 1,
-                Duration = TimeSpan.FromMinutes(50),
-                LogDate = DateTime.Now,
+                StartTime = today,
+                EndTime = today.AddMinutes(50),
                 StudentId = 1,
                 AssignmentId = 2
             };

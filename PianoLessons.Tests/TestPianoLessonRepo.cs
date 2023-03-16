@@ -82,11 +82,16 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
         if (log is not null) 
         {
             log.Id = updatedLog.Id;
-            log.LogDate = updatedLog.LogDate;
             log.StudentId = updatedLog.StudentId;
-            log.Duration = updatedLog.Duration;
+            log.StartTime = updatedLog.StartTime;
+            log.EndTime = updatedLog.EndTime;
             log.Notes = updatedLog.Notes;
             log.AssignmentId = updatedLog.AssignmentId;
         }
+    }
+
+    public Task<List<PracticeLog>> GetPracticeLogsForCourseAndStartDate(int courseId, DateTime startDate)
+    {
+        throw new NotImplementedException();
     }
 }

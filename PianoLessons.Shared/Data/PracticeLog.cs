@@ -17,4 +17,6 @@ public partial class PracticeLog
     public virtual PracticeAssignment? Assignment { get; set; } = null!;
 
     public virtual Student? Student { get; set; } = null!;
+
+    public TimeSpan Duration => EndTime - StartTime;
 }
