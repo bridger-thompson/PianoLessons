@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Schema_Creation.sql = Schema_Creation.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PianoLessons.Tests", "..\PianoLessons.Tests\PianoLessons.Tests.csproj", "{FF9B97D8-6644-45BC-A913-18BF72C2B88A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessons.Tests", "PianoLessons.Tests\PianoLessons.Tests.csproj", "{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +42,10 @@ Global
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8651E065-424D-4A08-AB1A-8FA004AB9893}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF9B97D8-6644-45BC-A913-18BF72C2B88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
