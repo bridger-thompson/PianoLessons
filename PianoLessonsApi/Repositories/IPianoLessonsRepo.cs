@@ -23,4 +23,6 @@ public interface IPianoLessonsRepo
 	public Task<List<PracticeLog>> GetPracticeScores(int courseId, DateTime startDate);
 
 	public Task<List<Course>> GetTeacherCourses(int teacherId);
+
+	public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
 }

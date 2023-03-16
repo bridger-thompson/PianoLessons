@@ -99,4 +99,12 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.Where(c => c.TeacherId == teacherId)
 			.ToListAsync();
 	}
+
+    public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+	{
+		return await context.PracticeAssignments
+			.Include(sa => sa.StudentAssignments)
+			.Where(sa => sa.StudentAssignments.Any(a => a.StudentId == studentId))
+			.ToListAsync();
+	}
 }

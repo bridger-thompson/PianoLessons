@@ -45,7 +45,7 @@ create table practice_log (
 	id 				serial primary key,
 	log_date		timestamp not null,
 	student_id 		int references student(id) not null,
-	duration		interval not null,
+	duration		interval not null CHECK (duration < '1 day'),
 	notes			text,
 	assignment_id	int references practice_assignment(id) not null
 );
@@ -75,9 +75,9 @@ INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(3, 1
 INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(1, 'Bob', '2023-03-14 09:00:00.000', '2023-03-14 10:00:00.000', 1, 1);
 INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(2, 'Anthony', '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 1, 2);
 INSERT INTO piano_lessons.practice_assignment (id, "name", course_id) VALUES(1, 'Scales', 1);
-INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(1, '2023-03-12 00:00:00.000', 2, '00:12:00'::interval, NULL, 1);
-INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(2, '2023-03-13 00:00:00.000', 2, '00:35:00'::interval, 'Nailed it ;)', 1);
-INSERT INTO piano_lessons.practice_log (id, log_date, student_id, duration, notes, assignment_id) VALUES(3, '2023-03-14 00:00:00.000', 1, '00:17:00'::interval, NULL, 1);
+INSERT INTO piano_lessons.practice_log (log_date, student_id, duration, notes, assignment_id) VALUES('2023-03-12 00:00:00.000', 2, '00:12:00'::interval, NULL, 1);
+INSERT INTO piano_lessons.practice_log (log_date, student_id, duration, notes, assignment_id) VALUES('2023-03-13 00:00:00.000', 2, '00:35:00'::interval, 'Nailed it ;)', 1);
+INSERT INTO piano_lessons.practice_log (log_date, student_id, duration, notes, assignment_id) VALUES('2023-03-14 00:00:00.000', 1, '00:17:00'::interval, NULL, 1);
 INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(1, 1, 1);
 INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(2, 2, 1);
 
