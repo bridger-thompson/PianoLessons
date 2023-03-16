@@ -32,8 +32,8 @@ public partial class ScoreboardPageViewModel : ObservableObject
 		StudentScores = new();
 		courses = new();
 		SelectedCourseName = "No Courses";
-		Time = new() { "Week", "Month", "Year", "Ever" };
-		SelectedTime = Time[0];
+		Time = new() { "Day", "Week", "Month", "Year", "Ever" };
+		SelectedTime = Time[1];
 		this.service = service;
 	}
 

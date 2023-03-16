@@ -48,14 +48,19 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		DateTime today = DateTime.Today;
 		var startDate = time switch
 		{
-			"Week" => new DateTime(today.Year, today.Month, today.Day - 7),
-			"Month" => new DateTime(today.Year, today.Month - 1, today.Day),
-			"Year" => new DateTime(today.Year - 1, today.Month, today.Day),
+			"Day" => new DateTime(today.Year, today.Month, today.Day, 0, 0, 0),
+			"Week" => DateTime.Now.AddDays(-7),
+			"Month" => DateTime.Now.AddMonths(-1),
+			"Year" => DateTime.Now.AddYears(-1),
 			"Ever" => new DateTime(),
 			_ => new DateTime(),
 		};
-		var logs = await repo.GetPracticeScores(courseId, startDate);
+		var logs = await repo.GetPracticeLogsForCourseAndStartDate(courseId, startDate);
+		return CalculateScores(logs);
+	}
 
+	private static List<StudentScore> CalculateScores(List<PracticeLog> logs)
+	{
 		List<StudentScore> scores = new();
 		foreach (var log in logs)
 		{

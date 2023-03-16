@@ -80,7 +80,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == logId);
     }
 
-	public async Task<List<PracticeLog>> GetPracticeScores(int courseId, DateTime startDate)
+	public async Task<List<PracticeLog>> GetPracticeLogsForCourseAndStartDate(int courseId, DateTime startDate)
 	{
 		return await context.PracticeLogs
 			.Include(l => l.Student)

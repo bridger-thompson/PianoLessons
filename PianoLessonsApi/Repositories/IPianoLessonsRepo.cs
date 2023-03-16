@@ -20,7 +20,7 @@ public interface IPianoLessonsRepo
 
 	public Task UpdateLog(PracticeLog newLog);
 
-	public Task<List<PracticeLog>> GetPracticeScores(int courseId, DateTime startDate);
+	public Task<List<PracticeLog>> GetPracticeLogsForCourseAndStartDate(int courseId, DateTime startDate);
 
 	public Task<List<Course>> GetTeacherCourses(int teacherId);
 
