@@ -61,7 +61,6 @@ public partial class AddLogPageViewModel : ObservableObject
 			PracticeLog newLog = new()
 			{
 				Id = Id,
-				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
 				Notes = Notes,
 				AssignmentId = selectedAssignment.Id,
@@ -73,7 +72,6 @@ public partial class AddLogPageViewModel : ObservableObject
 		{
 			var log = new PracticeLog
 			{
-				LogDate = Date,
 				Duration = new TimeSpan(Hours, Minutes, 0),
 				Notes = Notes,
 				AssignmentId = selectedAssignment.Id,
@@ -92,7 +90,6 @@ public partial class AddLogPageViewModel : ObservableObject
         if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
-			Date = log.LogDate;
 			Hours = log.Duration.Hours;
 			Minutes = log.Duration.Minutes;
 			Notes = log.Notes;
