@@ -24,7 +24,7 @@
                 VerticalOptions="Center"
                 Text="Date: " />
             <DatePicker
-                Date="{Binding Date}" />
+                Date="{Binding LogDate}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout
             HorizontalOptions="Center"
@@ -42,20 +42,20 @@
             HorizontalOptions="Center">
             <Label
                 VerticalOptions="Center"
-                WidthRequest="60"
-                Text="Hours: " />
-            <Entry
-                Text="{Binding Hours}" />
+                WidthRequest="70"
+                Text="Start Time: " />
+            <TimePicker
+                Time="{Binding StartTime}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout
             Spacing="5"
             HorizontalOptions="Center">
             <Label
                 VerticalOptions="Center"
-                WidthRequest="60"
-                Text="Minutes: " />
-            <Entry
-                Text="{Binding Minutes}" />
+                WidthRequest="70"
+                Text="End Time: " />
+            <TimePicker
+                Time="{Binding EndTime}" />
         </HorizontalStackLayout>
         <Label
             HorizontalOptions="Center"

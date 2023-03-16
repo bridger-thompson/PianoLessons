@@ -4,13 +4,11 @@ public partial class PracticeLog
 {
     public int Id { get; set; }
 
+    public int StudentId { get; set; }
+
     public DateTime StartTime { get; set; }
 
     public DateTime EndTime { get; set; }
-
-    public int StudentId { get; set; }
-
-    public TimeSpan Duration { get; set; }
 
     public string? Notes { get; set; }
 

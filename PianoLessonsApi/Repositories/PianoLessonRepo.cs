@@ -59,7 +59,6 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		var log = await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == newLog.Id);
 		if (log != null)
 		{
-			log.Duration = newLog.Duration;
 			log.StartTime = newLog.StartTime;
 			log.EndTime = newLog.EndTime;
 			log.Notes = newLog.Notes;
