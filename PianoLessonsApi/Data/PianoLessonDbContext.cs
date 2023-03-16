@@ -136,7 +136,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AssignmentId).HasColumnName("assignment_id");
-            entity.Property(e => e.Duration).HasColumnName("duration");
             entity.Property(e => e.EndTime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("end_time");

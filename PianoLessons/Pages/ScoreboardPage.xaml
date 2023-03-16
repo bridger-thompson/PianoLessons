@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:particle="clr-namespace:Particle.Maui;assembly=Particle.Maui"
     x:Class="PianoLessons.Pages.ScoreboardPage"
     Title="Scoreboard">
     <ContentPage.Behaviors>
@@ -11,32 +10,10 @@
             EventName="NavigatedTo"
             Command="{Binding GetTeacherCoursesCommand}" />
     </ContentPage.Behaviors>
-    <ContentPage.Resources>
-        <x:Array
-            Type="{x:Type Color}"
-            x:Key="ConfettiColors">
-            <Color>#a864fd</Color>
-            <Color>#29cdff</Color>
-            <Color>#78ff44</Color>
-            <Color>#ff718d</Color>
-            <Color>#fdff6a</Color>
-            <Color>#ffcbf2</Color>
-        </x:Array>
-    </ContentPage.Resources>
 
     <ScrollView
         WidthRequest="500">
         <VerticalStackLayout>
-            <particle:ParticleView
-                x:Name="MyParticleCanvas"
-                IsActive="True"
-                IsRunning="True"
-                HasFallingParticles="True"
-                FallingParticlesPerSecond="20"
-                Margin="0, 20"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"
-                ParticleColors="{StaticResource ConfettiColors}" />
             <Label
                 Text="Practice High Scores:"
                 FontSize="Title"
@@ -88,14 +65,17 @@
                             <Grid
                                 ColumnDefinitions="*,*,*">
                                 <Label
-                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
                                     Text="{Binding Rank}" />
                                 <Label
+                                    VerticalOptions="Center"
                                     LineBreakMode="TailTruncation"
                                     HorizontalOptions="Center"
                                     Grid.Column="1"
                                     Text="{Binding Name}" />
                                 <Label
+                                    VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Text="{Binding Score, TargetNullValue=0}"
                                     Grid.Column="2" />
