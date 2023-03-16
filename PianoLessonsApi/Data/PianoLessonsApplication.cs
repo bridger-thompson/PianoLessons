@@ -48,7 +48,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		DateTime today = DateTime.Today;
 		var startDate = time switch
 		{
-			"Day" => new DateTime(today.Year, today.Month, today.Day, 0, 0, 0),
+			"Today" => new DateTime(today.Year, today.Month, today.Day, 0, 0, 0),
 			"Week" => DateTime.Now.AddDays(-7),
 			"Month" => DateTime.Now.AddMonths(-1),
 			"Year" => DateTime.Now.AddYears(-1),
@@ -76,7 +76,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 				{
 					Id = log.StudentId,
 					Name = log.Student.Name,
-					Score = (int)(log.EndTime - log.StartTime).TotalMinutes
+					Score = (int)(log.EndTime - log.StartTime).TotalMinutes * 10
 				});
 			}
 		}
