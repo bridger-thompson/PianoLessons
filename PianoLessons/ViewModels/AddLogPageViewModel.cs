@@ -89,10 +89,6 @@ public partial class AddLogPageViewModel : ObservableObject
 	{
 		Assignments = new();
 		AssignmentNames = new();
-        if (Id != -1)
-		Date = DateTime.Today;
-		Hours = 0;
-		Minutes = 0;
 		if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
