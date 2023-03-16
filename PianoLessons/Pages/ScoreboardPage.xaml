@@ -63,17 +63,19 @@
                             Padding="5,0,0,0"
                             StrokeShape="RoundRectangle 10,0,0,10">
                             <Grid
-                                ColumnDefinitions="*,*">
+                                ColumnDefinitions="*,*,*">
                                 <Label
-                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    Text="{Binding Rank}" />
+                                <Label
                                     LineBreakMode="TailTruncation"
                                     HorizontalOptions="Center"
+                                    Grid.Column="1"
                                     Text="{Binding Name}" />
                                 <Label
-                                    VerticalOptions="Center"
                                     HorizontalOptions="Center"
                                     Text="{Binding Score, TargetNullValue=0}"
-                                    Grid.Column="1" />
+                                    Grid.Column="2" />
                             </Grid>
                         </Border>
                     </DataTemplate>

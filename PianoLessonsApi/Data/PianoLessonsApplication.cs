@@ -1,5 +1,6 @@
 ﻿using PianoLessons.Shared.Data;
 using PianoLessonsApi.Repositories;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PianoLessonsApi.Data;
 
@@ -61,6 +62,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 
 	private static List<StudentScore> CalculateScores(List<PracticeLog> logs)
 	{
+		int rank = 1;
 		List<StudentScore> scores = new();
 		foreach (var log in logs)
 		{
@@ -74,10 +76,12 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 			{
 				scores.Add(new()
 				{
-					Id = log.StudentId,
+					Id = log.Student.Id,
+					Rank = rank,
 					Name = log.Student.Name,
 					Score = (int)(log.EndTime - log.StartTime).TotalMinutes * 10
 				});
+				rank++;
 			}
 		}
 		return scores.OrderByDescending(s => s.Score).ToList();
