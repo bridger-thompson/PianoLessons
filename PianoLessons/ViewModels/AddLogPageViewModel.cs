@@ -61,17 +61,15 @@ public partial class AddLogPageViewModel : ObservableObject
 			};
 			await service.AddLog(log);
 		}
-
-		//clear out values for next visit
-		Date = DateTime.Today;
-		Hours = 0;
-		Minutes = 0;
 		await navService.NavigateToAsync("..");
 	}
 
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		Date = DateTime.Today;
+		Hours = 0;
+		Minutes = 0;
 		if (Id != -1)
 		{
 			var log = await service.GetLog(Id);
