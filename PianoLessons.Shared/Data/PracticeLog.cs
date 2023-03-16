@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace PianoLessons.Shared.Data;
+﻿namespace PianoLessons.Shared.Data;
 
 public partial class PracticeLog
 {
-    public PracticeLog()
-    {
-        //Assignment = new();
-        //Student = new();
-    }
     public int Id { get; set; }
 
     public int StudentId { get; set; }

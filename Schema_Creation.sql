@@ -43,7 +43,8 @@ create table student_assignment (
 
 create table practice_log (
 	id 				serial primary key,
-	log_date		timestamp not null,
+	start_time		timestamp not null,
+	end_time		timestamp not null,
 	student_id 		int references student(id) not null,
 	duration		interval not null CHECK (duration < '1 day'),
 	notes			text,

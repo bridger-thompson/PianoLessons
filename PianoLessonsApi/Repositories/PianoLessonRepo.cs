@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PianoLessons.Shared.Data;
 using PianoLessonsApi.Data;
-
 namespace PianoLessonsApi.Repositories;
 
 public class PianoLessonRepo : IPianoLessonsRepo
