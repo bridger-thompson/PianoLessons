@@ -17,10 +17,16 @@ namespace PianoLessonsApi.Controllers
 			this.app = app;
 		}
 
-		[HttpGet("appointments/{teacherId}")]
+		[HttpGet("appointments/teacher/{teacherId}")]
 		public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
 		{
 			return await app.GetAppointmentsForTeacher(teacherId);
+		}
+
+		[HttpGet("appointments/student/{studentId}")]
+		public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+		{
+			return await app.GetAppointmentsForStudent(studentId);
 		}
 
 		[HttpGet("students/{teacherId}/{time}")]
@@ -72,10 +78,16 @@ namespace PianoLessonsApi.Controllers
 			await app.AddLog(log);
 		}
 
-		[HttpGet("courses/{teacherId}")]
+		[HttpGet("courses/teacher/{teacherId}")]
 		public async Task<List<Course>> GetTeacherCourses(int teacherId)
 		{
 			return await app.GetTeacherCourses(teacherId);
+		}
+
+		[HttpGet("courses/student/{studentId}")]
+		public async Task<List<Course>> GetStudentCourses(int studentId)
+		{
+			return await app.GetStudentCourses(studentId);
 		}
 
 		[HttpGet("scores/{courseId}/{time}")]
@@ -89,5 +101,11 @@ namespace PianoLessonsApi.Controllers
 		{
 			return await app.GetStudentAssignments(studentId);
 		}
-    }
+
+		[HttpGet("isTeacher/{teacherId}")]
+		public async Task<bool> IsTeacher(int teacherId)
+		{
+			return await app.IsTeacher(teacherId);
+		}
+	}
 }

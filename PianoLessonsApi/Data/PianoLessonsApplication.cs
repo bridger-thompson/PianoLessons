@@ -34,6 +34,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetAppointmentsForTeacher(teacherId);
 	}
 
+	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	{
+		return await repo.GetAppointmentsForStudent(studentId);
+	}
+
     public async Task<PracticeLog> GetLog(int logId)
     {
         return await repo.GetLog(logId);	
@@ -102,6 +107,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetTeacherCourses(teacherId);
 	}
 
+	public async Task<List<Course>> GetStudentCourses(int studentId)
+	{
+		return await repo.GetStudentCourses(studentId);
+	}
+
 	public async Task UpdateLog(PracticeLog newLog)
 	{
 		await repo.UpdateLog(newLog);
@@ -110,5 +120,10 @@ public class PianoLessonsApplication : IPianoLessonsApplication
     public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
 	{
 		return await repo.GetStudentAssignments(studentId);
+	}
+
+	public async Task<bool> IsTeacher(int teacherId)
+	{
+		return await repo.IsTeacher(teacherId);
 	}
 }

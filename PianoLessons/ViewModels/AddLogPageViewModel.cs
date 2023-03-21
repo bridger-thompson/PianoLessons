@@ -20,10 +20,10 @@ public partial class AddLogPageViewModel : ObservableObject
 	private DateTime logDate;
 
 	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total))]
-	private DateTime startTime;
+	private TimeSpan startTime;
 
 	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total))]
-	private DateTime endTime;
+	private TimeSpan endTime;
 
 	[ObservableProperty]
 	private string notes;
@@ -46,11 +46,6 @@ public partial class AddLogPageViewModel : ObservableObject
 	{
 		this.navService = navService;
 		this.service = service;
-		LogDate = DateTime.Today;
-		StartTime = DateTime.Now;
-		EndTime = DateTime.Now.AddHours(1);
-        Assignments = new();
-        AssignmentNames = new();
     }
 
 	[RelayCommand]
@@ -61,8 +56,8 @@ public partial class AddLogPageViewModel : ObservableObject
 		PracticeLog log = new()
 		{
 			Id = Id,
-			StartTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, StartTime.Hour, StartTime.Minute, StartTime.Second),
-			EndTime = EndTime,
+			StartTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds),
+			EndTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
 			Notes = Notes,
 			AssignmentId = selectedAssignment.Id,
 			StudentId = 1
@@ -88,8 +83,8 @@ public partial class AddLogPageViewModel : ObservableObject
 		{
 			var log = await service.GetLog(Id);
 			LogDate = log.StartTime;
-			StartTime = log.StartTime;
-			EndTime = log.EndTime;
+			StartTime = log.StartTime.TimeOfDay;
+			EndTime = log.EndTime.TimeOfDay;
 			Notes = log.Notes;
 			PageTitle = "Edit Practice Log";
 		}
@@ -97,8 +92,8 @@ public partial class AddLogPageViewModel : ObservableObject
 		{
             PageTitle = "New Practice Log";
 			LogDate = DateTime.Today;
-			StartTime = DateTime.Now;
-			EndTime = DateTime.Now.AddHours(1);
+			StartTime = DateTime.Now.TimeOfDay;
+			EndTime = DateTime.Now.AddHours(1).TimeOfDay;
             Notes = "";
         }
 		var studentAssignments = await service.GetStudentAssignments(1);

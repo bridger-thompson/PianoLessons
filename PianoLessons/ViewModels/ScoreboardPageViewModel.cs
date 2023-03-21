@@ -27,6 +27,9 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedCourseName;
 
+	[ObservableProperty]
+	private bool isTeacher;
+
 	public ScoreboardPageViewModel(PianoLessonsService service)
 	{
 		StudentScores = new();
@@ -38,11 +41,21 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public async Task GetTeacherCourses()
+	public async Task GetCourses()
 	{
+		IsTeacher = await service.IsTeacher(10);
 		courses = new();
 		CourseNames = new();
-		var c = await service.GetTeacherCourses(1);
+
+		List<Course> c = new();
+		if (IsTeacher)
+		{
+			c = await service.GetTeacherCourses(1);
+		}
+		else
+		{
+			c = await service.GetStudentCourses(1);
+		}
 		foreach (var course in c)
 		{
 			courses.Add(course);

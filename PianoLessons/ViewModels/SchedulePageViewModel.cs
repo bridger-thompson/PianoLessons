@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Pages;
 using PianoLessons.Services;
+using PianoLessons.Shared.Data;
 using Syncfusion.Maui.Scheduler;
 using System.Collections.ObjectModel;
 
@@ -11,8 +12,11 @@ public partial class SchedulePageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
+
 	[ObservableProperty]
 	private ObservableCollection<SchedulerAppointment> events;
+
+	private bool isTeacher;
 
 	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service)
 	{
@@ -30,8 +34,17 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		isTeacher = await service.IsTeacher(1);
 		Events = new();
-		var appointments = await service.GetAppointmentsForTeacher(1);
+		List<Appointment> appointments = new();
+		if (isTeacher)
+		{
+			appointments = await service.GetAppointmentsForTeacher(1);
+		}
+		else
+		{
+			appointments = await service.GetAppointmentsForStudent(1);
+		}
 		foreach (var appointment in appointments)
 		{
 			Events.Add(new SchedulerAppointment()

@@ -28,6 +28,7 @@
         </HorizontalStackLayout>
         <HorizontalStackLayout
             HorizontalOptions="Center"
+            Margin="0,0,0,10"
             Spacing="5">
             <Label
                 VerticalOptions="Center"

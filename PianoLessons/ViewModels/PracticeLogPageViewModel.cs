@@ -48,20 +48,22 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsTeacher = await service.IsTeacher(1);
+		students = new();
 		StudentNames = new()
 		{
 			"All"
 		};
-		students = await service.GetStudentsForTeacher(1);
+		if (IsTeacher)
+		{
+			students = await service.GetStudentsForTeacher(1);
+		}
 		foreach (var student in students)
 		{
 			StudentNames.Add(student.Name);
 		}
 
 		SelectedStudentName = StudentNames[0];
-
-		//authentication/db
-		IsTeacher = true;
 	}
 
 	[RelayCommand]
@@ -70,9 +72,15 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		Logs = new();
 		SelectedStudentName ??= "All";
 		List<PracticeLog> ls = new();
-		if (SelectedStudentName == "All")
+		if (SelectedStudentName == "All" && IsTeacher)
 		{
+			//user id (teacher)
 			ls = await service.GetAllStudentLogsForTeacher(1);
+		}
+		else if (SelectedStudentName == "All" && !IsTeacher)
+		{
+			//user id (student)
+			ls = await service.GetLogsForStudent(1);
 		}
 		else
 		{

@@ -6,6 +6,8 @@ public interface IPianoLessonsRepo
 {
 	public Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId);
 
+	public Task<List<Appointment>> GetAppointmentsForStudent(int studentId);
+
 	public Task<List<Student>> GetStudentsForTeacher(int teacherId);
 
 	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId);
@@ -24,5 +26,9 @@ public interface IPianoLessonsRepo
 
 	public Task<List<Course>> GetTeacherCourses(int teacherId);
 
+	public Task<List<Course>> GetStudentCourses(int studentId);
+
 	public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
+
+	public Task<bool> IsTeacher(int teacherId);
 }

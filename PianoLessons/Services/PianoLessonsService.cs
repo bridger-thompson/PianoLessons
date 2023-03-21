@@ -19,7 +19,13 @@ public class PianoLessonsService
 
 	public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
 	{
-		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/{teacherId}");
+		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/teacher/{teacherId}");
+		return appointments;
+	}
+
+	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	{
+		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/student/{studentId}");
 		return appointments;
 	}
 
@@ -57,7 +63,12 @@ public class PianoLessonsService
 
 	public async Task<List<Course>> GetTeacherCourses(int teacherId)
 	{
-		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/{teacherId}");
+		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/teacher/{teacherId}");
+	}
+
+	public async Task<List<Course>> GetStudentCourses(int studentId)
+	{
+		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/student/{studentId}");
 	}
 
 	public async Task AddLog(PracticeLog log)
@@ -73,5 +84,10 @@ public class PianoLessonsService
 	public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
 	{
 		return await client.GetFromJsonAsync<List<PracticeAssignment>>($"api/PianoLessons/assignments/{studentId}");
+	}
+
+	public async Task<bool> IsTeacher(int teacherId)
+	{
+		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isTeacher/{teacherId}");
 	}
 }

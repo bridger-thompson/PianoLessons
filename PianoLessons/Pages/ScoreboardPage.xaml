@@ -8,7 +8,7 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
-            Command="{Binding GetTeacherCoursesCommand}" />
+            Command="{Binding GetCoursesCommand}" />
     </ContentPage.Behaviors>
 
     <ScrollView

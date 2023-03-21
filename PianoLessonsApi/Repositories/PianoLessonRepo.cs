@@ -17,6 +17,11 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return await context.Appointments.Where(a => a.TeacherId == teacherid).ToListAsync();
 	}
 
+	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	{
+		return await context.Appointments.Where(a => a.StudentId == studentId).ToListAsync();
+	}
+
 	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
 	{
 		return await context.PracticeLogs.Include(l => l.Student)
@@ -99,11 +104,27 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-    public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+	public async Task<List<Course>> GetStudentCourses(int studentId)
+	{
+		return await context.Courses
+			.Include(c => c.StudentCourses)
+			.Where(c => c.StudentCourses.Any(sc => sc.StudentId == studentId))
+			.ToListAsync();
+	}
+
+
+	public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
 	{
 		return await context.PracticeAssignments
 			.Include(sa => sa.StudentAssignments)
 			.Where(sa => sa.StudentAssignments.Any(a => a.StudentId == studentId))
 			.ToListAsync();
+	}
+
+	public async Task<bool> IsTeacher(int teacherId)
+	{
+		var teacher = await context.Teachers.Where(t => t.Id == teacherId).FirstOrDefaultAsync();
+		if (teacher != null) { return true; }
+		return false;
 	}
 }
