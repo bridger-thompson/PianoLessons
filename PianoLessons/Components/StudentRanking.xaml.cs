@@ -2,8 +2,18 @@ namespace PianoLessons.Components;
 
 public partial class StudentRanking : ContentView
 {
-	public static readonly BindableProperty RankProperty =
+    public static readonly BindableProperty RankProperty =
 		BindableProperty.Create(nameof(Rank), typeof(int), typeof(StudentRanking), propertyChanged: OnRankChanged);
+    public int Rank
+    {
+        get => (int)GetValue(RankProperty);
+        set => SetValue(RankProperty, value);
+    }
+
+    public StudentRanking()
+    {
+        InitializeComponent();
+    }
 
     private static void OnRankChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -38,21 +48,4 @@ public partial class StudentRanking : ContentView
                 return string.Empty;
         }
     }
-
-    public int Rank
-	{
-		get => (int)GetValue(RankProperty);
-		set => SetValue(RankProperty, value);
-    }
-
-    public bool FirstPlace => Rank == 1;
-    public bool SecondPlace => Rank == 2;
-    public bool ThirdPlace => Rank == 3;
-    public bool NoTrophy => FirstPlace && SecondPlace && ThirdPlace;
-
-    public StudentRanking()
-	{
-        InitializeComponent();
-	}
-
 }
