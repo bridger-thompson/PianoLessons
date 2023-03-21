@@ -90,4 +90,20 @@ public class PianoLessonsService
 	{
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isTeacher/{teacherId}");
 	}
+
+	public async Task AddCourse(Course course)
+	{
+		await client.PostAsJsonAsync("api/PianoLessons/course", course);
+	}
+
+	public async Task DeleteCourse(int courseId)
+	{
+		await client.DeleteAsync($"api/PianoLessons/course/{courseId}");
+	}
+
+	public async Task UpdateCourse(int courseId, string newName)
+	{
+		await client.PutAsync($"api/PianoLessons/course/{courseId}/{newName}", null);
+	}
 }
+

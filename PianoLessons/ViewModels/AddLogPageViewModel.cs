@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Services;
 using PianoLessons.Shared.Data;
 using System.Collections.ObjectModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PianoLessons.ViewModels;
 

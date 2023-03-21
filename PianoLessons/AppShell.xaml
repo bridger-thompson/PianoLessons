@@ -2,10 +2,15 @@
 <Shell
     x:Class="PianoLessons.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:PianoLessons.Pages"
     Shell.FlyoutBehavior="Disabled">
-
+    <Shell.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Loaded"
+            Command="{Binding LoadedCommand}" />
+    </Shell.Behaviors>
     <TabBar>
         <Tab
             Title="Home">
@@ -27,6 +32,14 @@
                 Title="Scoreboard"
                 ContentTemplate="{DataTemplate pages:ScoreboardPage}"
                 Route="ScoreboardPage" />
+        </Tab>
+        <Tab
+            IsVisible="{Binding IsTeacher}"
+            Title="Manage Courses">
+            <ShellContent
+                Title="Manage Courses"
+                ContentTemplate="{DataTemplate pages:ManageCoursesPage}"
+                Route="ManageCoursesPage" />
         </Tab>
     </TabBar>
 

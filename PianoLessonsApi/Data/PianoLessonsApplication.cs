@@ -126,4 +126,19 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	{
 		return await repo.IsTeacher(teacherId);
 	}
+
+	public async Task AddCourse(Course course)
+	{
+		await repo.AddCourse(course);
+	}
+
+	public async Task DeleteCourse(int courseId)
+	{
+		await repo.DeleteCourse(courseId);
+	}
+
+	public async Task UpdateCourseName(int id, string newName)
+	{
+		await repo.UpdateCourseName(id, newName);
+	}
 }

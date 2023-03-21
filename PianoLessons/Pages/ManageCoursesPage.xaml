@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:vm="clr-namespace:PianoLessons.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PianoLessons.Pages.ManageCoursesPage"
+    Title="Manage Courses">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="NavigatedTo"
+            Command="{Binding LoadedCommand}" />
+    </ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Manage Courses" />
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Margin="0,5"
+                Spacing="5">
+                <Label
+                    Text="Add Course:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Text="{Binding NewCourseName}"
+                    WidthRequest="150" />
+                <Button
+                    Text="Add"
+                    BackgroundColor="LimeGreen"
+                    Command="{Binding AddCourseCommand}" />
+            </HorizontalStackLayout>
+            <CollectionView
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedCourse}"
+                SelectionChangedCommand="{Binding ToCourseCommand}"
+                ItemsSource="{Binding Courses}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            HeightRequest="175"
+                            WidthRequest="175"
+                            Margin="10"
+                            BackgroundColor="LightBlue"
+                            StrokeShape="RoundRectangle 5,5,5,5">
+                            <Grid
+                                RowDefinitions="125,*"
+                                ColumnDefinitions="125,*">
+                                <Image
+                                    Source="music_notes.jpg"
+                                    Grid.ColumnSpan="2"
+                                    HeightRequest="125" />
+                                <Label
+                                    Text="{Binding Name}"
+                                    Grid.Row="1"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center" />
+                                <Button
+                                    Text="X"
+                                    BackgroundColor="Red"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ManageCoursesPageViewModel}}, Path=RemoveCourseCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    VerticalOptions="Center"
+                                    Grid.Row="1"
+                                    Grid.Column="1" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -17,9 +17,9 @@ public partial class Course
 
     public int TeacherId { get; set; }
 
-    public virtual ICollection<PracticeAssignment> PracticeAssignments { get; } = new List<PracticeAssignment>();
+    public virtual ICollection<PracticeAssignment>? PracticeAssignments { get; } = null!;
 
-    public virtual ICollection<StudentCourse> StudentCourses { get; } = new List<StudentCourse>();
+    public virtual ICollection<StudentCourse>? StudentCourses { get; } = null!;
 
-    public virtual Teacher Teacher { get; set; } = null!;
+    public virtual Teacher? Teacher { get; set; } = null!;
 }

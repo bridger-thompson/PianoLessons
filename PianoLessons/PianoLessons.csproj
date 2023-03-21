@@ -73,6 +73,12 @@
 	  <MauiXaml Update="Pages\AddScheduleItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ManageCoursesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ManageStudentsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\PracticeLogPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

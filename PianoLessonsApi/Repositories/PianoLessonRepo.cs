@@ -127,4 +127,44 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		if (teacher != null) { return true; }
 		return false;
 	}
+
+	public async Task AddCourse(Course course)
+	{
+		var teacher = await context.Teachers
+			.Where(t => t.Id == course.TeacherId)
+			.FirstOrDefaultAsync();
+		course.Teacher = teacher;
+		var existingCourse = await context.Courses
+			.Where(c => c.TeacherId == course.TeacherId && c.Name == course.Name)
+			.FirstOrDefaultAsync();
+		if (existingCourse == null)
+		{
+			await context.Courses.AddAsync(course);
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task DeleteCourse(int courseId)
+	{
+		var existingCourse = await context.Courses
+			.Where(c => c.Id == courseId)
+			.FirstOrDefaultAsync();
+		if (existingCourse != null)
+		{
+			context.Remove(existingCourse);
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task UpdateCourseName(int id, string newName)
+	{
+		var existingCourse = await context.Courses
+			.Where(c => c.Id == id)
+			.FirstOrDefaultAsync();
+		if (existingCourse != null)
+		{
+			existingCourse.Name = newName;
+			await context.SaveChangesAsync();
+		}
+	}
 }

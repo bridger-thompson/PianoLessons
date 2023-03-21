@@ -32,13 +32,13 @@ create table course (
 create table practice_assignment (
 	id 			serial primary key,
 	name 		text not null,
-	course_id 	int references course(id) not null
+	course_id 	int not null references course(id) ON DELETE CASCADE
 );
 
 create table student_assignment (
 	id 				serial primary key,
 	student_id 		int references student(id) not null,
-	assignment_id	int references practice_assignment(id) not null
+	assignment_id	int not null references practice_assignment(id) ON DELETE CASCADE
 );
 
 create table practice_log (
@@ -47,12 +47,12 @@ create table practice_log (
 	end_time		timestamp not null,
 	student_id 		int references student(id) not null,
 	notes			text,
-	assignment_id	int references practice_assignment(id) not null
+	assignment_id	int not null references practice_assignment(id) ON DELETE CASCADE
 );
 
 create table student_course (
 	id 			serial primary key,
-	course_id 	int references course(id) not null,
+	course_id 	int not null references course(id) ON DELETE CASCADE,
 	student_id 	int references student(id) not null
 );
 
@@ -68,7 +68,7 @@ INSERT INTO piano_lessons.teacher (id, "name") VALUES(1, 'Bridger');
 INSERT INTO piano_lessons.student (id, "name") VALUES(1, 'Bob');
 INSERT INTO piano_lessons.student (id, "name") VALUES(2, 'Anthony');
 INSERT INTO piano_lessons.student (id, "name") VALUES(3, 'Steve');
-INSERT INTO piano_lessons.course (id, "name", teacher_id) VALUES(1, 'Piano', 1);
+INSERT INTO piano_lessons.course ("name", teacher_id) VALUES('Piano', 1);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(1, 1, 1);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(2, 1, 2);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(3, 1, 3);

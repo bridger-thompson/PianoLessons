@@ -107,5 +107,23 @@ namespace PianoLessonsApi.Controllers
 		{
 			return await app.IsTeacher(teacherId);
 		}
+
+		[HttpPost("course")]
+		public async Task AddCourse([FromBody] Course course)
+		{
+			await app.AddCourse(course);
+		}
+
+		[HttpDelete("course/{courseId}")]
+		public async Task DeleteCourse(int courseId)
+		{
+			await app.DeleteCourse(courseId);
+		}
+
+		[HttpPut("course/{courseId}/{newName}")]
+		public async Task UpdateCourseName(int courseId, string newName)
+		{
+			await app.UpdateCourseName(courseId, newName);
+		}
 	}
 }

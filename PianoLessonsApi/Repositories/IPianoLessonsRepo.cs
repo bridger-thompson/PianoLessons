@@ -31,4 +31,10 @@ public interface IPianoLessonsRepo
 	public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
 
 	public Task<bool> IsTeacher(int teacherId);
+
+	public Task AddCourse(Course course);
+
+	public Task DeleteCourse(int courseId);
+
+	public Task UpdateCourseName(int id, string newName);
 }
