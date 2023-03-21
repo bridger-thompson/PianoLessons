@@ -80,6 +80,5 @@ public partial class ScoreboardPageViewModel : ObservableObject
 				StudentScores.Add(score);
 			}
 		}
-
 	}
 }

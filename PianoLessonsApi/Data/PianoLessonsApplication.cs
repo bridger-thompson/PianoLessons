@@ -67,7 +67,6 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 
 	private static List<StudentScore> CalculateScores(List<PracticeLog> logs)
 	{
-		int rank = 1;
 		List<StudentScore> scores = new();
 		foreach (var log in logs)
 		{
@@ -82,13 +81,20 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 				scores.Add(new()
 				{
 					Id = log.Student.Id,
-					Rank = rank,
 					Name = log.Student.Name,
 					Score = (int)(log.EndTime - log.StartTime).TotalMinutes * 10
 				});
-				rank++;
 			}
 		}
+
+		scores = scores.OrderByDescending(s => s.Score).ToList();
+
+		var rank = 1;
+		foreach (var score in scores)
+		{
+			score.Rank = rank++;
+		}
+
 		return scores.OrderByDescending(s => s.Score).ToList();
 	}
 
