@@ -27,7 +27,6 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task ToAddScheduleItem()
 	{
-		//nav
 		await navService.NavigateToAsync($"{nameof(AddScheduleItemPage)}");
 	}
 
@@ -39,10 +38,12 @@ public partial class SchedulePageViewModel : ObservableObject
 		List<Appointment> appointments = new();
 		if (isTeacher)
 		{
+			//user id (teacher)
 			appointments = await service.GetAppointmentsForTeacher(1);
 		}
 		else
 		{
+			//user id (student)
 			appointments = await service.GetAppointmentsForStudent(1);
 		}
 		foreach (var appointment in appointments)
