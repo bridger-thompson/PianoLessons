@@ -11,9 +11,29 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
     <VerticalStackLayout>
-        <Label
-            FontSize="Title"
+        <HorizontalStackLayout
+            IsVisible="{Binding NotEditing}"
             HorizontalOptions="Center"
-            Text="{Binding CurrentCourse.Name}" />
+            Spacing="10">
+            <Label
+                FontSize="Title"
+                VerticalOptions="Center"
+                Text="{Binding CurrentCourse.Name}" />
+            <Button
+                Text="Edit"
+                BackgroundColor="DarkGray"
+                Command="{Binding StartEditCommand}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsEditing}"
+            Spacing="5">
+            <Entry
+                WidthRequest="150"
+                Text="{Binding NewName}" />
+            <Button
+                Text="Submit"
+                Command="{Binding EditNameCommand}" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

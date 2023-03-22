@@ -21,6 +21,14 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[ObservableProperty]
 	private Course currentCourse;
 
+	[ObservableProperty]
+	private string newName;
+
+	[ObservableProperty, NotifyPropertyChangedFor(nameof(NotEditing))]
+	private bool isEditing;
+
+	public bool NotEditing { get => !IsEditing; }
+
 	public CourseDetailPageViewModel(PianoLessonsService service)
 	{
 		this.service = service;
@@ -30,5 +38,20 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	public async Task Loaded()
 	{
         CurrentCourse = await service.GetCourse(Id);
+		NewName = CurrentCourse.Name;
+	}
+
+	[RelayCommand]
+	public async Task StartEdit()
+	{
+		IsEditing = true;
+	}
+
+	[RelayCommand]
+	public async Task EditName()
+	{
+		await service.UpdateCourse(Id, NewName);
+		LoadedCommand.Execute(this);
+		IsEditing = false;
 	}
 }
