@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PianoLessons.ViewModels;
 
-public partial class ManageStudentsPageViewModel : ObservableObject
+public partial class CourseDetailPageViewModel : ObservableObject
 {
 	private readonly PianoLessonsService service;
 
-	public ManageStudentsPageViewModel(PianoLessonsService service)
+	public CourseDetailPageViewModel(PianoLessonsService service)
 	{
 		this.service = service;
 	}

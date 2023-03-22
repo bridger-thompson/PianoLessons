@@ -2,9 +2,9 @@ using PianoLessons.ViewModels;
 
 namespace PianoLessons.Pages;
 
-public partial class ManageStudentsPage : ContentPage
+public partial class CourseDetailPage : ContentPage
 {
-	public ManageStudentsPage(ManageStudentsPageViewModel vm)
+	public CourseDetailPage(CourseDetailPageViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

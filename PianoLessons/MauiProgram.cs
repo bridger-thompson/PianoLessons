@@ -51,7 +51,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AddScheduleItemPageViewModel>();
 		builder.Services.AddSingleton<ManageCoursesPage>();
 		builder.Services.AddSingleton<ManageCoursesPageViewModel>();
-		builder.Services.AddSingleton<ManageStudentsPage>();
-		builder.Services.AddSingleton<ManageStudentsPageViewModel>();
+		builder.Services.AddSingleton<CourseDetailPage>();
+		builder.Services.AddSingleton<CourseDetailPageViewModel>();
 	}
 }
