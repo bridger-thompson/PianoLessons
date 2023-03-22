@@ -33,4 +33,5 @@ public interface IPianoLessonsRepo
     Task<List<Appointment>> GetAppointmentsForStudent(int studentId);
     Task<List<Course>> GetStudentCourses(int studentId);
     Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate);
+    Task<Course> GetCourse(int id);
 }

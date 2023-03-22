@@ -180,6 +180,11 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		}
 	}
 
+	public async Task<Course> GetCourse(int id)
+	{
+		return await context.Courses.Where(c => c.Id == id).FirstOrDefaultAsync();
+	}
+
 	public async Task<List<Student>> GetCourseStudents(int courseId)
 	{
 		var students = await context.Students

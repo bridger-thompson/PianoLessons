@@ -6,8 +6,6 @@ public interface IPianoLessonsApplication
 {
 	public Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId);
 
-	public Task<List<Appointment>> GetAppointmentsForStudent(int studentId);
-
 	public Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time);
 
 	public Task<List<Student>> GetStudentsForTeacher(int teacherId);
@@ -28,12 +26,12 @@ public interface IPianoLessonsApplication
 
 	public Task<List<Course>> GetTeacherCourses(int teacherId);
 
-	public Task<List<Course>> GetStudentCourses(int studentId);
-
-	public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
-
-	public Task<bool> IsTeacher(int teacherId);
-	Task AddCourse(Course course);
-	Task DeleteCourse(int courseId);
-	Task UpdateCourseName(int id, string newName);
+    public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
+    Task<Course> GetCourse(int id);
+    Task<List<Appointment>> GetAppointmentsForStudent(int studentId);
+    Task UpdateCourseName(int id, string newName);
+    Task DeleteCourse(int courseId);
+    Task AddCourse(Course course);
+    Task<bool> IsTeacher(int teacherId);
+    Task<List<Course>> GetStudentCourses(int studentId);
 }

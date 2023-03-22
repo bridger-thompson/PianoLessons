@@ -14,7 +14,7 @@ public partial class AppShell : Shell
 
 		Routing.RegisterRoute(nameof(AddLogPage), typeof(AddLogPage));
 		Routing.RegisterRoute(nameof(AddScheduleItemPage), typeof(AddScheduleItemPage));
-		Routing.RegisterRoute(nameof(ManageStudentsPage), typeof(ManageStudentsPage));
+		Routing.RegisterRoute(nameof(CourseDetailPage), typeof(CourseDetailPage));
 	}
 
 	public async Task Loaded()

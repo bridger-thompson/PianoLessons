@@ -105,5 +105,10 @@ public class PianoLessonsService
 	{
 		await client.PutAsync($"api/PianoLessons/course/{courseId}/{newName}", null);
 	}
+
+    public async Task<Course> GetCourse(int id)
+	{
+		return await client.GetFromJsonAsync<Course>($"api/PianoLessons/course/{id}");
+	}
 }
 

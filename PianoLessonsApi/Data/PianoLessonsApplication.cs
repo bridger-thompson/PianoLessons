@@ -151,4 +151,9 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	{
 		await repo.UpdateCourseName(id, newName);
 	}
+
+    public async Task<Course> GetCourse(int id)
+	{
+		return await repo.GetCourse(id);
+	}
 }

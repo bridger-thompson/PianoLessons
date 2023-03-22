@@ -60,7 +60,6 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task ToCourse()
 	{
-		//await navService.NavigateToAsync($"{nameof(ManageStudentsPage)}?Id={SelectedCourse.Id}");
-		await navService.NavigateToAsync($"{nameof(ManageStudentsPage)}");
+		await navService.NavigateToAsync($"{nameof(CourseDetailPage)}?Id={SelectedCourse.Id}");
 	}
 }

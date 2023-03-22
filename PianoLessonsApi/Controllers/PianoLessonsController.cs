@@ -125,5 +125,12 @@ namespace PianoLessonsApi.Controllers
 		{
 			await app.UpdateCourseName(courseId, newName);
 		}
-	}
+
+		[HttpGet("course/{id}")]
+        public async Task<Course> GetCourse(int id)
+		{
+			return await app.GetCourse(id);
+		}
+
+    }
 }
