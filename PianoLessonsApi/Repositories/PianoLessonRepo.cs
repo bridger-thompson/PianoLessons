@@ -95,6 +95,18 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
+	public async Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate)
+	{
+		var logs = await context.PracticeLogs
+			.Where(p => p.StudentId == studentId)
+			.Include(p => p.Assignment)
+			.Where(p => p.Assignment.CourseId == courseId)
+            .Where(p => p.StartTime < DateTime.Now && p.StartTime > startDate)
+            .ToListAsync();
+
+		return logs;
+	}
+
 	public async Task<List<Course>> GetTeacherCourses(int teacherId)
 	{
 		return await context.Courses
@@ -166,5 +178,15 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			existingCourse.Name = newName;
 			await context.SaveChangesAsync();
 		}
+	}
+
+	public async Task<List<Student>> GetCourseStudents(int courseId)
+	{
+		var students = await context.Students
+			.Include(s => s.StudentCourses)
+			.Where(s => s.StudentCourses.Count(c => c.CourseId == courseId) != 0)
+			.ToListAsync();
+
+		return students;
 	}
 }

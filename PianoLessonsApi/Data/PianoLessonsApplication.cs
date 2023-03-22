@@ -50,53 +50,57 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	}
 
 	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time)
-	{
-		DateTime today = DateTime.Today;
-		var startDate = time switch
-		{
-			"Today" => new DateTime(today.Year, today.Month, today.Day, 0, 0, 0),
-			"Week" => DateTime.Now.AddDays(-7),
-			"Month" => DateTime.Now.AddMonths(-1),
-			"Year" => DateTime.Now.AddYears(-1),
-			"Ever" => new DateTime(),
-			_ => new DateTime(),
-		};
-		var logs = await repo.GetPracticeLogsForCourseAndStartDate(courseId, startDate);
-		return CalculateScores(logs);
-	}
+    {
+        DateTime startDate = GetStartDate(time, DateTime.Today);
+        var students = await repo.GetCourseStudents(courseId);
+        var studentScores = new List<StudentScore>();
+        foreach (var student in students)
+        {
+            StudentScore score = await GetStudentScoreForCourseAndStartDates(student, courseId, startDate);
+            studentScores.Add(score);
+        }
 
-	private static List<StudentScore> CalculateScores(List<PracticeLog> logs)
-	{
-		List<StudentScore> scores = new();
-		foreach (var log in logs)
+        return GetRankedStudentScores(studentScores);
+    }
+
+    private static List<StudentScore> GetRankedStudentScores(List<StudentScore> studentScores)
+    {
+        var rank = 1;
+        var orderedStudentScores = studentScores.OrderByDescending(s => s.Score);
+        foreach (var score in orderedStudentScores)
+        {
+            score.Rank = rank++;
+        }
+
+        return orderedStudentScores.ToList();
+    }
+
+    private static DateTime GetStartDate(string time, DateTime today)
+    {
+        return time switch
+        {
+            "Today" => new DateTime(today.Year, today.Month, today.Day, 0, 0, 0),
+            "Week" => DateTime.Now.AddDays(-7),
+            "Month" => DateTime.Now.AddMonths(-1),
+            "Year" => DateTime.Now.AddYears(-1),
+            "Ever" => new DateTime(),
+            _ => new DateTime(),
+        };
+    }
+
+    private async Task<StudentScore> GetStudentScoreForCourseAndStartDates(Student student, int courseId, DateTime startDate)
+    {
+		var practiceLogs = await repo.GetStudentsPracticeLogsForCourseAndDate(student.Id, courseId, startDate);
+
+		var score = 0;
+
+		foreach(var log in practiceLogs)
 		{
-			if (scores.Exists(s => s.Name == log.Student.Name))
-			{
-				var studentScore = scores.Find(s => s.Name == log.Student.Name);
-				var index = scores.IndexOf(studentScore);
-				scores[index].Score += (int)(log.EndTime - log.StartTime).TotalMinutes;
-			}
-			else
-			{
-				scores.Add(new()
-				{
-					Id = log.Student.Id,
-					Name = log.Student.Name,
-					Score = (int)(log.EndTime - log.StartTime).TotalMinutes * 10
-				});
-			}
+			score += (int)log.Duration.TotalMinutes * 10;
 		}
 
-		scores = scores.OrderByDescending(s => s.Score).ToList();
-
-		var rank = 1;
-		foreach (var score in scores)
-		{
-			score.Rank = rank++;
-		}
-
-		return scores.OrderByDescending(s => s.Score).ToList();
-	}
+		return new StudentScore { Id = student.Id, Name = student.Name, Score = score};
+    }
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
 	{
