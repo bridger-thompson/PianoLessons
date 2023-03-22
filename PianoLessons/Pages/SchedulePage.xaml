@@ -11,9 +11,11 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
 
-    <ScrollView>
+    <ScrollView
+        VerticalOptions="FillAndExpand">
         <VerticalStackLayout
             Spacing="5"
+            VerticalOptions="FillAndExpand"
             Padding="30,0">
 
             <Button
@@ -24,9 +26,9 @@
                 Command="{Binding ToAddScheduleItemCommand}" />
             <scheduler:SfScheduler
                 x:Name="Scheduler"
+                HeightRequest="600"
                 CellBorderBrush="DarkGray"
                 AppointmentsSource="{Binding Events}"
-                VerticalOptions="FillAndExpand"
                 AllowedViews="Day,Week"
                 View="Week" />
 

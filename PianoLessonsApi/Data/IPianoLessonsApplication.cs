@@ -34,4 +34,5 @@ public interface IPianoLessonsApplication
     Task AddCourse(Course course);
     Task<bool> IsTeacher(int teacherId);
     Task<List<Course>> GetStudentCourses(int studentId);
+    Task<List<Student>> GetCourseStudents(int id);
 }

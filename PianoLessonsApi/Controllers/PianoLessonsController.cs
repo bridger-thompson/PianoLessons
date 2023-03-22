@@ -132,5 +132,11 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetCourse(id);
 		}
 
+		[HttpGet("course/{id}/students")]
+		public async Task<List<Student>> GetCourseStudents(int id)
+		{
+			return await app.GetCourseStudents(id);
+		}
+
     }
 }

@@ -99,7 +99,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 			score += (int)log.Duration.TotalMinutes * 10;
 		}
 
-		return new StudentScore { Id = student.Id, Name = student.Name, Score = score};
+		return new StudentScore { Id = student.Id, Name = student.Name, Score = score };
     }
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
@@ -156,4 +156,9 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	{
 		return await repo.GetCourse(id);
 	}
+
+	public async Task<List<Student>> GetCourseStudents(int id)
+	{
+        return await repo.GetCourseStudents(id);
+    }
 }

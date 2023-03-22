@@ -4,6 +4,7 @@ using PianoLessons.Services;
 using PianoLessons.Shared.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,12 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string newName;
 
+	[ObservableProperty]
+	private string email;
+
+	[ObservableProperty]
+	private ObservableCollection<Student> students;
+
 	[ObservableProperty, NotifyPropertyChangedFor(nameof(NotEditing))]
 	private bool isEditing;
 
@@ -37,7 +44,13 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		Students = new();
         CurrentCourse = await service.GetCourse(Id);
+		var s = await service.GetCourseStudents(Id);
+		foreach (var student in s)
+		{
+			Students.Add(student);
+		}
 		NewName = CurrentCourse.Name;
 	}
 
@@ -51,7 +64,13 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	public async Task EditName()
 	{
 		await service.UpdateCourse(Id, NewName);
-		LoadedCommand.Execute(this);
-		IsEditing = false;
+        CurrentCourse = await service.GetCourse(Id);
+        IsEditing = false;
+	}
+
+	[RelayCommand]
+	public async Task Invite()
+	{
+
 	}
 }

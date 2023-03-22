@@ -35,5 +35,54 @@
                 Text="Submit"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Margin="0,5"
+            Spacing="5">
+            <Label
+                Text="Invite Student:"
+                VerticalOptions="Center" />
+            <Entry
+                Text="{Binding Email}"
+                Placeholder="email"
+                VerticalOptions="Center"
+                WidthRequest="200" />
+            <Button
+                Text="Invite!"
+                Command="{Binding InviteCommand}"
+                BackgroundColor="LimeGreen"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <CollectionView
+            HorizontalOptions="Center"
+            ItemsSource="{Binding Students}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Padding="5,0,0,0"
+                        Margin="0,3"
+                        StrokeShape="RoundRectangle 5,5,5,5">
+                        <Grid
+                            ColumnDefinitions="*,2*,Auto">
+                            <Label
+                                Text="{Binding Name}"
+                                LineBreakMode="TailTruncation"
+                                VerticalOptions="Center" />
+                            <Label
+                                Text="asdfoasdnfasodifnasodinasodfnasodfnasjdfn"
+                                LineBreakMode="TailTruncation"
+                                Grid.Column="1"
+                                VerticalOptions="Center" />
+                            <Button
+                                Text="X"
+                                Grid.Column="2"
+                                BackgroundColor="Red"
+                                VerticalOptions="Center"
+                                Command="{Binding RemoveStudentCommand}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

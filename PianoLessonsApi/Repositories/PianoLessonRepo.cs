@@ -189,7 +189,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	{
 		var students = await context.Students
 			.Include(s => s.StudentCourses)
-			.Where(s => s.StudentCourses.Count(c => c.CourseId == courseId) != 0)
+			.Where(s => s.StudentCourses.Any(c => c.CourseId == courseId))
 			.ToListAsync();
 
 		return students;
