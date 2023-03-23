@@ -92,15 +92,20 @@ public class PianoLessonsApplication : IPianoLessonsApplication
     {
 		var practiceLogs = await repo.GetStudentsPracticeLogsForCourseAndDate(student.Id, courseId, startDate);
 
-		var score = 0;
-
-		foreach(var log in practiceLogs)
-		{
-			score += (int)log.Duration.TotalMinutes * 10;
-		}
+		int score = CalculateScore(practiceLogs);
 
 		return new StudentScore { Id = student.Id, Name = student.Name, Score = score };
     }
+
+	public int CalculateScore(List<PracticeLog> logs)
+	{
+		int score = 0;
+		foreach (var log in logs)
+		{
+			score += (int)log.Duration.TotalMinutes * 10;
+		}
+		return score;
+	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
 	{
@@ -161,4 +166,6 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	{
         return await repo.GetCourseStudents(id);
     }
+
+	
 }

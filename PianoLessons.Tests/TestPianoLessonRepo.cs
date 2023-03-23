@@ -94,4 +94,49 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
     {
         throw new NotImplementedException();
     }
+
+	public Task<List<Student>> GetCourseStudents(int courseId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<bool> IsTeacher(int teacherId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task AddCourse(Course course)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task DeleteCourse(int courseId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task UpdateCourseName(int id, string newName)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<List<Course>> GetStudentCourses(int studentId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<Course> GetCourse(int id)
+	{
+		throw new NotImplementedException();
+	}
 }

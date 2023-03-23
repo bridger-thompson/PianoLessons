@@ -97,5 +97,68 @@ namespace PianoLessons.Tests
             var logFromRepo = await app.GetLog(updatedLog.Id);
             logFromRepo.Duration.Should().Be(updatedLog.Duration);
         }
-    }
+
+        [Test]
+        public async Task CalculateScoreOfZero()
+        {
+            List<PracticeLog> logs = new()
+            {
+            };
+            app.CalculateScore(logs).Should().Be(0);
+        }
+
+        [Test]
+        public async Task CalculateScoreForOneLog()
+        {
+            List<PracticeLog> logs = new()
+            {
+                new()
+                {
+                    Id = 1,
+                    StartTime = DateTime.Today,
+                    EndTime = DateTime.Today.AddMinutes(1),
+                    StudentId = 1,
+                    AssignmentId = 2
+                }
+			};
+            app.CalculateScore(logs).Should().Be(10);
+            logs[0].EndTime = DateTime.Today.AddMinutes(10);
+			app.CalculateScore(logs).Should().Be(100);
+		}
+
+        [Test]
+        public async Task CalculateScoreForManyLogs()
+        {
+			List<PracticeLog> logs = new()
+			{
+				new()
+				{
+					Id = 1,
+					StartTime = DateTime.Today,
+					EndTime = DateTime.Today.AddMinutes(1),
+					StudentId = 1,
+					AssignmentId = 2
+				},
+				new()
+				{
+					Id = 1,
+					StartTime = DateTime.Today,
+					EndTime = DateTime.Today.AddMinutes(5),
+					StudentId = 1,
+					AssignmentId = 2
+				}
+			};
+			app.CalculateScore(logs).Should().Be(60);
+            logs.Add(new()
+            {
+                Id = 1,
+                StartTime = DateTime.Today,
+                EndTime = DateTime.Today.AddMinutes(5),
+                StudentId = 1,
+                AssignmentId = 2
+            });
+            app.CalculateScore(logs).Should().Be(110);
+		}
+
+	}
 }
