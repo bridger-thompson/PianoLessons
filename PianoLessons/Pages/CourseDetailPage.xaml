@@ -35,24 +35,11 @@
                 Text="Submit"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Margin="0,5"
-            Spacing="5">
-            <Label
-                Text="Invite Student:"
-                VerticalOptions="Center" />
-            <Entry
-                Text="{Binding Email}"
-                Placeholder="email"
-                VerticalOptions="Center"
-                WidthRequest="200" />
-            <Button
-                Text="Invite!"
-                Command="{Binding InviteCommand}"
-                BackgroundColor="LimeGreen"
-                VerticalOptions="Center" />
-        </HorizontalStackLayout>
+        <Button
+            Text="Generate Invite Code"
+            Command="{Binding InviteCommand}"
+            BackgroundColor="LimeGreen"
+            HorizontalOptions="Center" />
         <CollectionView
             HorizontalOptions="Center"
             ItemsSource="{Binding Students}">
@@ -60,18 +47,14 @@
                 <DataTemplate>
                     <Border
                         Padding="5,0,0,0"
+                        WidthRequest="250"
                         Margin="0,3"
                         StrokeShape="RoundRectangle 5,5,5,5">
                         <Grid
-                            ColumnDefinitions="*,2*,Auto">
+                            ColumnDefinitions="*,Auto">
                             <Label
                                 Text="{Binding Name}"
                                 LineBreakMode="TailTruncation"
-                                VerticalOptions="Center" />
-                            <Label
-                                Text="asdfoasdnfasodifnasodinasodfnasodfnasjdfn"
-                                LineBreakMode="TailTruncation"
-                                Grid.Column="1"
                                 VerticalOptions="Center" />
                             <Button
                                 Text="X"

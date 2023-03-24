@@ -29,6 +29,14 @@ create table course (
 	teacher_id	int references teacher(id) not null
 );
 
+create table course_invite (
+	id			serial primary key,
+	course_id	int not null references course(id) ON DELETE CASCADE,
+	code		varchar(4) not null,
+	expire_date	timestamp not null,
+	used		boolean default false
+);
+
 create table practice_assignment (
 	id 			serial primary key,
 	name 		text not null,

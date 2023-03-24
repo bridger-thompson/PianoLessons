@@ -55,7 +55,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public async Task StartEdit()
+	public void StartEdit()
 	{
 		IsEditing = true;
 	}

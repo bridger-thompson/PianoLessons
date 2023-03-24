@@ -20,6 +20,8 @@ public partial class PianoLessonDbContext : DbContext
 
     public virtual DbSet<Course> Courses { get; set; }
 
+    public virtual DbSet<CourseInvite> CourseInvites { get; set; }
+
     public virtual DbSet<PaymentHistory> PaymentHistories { get; set; }
 
     public virtual DbSet<PracticeAssignment> PracticeAssignments { get; set; }
@@ -84,6 +86,29 @@ public partial class PianoLessonDbContext : DbContext
                 .HasConstraintName("course_teacher_id_fkey");
         });
 
+        modelBuilder.Entity<CourseInvite>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("course_invite_pkey");
+
+            entity.ToTable("course_invite", "piano_lessons");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(4)
+                .HasColumnName("code");
+            entity.Property(e => e.CourseId).HasColumnName("course_id");
+            entity.Property(e => e.ExpireDate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("expire_date");
+            entity.Property(e => e.Used)
+                .HasDefaultValueSql("false")
+                .HasColumnName("used");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.CourseInvites)
+                .HasForeignKey(d => d.CourseId)
+                .HasConstraintName("course_invite_course_id_fkey");
+        });
+
         modelBuilder.Entity<PaymentHistory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("payment_history_pkey");
@@ -124,7 +149,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.PracticeAssignments)
                 .HasForeignKey(d => d.CourseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("practice_assignment_course_id_fkey");
         });
 
@@ -147,7 +171,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.PracticeLogs)
                 .HasForeignKey(d => d.AssignmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("practice_log_assignment_id_fkey");
 
             entity.HasOne(d => d.Student).WithMany(p => p.PracticeLogs)
@@ -178,7 +201,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.StudentAssignments)
                 .HasForeignKey(d => d.AssignmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("student_assignment_assignment_id_fkey");
 
             entity.HasOne(d => d.Student).WithMany(p => p.StudentAssignments)
@@ -199,7 +221,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.StudentCourses)
                 .HasForeignKey(d => d.CourseId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("student_course_course_id_fkey");
 
             entity.HasOne(d => d.Student).WithMany(p => p.StudentCourses)

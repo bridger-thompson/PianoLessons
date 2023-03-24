@@ -22,4 +22,5 @@ public partial class Course
     public virtual ICollection<StudentCourse>? StudentCourses { get; } = null!;
 
     public virtual Teacher? Teacher { get; set; } = null!;
+    public virtual ICollection<CourseInvite>? CourseInvites { get; } = null!;
 }
