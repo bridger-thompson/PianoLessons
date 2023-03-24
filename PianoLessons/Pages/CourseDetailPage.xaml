@@ -37,6 +37,7 @@
         </HorizontalStackLayout>
         <Button
             Text="Generate Invite Code"
+            Margin="0,5"
             Command="{Binding InviteCommand}"
             BackgroundColor="LimeGreen"
             HorizontalOptions="Center" />

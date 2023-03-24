@@ -138,5 +138,11 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetCourseStudents(id);
 		}
 
+		[HttpGet("invite/generate/{courseId}")]
+		public async Task<string> GenerateCourseInvite(int courseId)
+		{
+			return await app.GenerateCourseInvite(courseId);
+		}
+
     }
 }

@@ -194,4 +194,10 @@ public class PianoLessonRepo : IPianoLessonsRepo
 
 		return students;
 	}
+
+	public async Task GenerateCourseInvite(CourseInvite invite)
+	{
+		await context.CourseInvites.AddAsync(invite);
+		await context.SaveChangesAsync();
+	}
 }

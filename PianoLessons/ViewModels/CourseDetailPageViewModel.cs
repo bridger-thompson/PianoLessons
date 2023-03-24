@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Services;
 using PianoLessons.Shared.Data;
@@ -71,6 +72,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Invite()
 	{
-
-	}
+		var code = await service.GenerateCourseInvite(Id);
+		await Application.Current.MainPage.DisplayAlert("Generated Code!", $"Code: {code}", "OK");
+    }
 }

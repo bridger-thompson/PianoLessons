@@ -115,5 +115,10 @@ public class PianoLessonsService
 	{
 		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/course/{id}/students");
 	}
+
+	public async Task<string> GenerateCourseInvite(int courseId)
+	{
+		return await client.GetStringAsync($"api/PianoLessons/invite/generate/{courseId}");
+	}
 }
 

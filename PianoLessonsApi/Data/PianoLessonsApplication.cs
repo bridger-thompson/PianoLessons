@@ -167,5 +167,32 @@ public class PianoLessonsApplication : IPianoLessonsApplication
         return await repo.GetCourseStudents(id);
     }
 
-	
+	public async Task<string> GenerateCourseInvite(int courseId)
+    {
+        var code = GenerateRandomCode();
+        CourseInvite invite = new()
+        {
+            Id = 0,
+            CourseId = courseId,
+			Code = code,
+			ExpireDate = DateTime.Now.AddDays(1)
+        };
+		await repo.GenerateCourseInvite(invite);
+		return code;
+    }
+
+    private static string GenerateRandomCode()
+    {
+        Random rand = new();
+        string str = "";
+        char letter;
+        for (int i = 0; i < 4; i++)
+        {
+            int randValue = rand.Next(0, 26);
+            letter = Convert.ToChar(randValue + 65);
+            str += letter;
+        }
+		return str;
+    }
+
 }
