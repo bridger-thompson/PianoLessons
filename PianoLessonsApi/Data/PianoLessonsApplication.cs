@@ -195,4 +195,9 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return str;
     }
 
+    public async Task RemoveStudent(int courseId, int studentId)
+	{
+		await repo.RemoveStudent(courseId, studentId);
+	}
+
 }

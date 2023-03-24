@@ -37,4 +37,5 @@ public interface IPianoLessonsApplication
     Task<List<Student>> GetCourseStudents(int id);
 	int CalculateScore(List<PracticeLog> logs);
     Task<string> GenerateCourseInvite(int courseId);
+    Task RemoveStudent(int courseId, int studentId);
 }

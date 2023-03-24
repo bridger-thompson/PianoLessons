@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:PianoLessons.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PianoLessons.Pages.CourseDetailPage"
     Title="{Binding CurrentCourse.Name}">
@@ -21,6 +22,7 @@
                 Text="{Binding CurrentCourse.Name}" />
             <Button
                 Text="Edit"
+                IsVisible="{Binding IsTeacher}"
                 BackgroundColor="DarkGray"
                 Command="{Binding StartEditCommand}" />
         </HorizontalStackLayout>
@@ -36,11 +38,30 @@
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
         <Button
+            IsVisible="{Binding IsTeacher}"
             Text="Generate Invite Code"
             Margin="0,5"
             Command="{Binding InviteCommand}"
             BackgroundColor="LimeGreen"
             HorizontalOptions="Center" />
+        <HorizontalStackLayout
+            IsVisible="{Binding NotTeacher}"
+            Spacing="5"
+            Margin="0,5"
+            HorizontalOptions="Center">
+            <Label
+                Text="New Course Code:"
+                VerticalOptions="Center" />
+            <Entry
+                WidthRequest="100"
+                VerticalOptions="Center"
+                Text="{Binding NewCode}" />
+            <Button
+                VerticalOptions="Center"
+                BackgroundColor="LimeGreen"
+                Text="Add"
+                Command="{Binding JoinCourseCommand}" />
+        </HorizontalStackLayout>
         <CollectionView
             HorizontalOptions="Center"
             ItemsSource="{Binding Students}">
@@ -50,6 +71,7 @@
                         Padding="5,0,0,0"
                         WidthRequest="250"
                         Margin="0,3"
+                        MinimumHeightRequest="50"
                         StrokeShape="RoundRectangle 5,5,5,5">
                         <Grid
                             ColumnDefinitions="*,Auto">
@@ -59,10 +81,12 @@
                                 VerticalOptions="Center" />
                             <Button
                                 Text="X"
+                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:CourseDetailPageViewModel}}, Path=IsTeacher}"
                                 Grid.Column="2"
                                 BackgroundColor="Red"
                                 VerticalOptions="Center"
-                                Command="{Binding RemoveStudentCommand}" />
+                                CommandParameter="{Binding Id}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CourseDetailPageViewModel}}, Path=RemoveStudentCommand}" />
                         </Grid>
                     </Border>
                 </DataTemplate>

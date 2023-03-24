@@ -35,4 +35,5 @@ public interface IPianoLessonsRepo
     Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate);
     Task<Course> GetCourse(int id);
     Task GenerateCourseInvite(CourseInvite invite);
+    Task RemoveStudent(int courseId, int studentId);
 }

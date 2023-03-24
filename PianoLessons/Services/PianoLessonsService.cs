@@ -120,5 +120,11 @@ public class PianoLessonsService
 	{
 		return await client.GetStringAsync($"api/PianoLessons/invite/generate/{courseId}");
 	}
+
+	public async Task RemoveStudent(int courseId, int studentId)
+	{
+		await client.DeleteAsync($"api/PianoLessons/course/{courseId}/student/{studentId}");
+	}
+
 }
 

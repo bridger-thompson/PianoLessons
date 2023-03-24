@@ -37,7 +37,16 @@ public partial class CourseDetailPageViewModel : ObservableObject
 
 	public bool NotEditing { get => !IsEditing; }
 
-	public CourseDetailPageViewModel(PianoLessonsService service)
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
+    private bool isTeacher;
+
+    public bool NotTeacher { get => !IsTeacher; }
+
+	[ObservableProperty]
+	private string newCode;
+
+
+    public CourseDetailPageViewModel(PianoLessonsService service)
 	{
 		this.service = service;
 	}
@@ -45,6 +54,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsTeacher = await service.IsTeacher(1);
 		Students = new();
         CurrentCourse = await service.GetCourse(Id);
 		var s = await service.GetCourseStudents(Id);
@@ -75,4 +85,17 @@ public partial class CourseDetailPageViewModel : ObservableObject
 		var code = await service.GenerateCourseInvite(Id);
 		await Application.Current.MainPage.DisplayAlert("Generated Code!", $"Code: {code}", "OK");
     }
+
+	[RelayCommand]
+	public async Task RemoveStudent(int studentId)
+	{
+		await service.RemoveStudent(Id, studentId);
+		LoadedCommand.Execute(this);
+	}
+
+	[RelayCommand]
+	public async Task JoinCourseCommand()
+	{
+
+	}
 }

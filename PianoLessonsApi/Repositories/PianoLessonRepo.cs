@@ -200,4 +200,16 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.CourseInvites.AddAsync(invite);
 		await context.SaveChangesAsync();
 	}
+
+	public async Task RemoveStudent(int courseId, int studentId)
+	{
+		var sc = await context.StudentCourses
+			.Where(sc => sc.CourseId == courseId && sc.StudentId == studentId)
+			.FirstOrDefaultAsync();
+		if (sc != null)
+		{
+			context.StudentCourses.Remove(sc);
+			await context.SaveChangesAsync();
+		}
+	}
 }

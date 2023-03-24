@@ -144,5 +144,11 @@ namespace PianoLessonsApi.Controllers
 			return await app.GenerateCourseInvite(courseId);
 		}
 
+		[HttpDelete("course/{courseId}/student/{studentId}")]
+        public async Task RemoveStudent(int courseId, int studentId)
+		{
+			await app.RemoveStudent(courseId, studentId);
+		}
+
     }
 }

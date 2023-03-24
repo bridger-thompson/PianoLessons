@@ -20,7 +20,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private Course selectedCourse;
 
-	public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService)
+    public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService)
 	{
 		this.service = service;
 		this.navService = navService;

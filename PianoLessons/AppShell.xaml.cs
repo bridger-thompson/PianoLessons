@@ -6,8 +6,6 @@ namespace PianoLessons;
 
 public partial class AppShell : Shell
 {
-	public bool IsTeacher;
-
 	public AppShell()
 	{
 		InitializeComponent();
@@ -15,17 +13,5 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(AddLogPage), typeof(AddLogPage));
 		Routing.RegisterRoute(nameof(AddScheduleItemPage), typeof(AddScheduleItemPage));
 		Routing.RegisterRoute(nameof(CourseDetailPage), typeof(CourseDetailPage));
-	}
-
-	public async Task Loaded()
-	{
-		var service = new PianoLessonsService(
-			new HttpClient
-			{
-				BaseAddress = new Uri("http://localhost:5050")
-			}
-		);
-		//user id
-		IsTeacher = await service.IsTeacher(10);
 	}
 }
