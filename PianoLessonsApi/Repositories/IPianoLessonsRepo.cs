@@ -36,4 +36,5 @@ public interface IPianoLessonsRepo
     Task<Course> GetCourse(int id);
     Task GenerateCourseInvite(CourseInvite invite);
     Task RemoveStudent(int courseId, int studentId);
+    Task<bool> JoinCourse(int studentId, string code);
 }

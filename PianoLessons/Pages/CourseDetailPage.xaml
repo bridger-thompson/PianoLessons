@@ -44,24 +44,6 @@
             Command="{Binding InviteCommand}"
             BackgroundColor="LimeGreen"
             HorizontalOptions="Center" />
-        <HorizontalStackLayout
-            IsVisible="{Binding NotTeacher}"
-            Spacing="5"
-            Margin="0,5"
-            HorizontalOptions="Center">
-            <Label
-                Text="New Course Code:"
-                VerticalOptions="Center" />
-            <Entry
-                WidthRequest="100"
-                VerticalOptions="Center"
-                Text="{Binding NewCode}" />
-            <Button
-                VerticalOptions="Center"
-                BackgroundColor="LimeGreen"
-                Text="Add"
-                Command="{Binding JoinCourseCommand}" />
-        </HorizontalStackLayout>
         <CollectionView
             HorizontalOptions="Center"
             ItemsSource="{Binding Students}">

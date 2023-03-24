@@ -19,6 +19,7 @@
                 Text="Manage Courses" />
             <HorizontalStackLayout
                 HorizontalOptions="Center"
+                IsVisible="{Binding IsTeacher}"
                 Margin="0,5"
                 Spacing="5">
                 <Label
@@ -31,6 +32,24 @@
                     Text="Add"
                     BackgroundColor="LimeGreen"
                     Command="{Binding AddCourseCommand}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout
+                IsVisible="{Binding NotTeacher}"
+                Spacing="5"
+                Margin="0,5"
+                HorizontalOptions="Center">
+                <Label
+                    Text="New Course Code:"
+                    VerticalOptions="Center" />
+                <Entry
+                    WidthRequest="100"
+                    VerticalOptions="Center"
+                    Text="{Binding NewCode}" />
+                <Button
+                    VerticalOptions="Center"
+                    BackgroundColor="LimeGreen"
+                    Text="Add"
+                    Command="{Binding JoinCourseCommand}" />
             </HorizontalStackLayout>
             <CollectionView
                 SelectionMode="Single"
@@ -47,7 +66,7 @@
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid
                                 RowDefinitions="125,*"
-                                ColumnDefinitions="125,*">
+                                ColumnDefinitions="*,Auto">
                                 <Image
                                     Source="music_notes.jpg"
                                     Grid.ColumnSpan="2"
@@ -59,6 +78,7 @@
                                     HorizontalOptions="Center" />
                                 <Button
                                     Text="X"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:ManageCoursesPageViewModel}}, Path=IsTeacher}"
                                     BackgroundColor="Red"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ManageCoursesPageViewModel}}, Path=RemoveCourseCommand}"
                                     CommandParameter="{Binding Id}"

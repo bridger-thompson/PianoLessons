@@ -42,9 +42,6 @@ public partial class CourseDetailPageViewModel : ObservableObject
 
     public bool NotTeacher { get => !IsTeacher; }
 
-	[ObservableProperty]
-	private string newCode;
-
 
     public CourseDetailPageViewModel(PianoLessonsService service)
 	{
@@ -91,11 +88,5 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	{
 		await service.RemoveStudent(Id, studentId);
 		LoadedCommand.Execute(this);
-	}
-
-	[RelayCommand]
-	public async Task JoinCourseCommand()
-	{
-
 	}
 }

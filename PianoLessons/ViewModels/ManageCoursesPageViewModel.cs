@@ -20,6 +20,14 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private Course selectedCourse;
 
+    [ObservableProperty]
+    private string newCode;
+
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
+    private bool isTeacher;
+
+    public bool NotTeacher { get => !IsTeacher; }
+
     public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService)
 	{
 		this.service = service;
@@ -28,8 +36,9 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 
 	[RelayCommand]
 	public async Task Loaded()
-	{
-		Courses = new();
+    {
+        IsTeacher = await service.IsTeacher(10);
+        Courses = new();
 		var c = await service.GetTeacherCourses(1);
 		foreach (var course in c)
 		{
@@ -62,4 +71,18 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	{
 		await navService.NavigateToAsync($"{nameof(CourseDetailPage)}?Id={SelectedCourse.Id}");
 	}
+
+    [RelayCommand]
+    public async Task JoinCourseCommand()
+    {
+        var success = await service.JoinCourse(1, NewCode);
+        if (!success)
+        {
+            await Application.Current.MainPage.DisplayAlert("Invalid Code", $"Code was invalid: {NewCode}", "OK");
+        }
+        else
+        {
+			LoadedCommand.Execute(this);
+        }
+    }
 }

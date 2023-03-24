@@ -150,5 +150,12 @@ namespace PianoLessonsApi.Controllers
 			await app.RemoveStudent(courseId, studentId);
 		}
 
+		[HttpGet("invite/{studentId}/{code}")]
+		public async Task<bool> JoinCourse(int studentId, string code)
+		{
+			return await app.JoinCourse(studentId, code);
+		}
+
+
     }
 }

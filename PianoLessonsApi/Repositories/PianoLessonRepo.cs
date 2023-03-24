@@ -201,6 +201,26 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.SaveChangesAsync();
 	}
 
+	public async Task<bool> JoinCourse(int studentId, string code)
+	{
+		var validInvite = await context.CourseInvites
+			.Where(i => i.Code == code && i.ExpireDate > DateTime.Now && i.Used == false)
+			.FirstOrDefaultAsync();
+		if (validInvite != null)
+		{
+			StudentCourse sc = new()
+			{
+				Id = 0,
+				StudentId = studentId,
+				CourseId = validInvite.CourseId,
+			};
+			await context.AddAsync(sc);
+			await context.SaveChangesAsync();
+			return true;
+		}
+		return false;
+	}
+
 	public async Task RemoveStudent(int courseId, int studentId)
 	{
 		var sc = await context.StudentCourses

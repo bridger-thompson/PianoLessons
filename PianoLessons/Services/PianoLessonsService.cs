@@ -126,5 +126,10 @@ public class PianoLessonsService
 		await client.DeleteAsync($"api/PianoLessons/course/{courseId}/student/{studentId}");
 	}
 
+    public async Task<bool> JoinCourse(int studentId, string code)
+	{
+		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/invite/{studentId}/{code}");
+	}
+
 }
 
