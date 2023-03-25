@@ -35,7 +35,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	{
 		this.service = service;
 		this.navService = navService;
-		NewCode = "";
+		NewCode = string.Empty;
 	}
 
 	[RelayCommand]
@@ -56,8 +56,8 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		{
 			Courses.Add(course);
 		}
-		NewCourseName = "";
-		NewCode = "";
+		NewCourseName = string.Empty;
+		NewCode = string.Empty;
 		NoCourses = Courses.Count == 0;
 	}
 

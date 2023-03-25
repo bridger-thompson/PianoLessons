@@ -44,8 +44,8 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	{
 		this.navService = navService;
 		this.service = service;
-		Title = "";
-		SelectedStudentName = "";
+		Title = string.Empty;
+		SelectedStudentName = string.Empty;
 	}
 
 	[RelayCommand]
@@ -61,13 +61,13 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 		}
 
 		if (StudentNames.Count > 0) { SelectedStudentName = StudentNames[0]; }
-		else { SelectedStudentName = ""; }
+		else { SelectedStudentName = string.Empty; }
 
 		Start = DateTime.Today;
 		StartTime = Start.AddHours(9).TimeOfDay;
 		End = DateTime.Today;
 		EndTime = End.AddHours(10).TimeOfDay;
-		Title = "";
+		Title = string.Empty;
 	}
 
 	[RelayCommand(CanExecute = nameof(CanAddItem))]
@@ -96,6 +96,6 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 
 	private bool CanAddItem()
 	{
-		return Title != "" && SelectedStudentName != "";
+		return !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(SelectedStudentName);
 	}
 }

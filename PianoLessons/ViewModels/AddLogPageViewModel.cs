@@ -93,7 +93,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			LogDate = DateTime.Today;
 			StartTime = DateTime.Now.TimeOfDay;
 			EndTime = DateTime.Now.AddHours(1).TimeOfDay;
-            Notes = "";
+            Notes = string.Empty;
         }
 		var studentAssignments = await service.GetStudentAssignments(1);
 		foreach (var assignment in studentAssignments)
