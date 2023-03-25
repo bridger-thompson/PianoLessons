@@ -215,6 +215,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 				CourseId = validInvite.CourseId,
 			};
 			await context.AddAsync(sc);
+			validInvite.Used = true;
 			await context.SaveChangesAsync();
 			return true;
 		}

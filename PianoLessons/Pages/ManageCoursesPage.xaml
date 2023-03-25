@@ -5,7 +5,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PianoLessons.Pages.ManageCoursesPage"
-    Title="Manage Courses">
+    Title="Courses">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
@@ -51,6 +51,14 @@
                     Text="Add"
                     Command="{Binding JoinCourseCommand}" />
             </HorizontalStackLayout>
+            <Label
+                Text="You are not currently enrolled in any courses."
+                IsVisible="{Binding NoCourses}"
+                HorizontalOptions="Center" />
+            <Label
+                Text="Please have your teacher generate a code and enter it above."
+                IsVisible="{Binding NoCourses}"
+                HorizontalOptions="Center" />
             <CollectionView
                 SelectionMode="Single"
                 SelectedItem="{Binding SelectedCourse}"
