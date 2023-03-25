@@ -17,7 +17,7 @@ public partial class Appointment
 
     public int StudentId { get; set; }
 
-    public virtual Student Student { get; set; } = null!;
+    public virtual Student? Student { get; set; } = null!;
 
-    public virtual Teacher Teacher { get; set; } = null!;
+    public virtual Teacher? Teacher { get; set; } = null!;
 }

@@ -17,6 +17,12 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return await context.Appointments.Where(a => a.TeacherId == teacherid).ToListAsync();
 	}
 
+	public async Task AddAppointment(Appointment appointment)
+	{
+		await context.AddAsync(appointment);
+		await context.SaveChangesAsync();
+	}
+
 	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
 	{
 		return await context.Appointments.Where(a => a.StudentId == studentId).ToListAsync();

@@ -23,6 +23,13 @@ public class PianoLessonsService
 		return appointments;
 	}
 
+	public async Task<bool> AddAppointment(Appointment appointment)
+	{
+		var result = await client.PostAsJsonAsync($"api/PianoLessons/appointments", appointment);
+		if (result.IsSuccessStatusCode) return true;
+		return false;
+	}
+
 	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
 	{
 		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/student/{studentId}");

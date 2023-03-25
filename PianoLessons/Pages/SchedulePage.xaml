@@ -17,9 +17,9 @@
             Spacing="5"
             VerticalOptions="FillAndExpand"
             Padding="30,0">
-
             <Button
                 HorizontalOptions="End"
+                IsVisible="{Binding IsTeacher}"
                 VerticalOptions="Start"
                 Text="Add New Item"
                 BackgroundColor="ForestGreen"

@@ -16,6 +16,7 @@ public partial class SchedulePageViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<SchedulerAppointment> events;
 
+	[ObservableProperty]
 	private bool isTeacher;
 
 	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service)
@@ -33,10 +34,10 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		isTeacher = await service.IsTeacher(1);
+		IsTeacher = await service.IsTeacher(1);
 		Events = new();
 		List<Appointment> appointments = new();
-		if (isTeacher)
+		if (IsTeacher)
 		{
 			//user id (teacher)
 			appointments = await service.GetAppointmentsForTeacher(1);

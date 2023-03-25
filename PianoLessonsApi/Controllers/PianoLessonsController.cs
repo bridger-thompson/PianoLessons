@@ -23,6 +23,12 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetAppointmentsForTeacher(teacherId);
 		}
 
+		[HttpPost("appointments")]
+		public async Task AddAppointment(Appointment appointment)
+		{
+			await app.AddAppointment(appointment);
+		}
+
 		[HttpGet("appointments/student/{studentId}")]
 		public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
 		{

@@ -34,6 +34,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetAppointmentsForTeacher(teacherId);
 	}
 
+	public async Task AddAppointment(Appointment appointment)
+	{
+		await repo.AddAppointment(appointment);
+	}
+
 	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
 	{
 		return await repo.GetAppointmentsForStudent(studentId);
