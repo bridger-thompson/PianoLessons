@@ -20,7 +20,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private Course selectedCourse;
 
-    [ObservableProperty]
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(JoinCourseCommand))]
     private string newCode;
 
     [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
@@ -35,6 +35,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	{
 		this.service = service;
 		this.navService = navService;
+		NewCode = "";
 	}
 
 	[RelayCommand]
@@ -85,7 +86,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		await navService.NavigateToAsync($"{nameof(CourseDetailPage)}?Id={SelectedCourse.Id}");
 	}
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanJoin))]
     public async Task JoinCourse()
     {
         var success = await service.JoinCourse(1, NewCode.ToUpper());
@@ -98,4 +99,9 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 			LoadedCommand.Execute(this);
         }
     }
+
+	private bool CanJoin()
+	{
+		return NewCode.Length == 4;
+	}
 }
