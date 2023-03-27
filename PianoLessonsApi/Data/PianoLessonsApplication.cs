@@ -210,4 +210,9 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.RemoveStudent(courseId, studentId);
 	}
 
+    public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId)
+	{
+		return await repo.GetStudentCourseRecordings(courseId, studentId);
+	}
+
 }

@@ -162,6 +162,12 @@ namespace PianoLessonsApi.Controllers
 			return await app.JoinCourse(studentId, code);
 		}
 
+		[HttpGet("recording/student/{studentId}/course/{courseId}")]
+        public async Task<List<Recording>> GetStudentCourseRecordings(int studentId, int courseId)
+		{
+			return await app.GetStudentCourseRecordings(courseId, studentId);
+		}
+
 
     }
 }

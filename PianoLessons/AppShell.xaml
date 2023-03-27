@@ -15,9 +15,9 @@
                 Route="SchedulePage" />
         </Tab>
         <Tab
-            Title="Practice Log">
+            Title="Practice Logs">
             <ShellContent
-                Title="Practice Log"
+                Title="Practice Logs"
                 ContentTemplate="{DataTemplate pages:PracticeLogPage}" 
                 Route="PracticeLogPage" />
         </Tab>
@@ -34,6 +34,13 @@
                 Title="Courses"
                 ContentTemplate="{DataTemplate pages:ManageCoursesPage}"
                 Route="ManageCoursesPage" />
+        </Tab>
+        <Tab
+            Title="Recordings">
+            <ShellContent
+                Title="Recordings"
+                ContentTemplate="{DataTemplate pages:RecordingPage}"
+                Route="RecordingPage" />
         </Tab>
     </TabBar>
 

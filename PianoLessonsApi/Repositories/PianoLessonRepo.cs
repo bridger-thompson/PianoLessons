@@ -239,4 +239,13 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			await context.SaveChangesAsync();
 		}
 	}
+
+	public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId)
+	{
+		var recordings = await context.Recordings
+			.Include(r => r.Student)
+			.Where(r => r.StudentId == studentId && r.CourseId == courseId)
+			.ToListAsync();
+		return recordings;
+	}
 }

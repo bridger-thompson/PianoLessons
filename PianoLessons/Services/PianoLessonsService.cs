@@ -138,5 +138,9 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/invite/{studentId}/{code}");
 	}
 
+    public async Task<List<Recording>> GetStudentCourseRecordings(int studentId, int courseId)
+	{
+		return await client.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
+	}
 }
 

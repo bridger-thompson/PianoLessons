@@ -72,6 +72,14 @@ create table payment_history (
 	pay_date	timestamp not null default now()
 );
 
+create table recording (
+	id			serial primary key,
+	file_path	text not null,
+	created		timestamp not null default NOW(),
+	course_id 	int references course(id) ON DELETE SET null,
+	student_id 	int references student(id) not null
+);
+
 INSERT INTO piano_lessons.teacher (id, "name") VALUES(1, 'Bridger');
 INSERT INTO piano_lessons.student (id, "name") VALUES(1, 'Bob');
 INSERT INTO piano_lessons.student (id, "name") VALUES(2, 'Anthony');
@@ -80,8 +88,6 @@ INSERT INTO piano_lessons.course ("name", teacher_id) VALUES('Piano', 1);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(1, 1, 1);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(2, 1, 2);
 INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(3, 1, 3);
-INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(1, 'Bob', '2023-03-14 09:00:00.000', '2023-03-14 10:00:00.000', 1, 1);
-INSERT INTO piano_lessons.appointment (id, subject, start_at, end_at, teacher_id, student_id) VALUES(2, 'Anthony', '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 1, 2);
 INSERT INTO piano_lessons.practice_assignment (id, "name", course_id) VALUES(1, 'Scales', 1);
 INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes, assignment_id) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', NULL, 1);
 INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes, assignment_id) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 'Nailed it ;)', 1);

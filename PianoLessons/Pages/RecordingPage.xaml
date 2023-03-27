@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:vm="clr-namespace:PianoLessons.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PianoLessons.Pages.RecordingPage"
+    Title="Recordings">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="NavigatedTo"
+            Command="{Binding LoadedCommand}" />
+    </ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout
+            HorizontalOptions="Center">
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Recordings" />
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Spacing="5">
+                <Label
+                    Text="Course:"
+                    VerticalOptions="Center" />
+                <Picker
+                    ItemsSource="{Binding CourseNames}"
+                    SelectedItem="{Binding SelectedCourseName}"
+                    WidthRequest="150" />
+            </HorizontalStackLayout>
+            <CollectionView
+                ItemsSource="{Binding Recordings}"
+                HorizontalOptions="Center"
+                Margin="0,5">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            WidthRequest="400">
+                            <Grid
+                                Margin="5"
+                                RowDefinitions="*,*"
+                                ColumnDefinitions="2*,3*,*">
+                                <Label
+                                    VerticalOptions="Center"
+                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy hh:mm}'}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Student.Name}"
+                                    VerticalOptions="Center" />
+                                <Button
+                                    Grid.Column="2"
+                                    Grid.RowSpan="2"
+                                    BackgroundColor="Red"
+                                    Text="X"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Text="{Binding FilePath}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

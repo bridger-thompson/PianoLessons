@@ -36,6 +36,8 @@ public partial class PianoLessonDbContext : DbContext
 
     public virtual DbSet<Teacher> Teachers { get; set; }
 
+    public virtual DbSet<Recording> Recordings { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("host=localhost; database=piano; user id=piano; password=lessons");
@@ -84,6 +86,27 @@ public partial class PianoLessonDbContext : DbContext
                 .HasForeignKey(d => d.TeacherId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("course_teacher_id_fkey");
+        });
+
+        modelBuilder.Entity<Recording>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("recording_pkey");
+
+            entity.ToTable("recording", "piano_lessons");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.FilePath).HasColumnName("file_path");
+            entity.Property(e => e.Created).HasColumnName("created");
+            entity.Property(e => e.CourseId).HasColumnName("course_id");
+            entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Recordings)
+                .HasForeignKey(d => d.CourseId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("recording_course_id_fkey");
+            entity.HasOne(d => d.Student).WithMany(p => p.Recordings)
+                .HasForeignKey(d => d.StudentId)
+                .HasConstraintName("recording_student_id_fkey");
         });
 
         modelBuilder.Entity<CourseInvite>(entity =>

@@ -22,4 +22,5 @@ public partial class Student
     public virtual ICollection<StudentAssignment> StudentAssignments { get; } = new List<StudentAssignment>();
 
     public virtual ICollection<StudentCourse> StudentCourses { get; } = new List<StudentCourse>();
+    public virtual ICollection<Recording> Recordings { get; } = new List<Recording>();
 }
