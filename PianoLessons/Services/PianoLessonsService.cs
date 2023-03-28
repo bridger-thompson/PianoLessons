@@ -17,7 +17,7 @@ public class PianoLessonsService
 		this.client = client;
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
+	public async Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId)
 	{
 		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/teacher/{teacherId}");
 		return appointments;
@@ -30,7 +30,7 @@ public class PianoLessonsService
 		return false;
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	public async Task<List<Appointment>> GetAppointmentsForStudent(string studentId)
 	{
 		var appointments = await client.GetFromJsonAsync<List<Appointment>>($"api/PianoLessons/appointments/student/{studentId}");
 		return appointments;
@@ -46,12 +46,12 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
 	}
 
-	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
+	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
 	{
 		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/all/{teacherId}");
 	}
 
-	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+	public async Task<List<PracticeLog>> GetLogsForStudent(string studentId)
 	{
 		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{studentId}");
 	}
@@ -68,12 +68,12 @@ public class PianoLessonsService
 		await client.PutAsync($"api/PianoLessons/logs", requestContent);
 	}
 
-	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	public async Task<List<Course>> GetTeacherCourses(string teacherId)
 	{
 		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/teacher/{teacherId}");
 	}
 
-	public async Task<List<Course>> GetStudentCourses(int studentId)
+	public async Task<List<Course>> GetStudentCourses(string studentId)
 	{
 		return await client.GetFromJsonAsync<List<Course>>($"api/PianoLessons/courses/student/{studentId}");
 	}
@@ -93,7 +93,7 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<List<PracticeAssignment>>($"api/PianoLessons/assignments/{studentId}");
 	}
 
-	public async Task<bool> IsTeacher(int teacherId)
+	public async Task<bool> IsTeacher(string teacherId)
 	{
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isTeacher/{teacherId}");
 	}
@@ -118,9 +118,9 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<Course>($"api/PianoLessons/course/{id}");
 	}
 
-	public async Task<List<Student>> GetCourseStudents(int id)
+	public async Task<List<Student>> GetCourseStudents(int courseId)
 	{
-		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/course/{id}/students");
+		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/course/{courseId}/students");
 	}
 
 	public async Task<string> GenerateCourseInvite(int courseId)
@@ -128,17 +128,17 @@ public class PianoLessonsService
 		return await client.GetStringAsync($"api/PianoLessons/invite/generate/{courseId}");
 	}
 
-	public async Task RemoveStudent(int courseId, int studentId)
+	public async Task RemoveStudent(int courseId, string studentId)
 	{
 		await client.DeleteAsync($"api/PianoLessons/course/{courseId}/student/{studentId}");
 	}
 
-    public async Task<bool> JoinCourse(int studentId, string code)
+    public async Task<bool> JoinCourse(string studentId, string code)
 	{
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/invite/{studentId}/{code}");
 	}
 
-    public async Task<List<Recording>> GetStudentCourseRecordings(int studentId, int courseId)
+    public async Task<List<Recording>> GetStudentCourseRecordings(string studentId, int courseId)
 	{
 		return await client.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
 	}

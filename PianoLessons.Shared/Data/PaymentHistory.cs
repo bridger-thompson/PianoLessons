@@ -7,9 +7,9 @@ public partial class PaymentHistory
 {
     public int Id { get; set; }
 
-    public int TeacherId { get; set; }
+    public string TeacherId { get; set; }
 
-    public int StudentId { get; set; }
+    public string StudentId { get; set; }
 
     public decimal Amount { get; set; }
 

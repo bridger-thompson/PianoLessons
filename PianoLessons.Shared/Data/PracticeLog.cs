@@ -4,7 +4,7 @@ public partial class PracticeLog
 {
     public int Id { get; set; }
 
-    public int StudentId { get; set; }
+    public string StudentId { get; set; }
 
     public DateTime StartTime { get; set; }
 

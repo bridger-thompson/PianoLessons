@@ -80,7 +80,7 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 			Subject = Title,
 			StartAt = new DateTime(Start.Year, Start.Month, Start.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds),
 			EndAt = new DateTime(End.Year, End.Month, End.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
-			TeacherId = 1,
+			TeacherId = "1",
 			StudentId = selectedStudent.Id,
 		};
 		var success = await service.AddAppointment(appointment);

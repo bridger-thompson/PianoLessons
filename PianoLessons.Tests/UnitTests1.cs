@@ -28,7 +28,7 @@ namespace PianoLessons.Tests
             {
                 StartTime = today,
                 EndTime = today.AddMinutes(5),   
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             });
             repo.Logs.Count.Should().Be(1);
@@ -43,7 +43,7 @@ namespace PianoLessons.Tests
                 Id = 1,
                 StartTime = today,
                 EndTime = today.AddMinutes(5),
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             };
             await app.AddLog(log);
@@ -60,7 +60,7 @@ namespace PianoLessons.Tests
                 Id = 1,
                 StartTime = today,
                 EndTime = today.AddMinutes(5),
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             };
             await app.AddLog(log);
@@ -78,7 +78,7 @@ namespace PianoLessons.Tests
                 Id = 1,
                 StartTime = today,
                 EndTime = today.AddMinutes(5),
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             };
             await app.AddLog(log);
@@ -88,7 +88,7 @@ namespace PianoLessons.Tests
                 Id = 1,
                 StartTime = today,
                 EndTime = today.AddMinutes(50),
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             };
 
@@ -117,7 +117,7 @@ namespace PianoLessons.Tests
                     Id = 1,
                     StartTime = DateTime.Today,
                     EndTime = DateTime.Today.AddMinutes(1),
-                    StudentId = 1,
+                    StudentId = "1",
                     AssignmentId = 2
                 }
 			};
@@ -136,7 +136,7 @@ namespace PianoLessons.Tests
 					Id = 1,
 					StartTime = DateTime.Today,
 					EndTime = DateTime.Today.AddMinutes(1),
-					StudentId = 1,
+					StudentId = "1",
 					AssignmentId = 2
 				},
 				new()
@@ -144,7 +144,7 @@ namespace PianoLessons.Tests
 					Id = 1,
 					StartTime = DateTime.Today,
 					EndTime = DateTime.Today.AddMinutes(5),
-					StudentId = 1,
+					StudentId = "1",
 					AssignmentId = 2
 				}
 			};
@@ -154,7 +154,7 @@ namespace PianoLessons.Tests
                 Id = 1,
                 StartTime = DateTime.Today,
                 EndTime = DateTime.Today.AddMinutes(5),
-                StudentId = 1,
+                StudentId = "1",
                 AssignmentId = 2
             });
             app.CalculateScore(logs).Should().Be(110);

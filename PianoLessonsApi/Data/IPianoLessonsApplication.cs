@@ -4,15 +4,15 @@ namespace PianoLessonsApi.Data;
 
 public interface IPianoLessonsApplication
 {
-	public Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId);
+	public Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId);
 
-	public Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time);
+	public Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time);
 
-	public Task<List<Student>> GetStudentsForTeacher(int teacherId);
+	public Task<List<Student>> GetStudentsForTeacher(string teacherId);
 
-	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId);
+	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId);
 
-	public Task<List<PracticeLog>> GetLogsForStudent(int studentId);
+	public Task<List<PracticeLog>> GetLogsForStudent(string studentId);
 
 	public Task AddLog(PracticeLog log);
 
@@ -24,21 +24,21 @@ public interface IPianoLessonsApplication
 
 	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time);
 
-	public Task<List<Course>> GetTeacherCourses(int teacherId);
+	public Task<List<Course>> GetTeacherCourses(string teacherId);
 
-    public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId);
+    public Task<List<PracticeAssignment>> GetStudentAssignments(string studentId);
     Task<Course> GetCourse(int id);
-    Task<List<Appointment>> GetAppointmentsForStudent(int studentId);
+    Task<List<Appointment>> GetAppointmentsForStudent(string studentId);
     Task UpdateCourseName(int id, string newName);
     Task DeleteCourse(int courseId);
     Task AddCourse(Course course);
-    Task<bool> IsTeacher(int teacherId);
-    Task<List<Course>> GetStudentCourses(int studentId);
+    Task<bool> IsTeacher(string teacherId);
+    Task<List<Course>> GetStudentCourses(string studentId);
     Task<List<Student>> GetCourseStudents(int id);
 	int CalculateScore(List<PracticeLog> logs);
     Task<string> GenerateCourseInvite(int courseId);
-    Task RemoveStudent(int courseId, int studentId);
-    Task<bool> JoinCourse(int studentId, string code);
-    Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId);
+    Task RemoveStudent(int courseId, string studentId);
+    Task<bool> JoinCourse(string studentId, string code);
+    Task<List<Recording>> GetStudentCourseRecordings(int courseId, string studentId);
     Task AddAppointment(Appointment appointment);
 }

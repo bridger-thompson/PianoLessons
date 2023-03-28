@@ -34,18 +34,18 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		IsTeacher = await service.IsTeacher(1);
+		IsTeacher = await service.IsTeacher("1");
 		Events = new();
 		List<Appointment> appointments = new();
 		if (IsTeacher)
 		{
 			//user id (teacher)
-			appointments = await service.GetAppointmentsForTeacher(1);
+			appointments = await service.GetAppointmentsForTeacher("1");
 		}
 		else
 		{
 			//user id (student)
-			appointments = await service.GetAppointmentsForStudent(1);
+			appointments = await service.GetAppointmentsForStudent("1");
 		}
 		foreach (var appointment in appointments)
 		{

@@ -51,7 +51,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		IsTeacher = await service.IsTeacher(1);
+		IsTeacher = await service.IsTeacher("1");
 		Students = new();
         CurrentCourse = await service.GetCourse(Id);
 		var s = await service.GetCourseStudents(Id);
@@ -84,7 +84,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
     }
 
 	[RelayCommand]
-	public async Task RemoveStudent(int studentId)
+	public async Task RemoveStudent(string studentId)
 	{
 		await service.RemoveStudent(Id, studentId);
 		LoadedCommand.Execute(this);

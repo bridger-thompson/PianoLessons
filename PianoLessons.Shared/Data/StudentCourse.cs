@@ -9,7 +9,7 @@ public partial class StudentCourse
 
     public int CourseId { get; set; }
 
-    public int StudentId { get; set; }
+    public string StudentId { get; set; }
 
     public virtual Course Course { get; set; } = null!;
 

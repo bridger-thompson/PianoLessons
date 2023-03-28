@@ -43,18 +43,18 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task GetCourses()
 	{
-		IsTeacher = await service.IsTeacher(10);
+		IsTeacher = await service.IsTeacher("10");
 		courses = new();
 		CourseNames = new();
 
 		List<Course> c = new();
 		if (IsTeacher)
 		{
-			c = await service.GetTeacherCourses(1);
+			c = await service.GetTeacherCourses("1");
 		}
 		else
 		{
-			c = await service.GetStudentCourses(1);
+			c = await service.GetStudentCourses("1");
 		}
 		foreach (var course in c)
 		{

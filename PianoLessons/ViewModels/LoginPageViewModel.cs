@@ -8,7 +8,6 @@ namespace PianoLessons.ViewModels
 {
     public partial class LoginPageViewModel : ObservableObject
     {
-
         [ObservableProperty]
         private bool loginViewIsVisible;
 

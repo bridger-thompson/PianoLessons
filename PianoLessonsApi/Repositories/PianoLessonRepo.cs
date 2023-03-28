@@ -12,7 +12,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		this.context = context;
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherid)
+	public async Task<List<Appointment>> GetAppointmentsForTeacher(string teacherid)
 	{
 		return await context.Appointments.Where(a => a.TeacherId == teacherid).ToListAsync();
 	}
@@ -23,12 +23,12 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.SaveChangesAsync();
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	public async Task<List<Appointment>> GetAppointmentsForStudent(string studentId)
 	{
 		return await context.Appointments.Where(a => a.StudentId == studentId).ToListAsync();
 	}
 
-	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
+	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
 	{
 		return await context.PracticeLogs.Include(l => l.Student)
 			.ThenInclude(s => s.StudentCourses)
@@ -38,7 +38,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
 		return await context.Students.Include(s => s.StudentCourses)
 			.ThenInclude(sc => sc.Course)
@@ -47,7 +47,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-	public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+	public async Task<List<PracticeLog>> GetLogsForStudent(string studentId)
 	{
 		return await context.PracticeLogs
 			.Include(l => l.Student)
@@ -101,7 +101,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-	public async Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate)
+	public async Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(string studentId, int courseId, DateTime startDate)
 	{
 		var logs = await context.PracticeLogs
 			.Where(p => p.StudentId == studentId)
@@ -113,7 +113,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return logs;
 	}
 
-	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	public async Task<List<Course>> GetTeacherCourses(string teacherId)
 	{
 		return await context.Courses
 			.Include(s => s.StudentCourses)
@@ -122,7 +122,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-	public async Task<List<Course>> GetStudentCourses(int studentId)
+	public async Task<List<Course>> GetStudentCourses(string studentId)
 	{
 		return await context.Courses
 			.Include(c => c.StudentCourses)
@@ -131,7 +131,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	}
 
 
-	public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+	public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
 	{
 		return await context.PracticeAssignments
 			.Include(sa => sa.StudentAssignments)
@@ -139,7 +139,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 	}
 
-	public async Task<bool> IsTeacher(int teacherId)
+	public async Task<bool> IsTeacher(string teacherId)
 	{
 		var teacher = await context.Teachers.Where(t => t.Id == teacherId).FirstOrDefaultAsync();
 		if (teacher != null) { return true; }
@@ -207,7 +207,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.SaveChangesAsync();
 	}
 
-	public async Task<bool> JoinCourse(int studentId, string code)
+	public async Task<bool> JoinCourse(string studentId, string code)
 	{
 		var validInvite = await context.CourseInvites
 			.Where(i => i.Code == code && i.ExpireDate > DateTime.Now && i.Used == false)
@@ -228,7 +228,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return false;
 	}
 
-	public async Task RemoveStudent(int courseId, int studentId)
+	public async Task RemoveStudent(int courseId, string studentId)
 	{
 		var sc = await context.StudentCourses
 			.Where(sc => sc.CourseId == courseId && sc.StudentId == studentId)
@@ -240,7 +240,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		}
 	}
 
-	public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId)
+	public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, string studentId)
 	{
 		var recordings = await context.Recordings
 			.Include(r => r.Student)

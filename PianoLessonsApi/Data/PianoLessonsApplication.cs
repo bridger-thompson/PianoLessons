@@ -23,13 +23,13 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.DeleteLog(logId);
 	}
 
-	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
+	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
 	{
 		var logs = await repo.GetAllStudentLogsForTeacher(teacherId);
 		return logs;
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
+	public async Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId)
 	{
 		return await repo.GetAppointmentsForTeacher(teacherId);
 	}
@@ -39,7 +39,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.AddAppointment(appointment);
 	}
 
-	public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	public async Task<List<Appointment>> GetAppointmentsForStudent(string studentId)
 	{
 		return await repo.GetAppointmentsForStudent(studentId);
 	}
@@ -49,7 +49,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
         return await repo.GetLog(logId);	
     }
 
-    public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+    public async Task<List<PracticeLog>> GetLogsForStudent(string studentId)
 	{
 		return await repo.GetLogsForStudent(studentId);
 	}
@@ -112,22 +112,22 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return score;
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
 		return await repo.GetStudentsForTeacher(teacherId);
 	}
 
-	public async Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time)
+	public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
 	{
 		return await repo.GetStudentsForTeacher(teacherId);
 	}
 
-	public async Task<List<Course>> GetTeacherCourses(int teacherId)
+	public async Task<List<Course>> GetTeacherCourses(string teacherId)
 	{
 		return await repo.GetTeacherCourses(teacherId);
 	}
 
-	public async Task<List<Course>> GetStudentCourses(int studentId)
+	public async Task<List<Course>> GetStudentCourses(string studentId)
 	{
 		return await repo.GetStudentCourses(studentId);
 	}
@@ -137,12 +137,12 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.UpdateLog(newLog);
 	}
 
-    public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+    public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
 	{
 		return await repo.GetStudentAssignments(studentId);
 	}
 
-	public async Task<bool> IsTeacher(int teacherId)
+	public async Task<bool> IsTeacher(string teacherId)
 	{
 		return await repo.IsTeacher(teacherId);
 	}
@@ -200,17 +200,17 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return str;
     }
 
-    public async Task<bool> JoinCourse(int studentId, string code)
+    public async Task<bool> JoinCourse(string studentId, string code)
 	{
 		return await repo.JoinCourse(studentId, code);
 	}
 
-    public async Task RemoveStudent(int courseId, int studentId)
+    public async Task RemoveStudent(int courseId, string studentId)
 	{
 		await repo.RemoveStudent(courseId, studentId);
 	}
 
-    public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId)
+    public async Task<List<Recording>> GetStudentCourseRecordings(int courseId, string studentId)
 	{
 		return await repo.GetStudentCourseRecordings(courseId, studentId);
 	}

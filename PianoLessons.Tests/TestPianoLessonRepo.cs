@@ -28,12 +28,12 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
         Logs.Remove(log);
     }
 
-    public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
+    public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
+    public Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId)
     {
         throw new NotImplementedException();
     }
@@ -50,7 +50,7 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
         throw new Exception("Log Not Found!");
     }
 
-    public Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+    public Task<List<PracticeLog>> GetLogsForStudent(string studentId)
     {
         throw new NotImplementedException();
     }
@@ -60,17 +60,17 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
         throw new NotImplementedException();
     }
 
-    public Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+    public Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Student>> GetStudentsForTeacher(int teacherId)
+    public Task<List<Student>> GetStudentsForTeacher(string teacherId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Course>> GetTeacherCourses(int teacherId)
+    public Task<List<Course>> GetTeacherCourses(string teacherId)
     {
         throw new NotImplementedException();
     }
@@ -100,7 +100,7 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 		throw new NotImplementedException();
 	}
 
-	public Task<bool> IsTeacher(int teacherId)
+	public Task<bool> IsTeacher(string teacherId)
 	{
 		throw new NotImplementedException();
 	}
@@ -120,17 +120,17 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 		throw new NotImplementedException();
 	}
 
-	public Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+	public Task<List<Appointment>> GetAppointmentsForStudent(string studentId)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<List<Course>> GetStudentCourses(int studentId)
+	public Task<List<Course>> GetStudentCourses(string studentId)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(int studentId, int courseId, DateTime startDate)
+	public Task<List<PracticeLog>> GetStudentsPracticeLogsForCourseAndDate(string studentId, int courseId, DateTime startDate)
 	{
 		throw new NotImplementedException();
 	}
@@ -139,4 +139,29 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 	{
 		throw new NotImplementedException();
 	}
+
+    public Task GenerateCourseInvite(CourseInvite invite)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task RemoveStudent(int courseId, string studentId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> JoinCourse(string studentId, string code)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AddAppointment(Appointment appointment)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<Recording>> GetStudentCourseRecordings(int courseId, string studentId)
+    {
+        throw new NotImplementedException();
+    }
 }

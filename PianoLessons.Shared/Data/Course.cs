@@ -15,7 +15,7 @@ public partial class Course
 
     public string Name { get; set; } = null!;
 
-    public int TeacherId { get; set; }
+    public string TeacherId { get; set; }
 
     public virtual ICollection<PracticeAssignment>? PracticeAssignments { get; } = null!;
 

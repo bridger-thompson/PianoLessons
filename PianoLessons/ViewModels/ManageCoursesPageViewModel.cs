@@ -41,16 +41,16 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
     {
-        IsTeacher = await service.IsTeacher(10);
+        IsTeacher = await service.IsTeacher("1");
         Courses = new();
 		List<Course> c = new();
 		if (IsTeacher)
 		{
-			c = await service.GetTeacherCourses(1);
+			c = await service.GetTeacherCourses("1");
 		}
 		else
 		{
-			c = await service.GetStudentCourses(1);
+			c = await service.GetStudentCourses("1");
 		}
 		foreach (var course in c)
 		{
@@ -67,7 +67,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		Course newCourse = new()
 		{
 			Name = NewCourseName,
-			TeacherId = 1,
+			TeacherId = "1",
 		};
 		await service.AddCourse(newCourse);
 		LoadedCommand.Execute(this);
@@ -89,7 +89,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanJoin))]
     public async Task JoinCourse()
     {
-        var success = await service.JoinCourse(1, NewCode.ToUpper());
+        var success = await service.JoinCourse("1", NewCode.ToUpper());
         if (!success)
         {
             await Application.Current.MainPage.DisplayAlert("Invalid Code", $"Code was invalid: {NewCode}", "OK");

@@ -18,7 +18,7 @@ namespace PianoLessonsApi.Controllers
 		}
 
 		[HttpGet("appointments/teacher/{teacherId}")]
-		public async Task<List<Appointment>> GetAppointmentsForTeacher(int teacherId)
+		public async Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId)
 		{
 			return await app.GetAppointmentsForTeacher(teacherId);
 		}
@@ -30,32 +30,32 @@ namespace PianoLessonsApi.Controllers
 		}
 
 		[HttpGet("appointments/student/{studentId}")]
-		public async Task<List<Appointment>> GetAppointmentsForStudent(int studentId)
+		public async Task<List<Appointment>> GetAppointmentsForStudent(string studentId)
 		{
 			return await app.GetAppointmentsForStudent(studentId);
 		}
 
 		[HttpGet("students/{teacherId}/{time}")]
-		public async Task<List<Student>> GetStudentsScoresForTeacher(int teacherId, string time)
+		public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
 		{
 			//need logic to calculate scores based on time
 			return await app.GetStudentsScoresForTeacher(teacherId, time);
 		}
 
 		[HttpGet("students/{teacherId}")]
-		public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
+		public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 		{
 			return await app.GetStudentsForTeacher(teacherId);
 		}
 
 		[HttpGet("logs/all/{teacherId}")]
-		public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(int teacherId)
+		public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
 		{
 			return await app.GetAllStudentLogsForTeacher(teacherId);
 		}
 
 		[HttpGet("logs/{studentId}")]
-		public async Task<List<PracticeLog>> GetLogsForStudent(int studentId)
+		public async Task<List<PracticeLog>> GetLogsForStudent(string studentId)
 		{
 			return await app.GetLogsForStudent(studentId);
 		}
@@ -85,13 +85,13 @@ namespace PianoLessonsApi.Controllers
 		}
 
 		[HttpGet("courses/teacher/{teacherId}")]
-		public async Task<List<Course>> GetTeacherCourses(int teacherId)
+		public async Task<List<Course>> GetTeacherCourses(string teacherId)
 		{
 			return await app.GetTeacherCourses(teacherId);
 		}
 
 		[HttpGet("courses/student/{studentId}")]
-		public async Task<List<Course>> GetStudentCourses(int studentId)
+		public async Task<List<Course>> GetStudentCourses(string studentId)
 		{
 			return await app.GetStudentCourses(studentId);
 		}
@@ -103,13 +103,13 @@ namespace PianoLessonsApi.Controllers
 		}
 
 		[HttpGet("assignments/{studentId}")]
-        public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
+        public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
 		{
 			return await app.GetStudentAssignments(studentId);
 		}
 
 		[HttpGet("isTeacher/{teacherId}")]
-		public async Task<bool> IsTeacher(int teacherId)
+		public async Task<bool> IsTeacher(string teacherId)
 		{
 			return await app.IsTeacher(teacherId);
 		}
@@ -151,19 +151,19 @@ namespace PianoLessonsApi.Controllers
 		}
 
 		[HttpDelete("course/{courseId}/student/{studentId}")]
-        public async Task RemoveStudent(int courseId, int studentId)
+        public async Task RemoveStudent(int courseId, string studentId)
 		{
 			await app.RemoveStudent(courseId, studentId);
 		}
 
 		[HttpGet("invite/{studentId}/{code}")]
-		public async Task<bool> JoinCourse(int studentId, string code)
+		public async Task<bool> JoinCourse(string studentId, string code)
 		{
 			return await app.JoinCourse(studentId, code);
 		}
 
 		[HttpGet("recording/student/{studentId}/course/{courseId}")]
-        public async Task<List<Recording>> GetStudentCourseRecordings(int studentId, int courseId)
+        public async Task<List<Recording>> GetStudentCourseRecordings(string studentId, int courseId)
 		{
 			return await app.GetStudentCourseRecordings(courseId, studentId);
 		}

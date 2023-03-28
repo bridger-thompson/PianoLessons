@@ -59,7 +59,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			EndTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
 			Notes = Notes,
 			AssignmentId = selectedAssignment.Id,
-			StudentId = 1
+			StudentId = "1"
 		};
         if (Id != -1)
 		{

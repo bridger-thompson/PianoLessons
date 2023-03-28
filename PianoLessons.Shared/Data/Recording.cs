@@ -18,7 +18,7 @@ public partial class Recording
 
     public virtual Course? Course { get; set; } = null!;
 
-    public int StudentId { get; set; }
+    public string StudentId { get; set; }
 
     public virtual Student? Student { get; set; } = null!;
 }
