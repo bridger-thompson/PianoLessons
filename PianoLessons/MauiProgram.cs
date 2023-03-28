@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using PianoLessons.Pages;
 using PianoLessons.Services;
 using PianoLessons.ViewModels;
+using PianoLessons.Auth0;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace PianoLessons;
@@ -28,7 +29,21 @@ public static class MauiProgram
 			BaseAddress = new Uri("http://localhost:5050")
 		});
 
-		builder.UseMauiCommunityToolkit();
+        builder.Services.AddSingleton(new Auth0Client(new()
+        {
+            Domain = "dev-djtfumdg4bnzmj45.us.auth0.com",
+            ClientId = "1JnFZheOsQFlyGigeF0MWjwKCLlfRnSu",
+            Scope = "openid profile",
+#if WINDOWS
+            RedirectUri = "http://localhost/callback"
+#else
+            RedirectUri = "myapp://callback"
+#endif
+        }));
+
+		builder.Services.AddSingleton<AuthService>();
+
+        builder.UseMauiCommunityToolkit();
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -55,5 +70,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CourseDetailPageViewModel>();
 		builder.Services.AddSingleton<RecordingPage>();
 		builder.Services.AddSingleton<RecordingPageViewModel>();
+		builder.Services.AddSingleton<LoginPage>();
+		builder.Services.AddSingleton<LoginPageViewModel>();	
 	}
 }

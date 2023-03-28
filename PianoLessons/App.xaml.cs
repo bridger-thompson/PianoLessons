@@ -1,4 +1,6 @@
-﻿namespace PianoLessons;
+﻿using PianoLessons.Pages;
+
+namespace PianoLessons;
 
 public partial class App : Application
 {
