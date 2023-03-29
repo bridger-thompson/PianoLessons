@@ -11,8 +11,8 @@ public partial class PracticeLogPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
-
-	[ObservableProperty]
+    private readonly AuthService auth;
+    [ObservableProperty]
 	private ObservableCollection<PracticeLog> logs;
 
 	[ObservableProperty]
@@ -33,11 +33,12 @@ public partial class PracticeLogPageViewModel : ObservableObject
 
 	public bool NotTeacher { get => IsTeacher; }
 
-	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service)
+	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;
-	}
+        this.auth = auth;
+    }
 
 	[RelayCommand]
 	public async Task ToAddLog()
@@ -48,7 +49,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		IsTeacher = await service.IsTeacher("1");
+		IsTeacher = auth.User.IsTeacher;
 		students = new();
 		StudentNames = new()
 		{
@@ -56,7 +57,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		};
 		if (IsTeacher)
 		{
-			students = await service.GetStudentsForTeacher(1);
+			students = await service.GetStudentsForTeacher(auth.User.Id);
 		}
 		foreach (var student in students)
 		{

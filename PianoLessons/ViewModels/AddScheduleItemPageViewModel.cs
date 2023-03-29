@@ -15,8 +15,8 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
-
-	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
+    private readonly AuthService auth;
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
 	private string title;
 
 	[ObservableProperty]
@@ -40,11 +40,12 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
 	private string selectedStudentName;
 
-	public AddScheduleItemPageViewModel(INavigationService navService, PianoLessonsService service)
+	public AddScheduleItemPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;
-		Title = string.Empty;
+        this.auth = auth;
+        Title = string.Empty;
 		SelectedStudentName = string.Empty;
 	}
 
@@ -53,7 +54,7 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	{
 		Students = new();
 		StudentNames = new();
-		var s = await service.GetStudentsForTeacher(1);
+		var s = await service.GetStudentsForTeacher(auth.User.Id);
 		foreach (var student in s)
 		{
 			Students.Add(student);
@@ -80,7 +81,7 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 			Subject = Title,
 			StartAt = new DateTime(Start.Year, Start.Month, Start.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds),
 			EndAt = new DateTime(End.Year, End.Month, End.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
-			TeacherId = "1",
+			TeacherId = auth.User.Id,
 			StudentId = selectedStudent.Id,
 		};
 		var success = await service.AddAppointment(appointment);

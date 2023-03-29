@@ -9,8 +9,8 @@ namespace PianoLessons.ViewModels;
 public partial class ScoreboardPageViewModel : ObservableObject
 {
 	private readonly PianoLessonsService service;
-
-	[ObservableProperty]
+    private readonly AuthService auth;
+    [ObservableProperty]
 	private ObservableCollection<StudentScore> studentScores;
 
 	[ObservableProperty]
@@ -30,7 +30,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isTeacher;
 
-	public ScoreboardPageViewModel(PianoLessonsService service)
+	public ScoreboardPageViewModel(PianoLessonsService service, AuthService auth)
 	{
 		StudentScores = new();
 		courses = new();
@@ -38,23 +38,24 @@ public partial class ScoreboardPageViewModel : ObservableObject
 		Time = new() { "Today", "Week", "Month", "Year", "Ever" };
 		SelectedTime = Time[1];
 		this.service = service;
-	}
+        this.auth = auth;
+    }
 
 	[RelayCommand]
 	public async Task GetCourses()
 	{
-		IsTeacher = await service.IsTeacher("10");
+		IsTeacher = auth.User.IsTeacher;
 		courses = new();
 		CourseNames = new();
 
 		List<Course> c = new();
 		if (IsTeacher)
 		{
-			c = await service.GetTeacherCourses("1");
+			c = await service.GetTeacherCourses(auth.User.Id);
 		}
 		else
 		{
-			c = await service.GetStudentCourses("1");
+			c = await service.GetStudentCourses(auth.User.Id);
 		}
 		foreach (var course in c)
 		{
@@ -74,7 +75,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 
 		if (selectedCourse != null)
 		{
-			var scores = await service.GetScoresForCourseAndTime(1, SelectedTime);
+			var scores = await service.GetScoresForCourseAndTime(selectedCourse.Id, SelectedTime);
 			foreach (var score in scores)
 			{
 				StudentScores.Add(score);

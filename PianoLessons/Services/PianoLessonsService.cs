@@ -41,7 +41,7 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(int teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
 		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
 	}
