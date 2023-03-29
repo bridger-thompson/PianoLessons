@@ -139,4 +139,29 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 	{
 		throw new NotImplementedException();
 	}
+
+    public Task GenerateCourseInvite(CourseInvite invite)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task RemoveStudent(int courseId, int studentId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> JoinCourse(int studentId, string code)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AddAppointment(Appointment appointment)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<Recording>> GetStudentCourseRecordings(int courseId, int studentId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -5,6 +5,10 @@ using PianoLessons.Services;
 using PianoLessons.ViewModels;
 using PianoLessons.Auth0;
 using Syncfusion.Maui.Core.Hosting;
+using PianoLessons.Interfaces;
+#if ANDROID || IOS
+using PianoLessons.Platforms.Service;
+#endif
 
 namespace PianoLessons;
 
@@ -22,7 +26,11 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 		RegisterPagesAndViewModels(builder);
-		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
+#if ANDROID || IOS
+        builder.Services.AddTransient<IAudioPlayer, AudioPlayerService>();
+        builder.Services.AddTransient<IRecordAudio, RecordAudioService>();
+#endif
+        builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 		builder.Services.AddSingleton<PianoLessonsService>();
 		builder.Services.AddSingleton(client => new HttpClient
 		{
