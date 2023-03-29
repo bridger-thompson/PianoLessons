@@ -9,6 +9,13 @@ public partial class Teacher
     {
         Name = "";
     }
+
+    public Teacher(PianoLessonsUser user)
+    {
+        Id= user.Id;
+        Name = user.Name;   
+    }
+
     public string Id { get; set; }
 
     public string Name { get; set; } = null!;

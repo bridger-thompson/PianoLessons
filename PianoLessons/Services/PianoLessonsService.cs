@@ -98,7 +98,35 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isTeacher/{teacherId}");
 	}
 
-	public async Task AddCourse(Course course)
+    public async Task<bool> IsStudent(string studentId)
+    {
+        return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isStudent/{studentId}");
+    }
+
+    public async Task<bool> IsUser(string userId)
+    {
+        return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isUser/{userId}");
+    }
+
+	public async Task<PianoLessonsUser> GetUser(string userId)
+	{
+		try
+		{
+			return await client.GetFromJsonAsync<PianoLessonsUser>($"api/PianoLessons/user/{userId}");
+
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+    }
+
+	public async Task RegisterUser(PianoLessonsUser user)
+	{
+		await client.PostAsJsonAsync($"api/PianoLessons/user", user);
+	}
+
+    public async Task AddCourse(Course course)
 	{
 		await client.PostAsJsonAsync("api/PianoLessons/course", course);
 	}

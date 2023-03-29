@@ -142,8 +142,18 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	public async Task<bool> IsTeacher(string teacherId)
 	{
 		var teacher = await context.Teachers.Where(t => t.Id == teacherId).FirstOrDefaultAsync();
-		if (teacher != null) { return true; }
-		return false;
+		return teacher != null;
+	}
+
+	public async Task<bool> IsStudent(string studentId)
+	{
+		var student = await context.Students.Where(t => t.Id == studentId).FirstOrDefaultAsync();
+		return student != null;
+	}
+
+	public async Task<bool> IsUser(string userId)
+	{
+		return await IsStudent(userId) && await IsTeacher(userId);
 	}
 
 	public async Task AddCourse(Course course)
@@ -248,4 +258,28 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.ToListAsync();
 		return recordings;
 	}
+
+	public async Task<Student> GetStudent(string studentId)
+	{
+		return await context.Students.FirstOrDefaultAsync(s => s.Id == studentId);
+	}
+
+    public async Task<Teacher> GetTeacher(string teacherId)
+    {
+        return await context.Teachers.FirstOrDefaultAsync(t => t.Id == teacherId);
+    }
+
+    public async Task RegisterUser(PianoLessonsUser user)
+    {
+        if (user.IsTeacher)
+		{
+			await context.Teachers.AddAsync(new Teacher(user));
+		}
+		else
+		{
+			await context.Students.AddAsync(new Student(user));
+		}
+
+		await context.SaveChangesAsync();
+    }
 }

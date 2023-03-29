@@ -12,18 +12,20 @@ public partial class SchedulePageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
+    private readonly AuthService auth;
 
-	[ObservableProperty]
+    [ObservableProperty]
 	private ObservableCollection<SchedulerAppointment> events;
 
 	[ObservableProperty]
 	private bool isTeacher;
 
-	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service)
+	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;
-	}
+        this.auth = auth;
+    }
 
 	[RelayCommand]
 	public async Task ToAddScheduleItem()
@@ -34,18 +36,18 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		IsTeacher = await service.IsTeacher("1");
+		IsTeacher = auth.User.IsTeacher;
 		Events = new();
 		List<Appointment> appointments = new();
 		if (IsTeacher)
 		{
 			//user id (teacher)
-			appointments = await service.GetAppointmentsForTeacher("1");
+			appointments = await service.GetAppointmentsForTeacher(auth.User.Id);
 		}
 		else
 		{
 			//user id (student)
-			appointments = await service.GetAppointmentsForStudent("1");
+			appointments = await service.GetAppointmentsForStudent(auth.User.Id);
 		}
 		foreach (var appointment in appointments)
 		{

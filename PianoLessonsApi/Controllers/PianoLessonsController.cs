@@ -114,7 +114,31 @@ namespace PianoLessonsApi.Controllers
 			return await app.IsTeacher(teacherId);
 		}
 
-		[HttpPost("course")]
+		[HttpGet("isStudent/{studentId}")]
+		public async Task<bool> IsStudent(string studentId)
+		{
+			return await app.IsStudent(studentId);
+		}
+
+        [HttpGet("isUser/{userId}")]
+        public async Task<bool> IsUser(string userId)
+        {
+            return await app.IsStudent(userId);
+        }
+
+		[HttpGet("user/{userId}")]
+		public async Task<PianoLessonsUser> GetUser(string userId)
+		{
+			return await app.GetUser(userId);
+		}
+
+        [HttpPost("user")]
+        public async Task RegisterUser(PianoLessonsUser user)
+		{
+			await app.RegisterUser(user);
+		}
+
+        [HttpPost("course")]
 		public async Task AddCourse([FromBody] Course course)
 		{
 			await app.AddCourse(course);

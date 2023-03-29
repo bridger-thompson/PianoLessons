@@ -2,15 +2,47 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PianoLessons.Pages.LoginPage"
-             Title="LoginPage">
+             Title="LoginPage"
+             BackgroundColor="Aqua">
     <VerticalStackLayout>
-        <VerticalStackLayout x:Name="LoginView">
-            <Button x:Name="LoginBtn"
-                    Text="Log In"
+        <VerticalStackLayout IsVisible="{Binding LoginViewIsVisible}">
+            <Button Text="Log In"
                     SemanticProperties.Hint="Click to log in"
                     Command="{Binding LoginCommand}"
                     HorizontalOptions="Center" />
             <WebView x:Name="WebViewInstance" />
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding RegistrationViewIsVisible}">
+            <Label Text="Welcome To Piano Lessons!" 
+                   FontSize="Large"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+            <Label Text="Which are you?"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="Title" />
+            <HorizontalStackLayout RadioButtonGroup.GroupName="userRole"
+                                   RadioButtonGroup.SelectedValue="{Binding IsTeacher}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                <RadioButton Content="Teacher" 
+                             Value="True"/>
+                <RadioButton Content="Student" 
+                             Value="False"/>
+            </HorizontalStackLayout>
+            <Label Text="What should we call you?"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="Title"/>
+            <Entry Text="{Binding UserName}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   WidthRequest="200"/>
+            <Button Text="Submit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="10"
+                    Command="{Binding SubmitRegistrationCommand}"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

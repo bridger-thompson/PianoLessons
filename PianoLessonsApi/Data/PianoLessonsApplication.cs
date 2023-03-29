@@ -147,6 +147,16 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.IsTeacher(teacherId);
 	}
 
+	public async Task<bool> IsStudent(string studentId)
+	{
+		return await repo.IsStudent(studentId);
+	}
+
+	public async Task<bool> IsUser(string userId)
+	{
+		return await repo.IsUser(userId);	
+	}
+
 	public async Task AddCourse(Course course)
 	{
 		await repo.AddCourse(course);
@@ -215,4 +225,24 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetStudentCourseRecordings(courseId, studentId);
 	}
 
+	public async Task<PianoLessonsUser> GetUser(string userId)
+	{
+		if (await IsTeacher(userId))
+		{
+			var teacher = await repo.GetTeacher(userId);
+			return new PianoLessonsUser(teacher);
+		}
+		else if (await IsStudent(userId))
+		{
+			var student = await repo.GetStudent(userId);
+			return new PianoLessonsUser(student);
+		}
+
+		return null;
+	}
+
+	public async Task RegisterUser(PianoLessonsUser user)
+	{
+		await repo.RegisterUser(user);
+	}
 }

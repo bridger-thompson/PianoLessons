@@ -12,29 +12,48 @@ namespace PianoLessons.ViewModels
         private bool loginViewIsVisible;
 
         [ObservableProperty]
-        private bool homeViewIsVisible;
+        private bool registrationViewIsVisible;
+
+        [ObservableProperty]
+        private bool isTeacher;
+
+        [ObservableProperty]
+        private string userName;
 
         private readonly AuthService auth;
         private readonly INavigationService nav;
+        private readonly PianoLessonsService service;
 
-        public LoginPageViewModel(AuthService auth, INavigationService nav)
+        public LoginPageViewModel(AuthService auth, INavigationService nav, PianoLessonsService service)
         {
             this.auth = auth;
             this.nav = nav;
+            this.service = service;
+            LoginViewIsVisible = true;
         }
 
         [RelayCommand]
-        public async void Login()
+        public async Task Login()
         {
             var loginResult = await auth.LoginAsync();
 
-            if (!loginResult.IsError)
+            if (loginResult == LoginResult.Success)
             {
                 LoginViewIsVisible = false;
-                HomeViewIsVisible = true;
-
                 await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
             }
+            if (loginResult == LoginResult.UserNotRegistered)
+            {
+                LoginViewIsVisible = false;
+                RegistrationViewIsVisible = true;
+            }
+        }
+
+        [RelayCommand]
+        public async Task SubmitRegistration()
+        {
+            await auth.RegisterUser(IsTeacher, UserName);
+            await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
         }
     }
 }
