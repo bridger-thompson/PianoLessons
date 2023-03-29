@@ -11,7 +11,8 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 {
 	private readonly PianoLessonsService service;
 	private readonly INavigationService navService;
-	[ObservableProperty]
+    private readonly AuthService auth;
+    [ObservableProperty]
 	private ObservableCollection<Course> courses;
 
 	[ObservableProperty]
@@ -31,26 +32,27 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool noCourses;
 
-    public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService)
+    public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService, AuthService auth)
 	{
 		this.service = service;
 		this.navService = navService;
-		NewCode = string.Empty;
+        this.auth = auth;
+        NewCode = string.Empty;
 	}
 
 	[RelayCommand]
 	public async Task Loaded()
     {
-        IsTeacher = await service.IsTeacher("1");
+        IsTeacher = auth.User.IsTeacher;
         Courses = new();
 		List<Course> c = new();
 		if (IsTeacher)
 		{
-			c = await service.GetTeacherCourses("1");
+			c = await service.GetTeacherCourses(auth.User.Id);
 		}
 		else
 		{
-			c = await service.GetStudentCourses("1");
+			c = await service.GetStudentCourses(auth.User.Id);
 		}
 		foreach (var course in c)
 		{
@@ -67,7 +69,12 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		Course newCourse = new()
 		{
 			Name = NewCourseName,
-			TeacherId = "1",
+			TeacherId = auth.User.Id,
+			Teacher = new Teacher
+			{
+				Id = auth.User.Id,
+				Name = auth.User.Name
+			}
 		};
 		await service.AddCourse(newCourse);
 		LoadedCommand.Execute(this);
@@ -89,7 +96,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanJoin))]
     public async Task JoinCourse()
     {
-        var success = await service.JoinCourse("1", NewCode.ToUpper());
+        var success = await service.JoinCourse(auth.User.Id, NewCode.ToUpper());
         if (!success)
         {
             await Application.Current.MainPage.DisplayAlert("Invalid Code", $"Code was invalid: {NewCode}", "OK");
