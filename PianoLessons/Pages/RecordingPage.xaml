@@ -65,6 +65,165 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <!--  Button Setup  -->
+            <Grid
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                ColumnSpacing="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Retry  -->
+                <Grid
+                    Grid.Column="0"
+                    RowDefinitions="auto,auto">
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="LightGray"
+                        BorderColor="#5F49FF"
+                        BorderWidth="1"
+                        Command="{Binding ResetCommand}"
+                        CornerRadius="25"
+                        FontFamily="AudioIconFonts"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsEnabled="{Binding IsRecordingAudio}"
+                        Text="&#xe900;"
+                        TextColor="#5F49FF"
+                        WidthRequest="50">
+                        <Button.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsRecordingAudio}"
+                                TargetType="Button"
+                                Value="False">
+                                <Setter
+                                    Property="TextColor"
+                                    Value="Gray" />
+                                <Setter
+                                    Property="BorderColor"
+                                    Value="Gray" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        Text="Retry" />
+                </Grid>
+
+                <!--  Play  -->
+                <Grid
+                    Grid.Column="1"
+                    HorizontalOptions="CenterAndExpand"
+                    RowDefinitions="auto,auto">
+                    <!--  Record Button  -->
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="Red"
+                        BorderColor="Red"
+                        BorderWidth="1"
+                        Command="{Binding RecordCommand}"
+                        CornerRadius="25"
+                        FontFamily="AudioIconFonts"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsVisible="{Binding IsRecordButtonVisible}"
+                        Text="&#xe91e;"
+                        TextColor="White"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsRecordButtonVisible}"
+                        Text="Record" />
+
+                    <!--  Pause Button  -->
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="Green"
+                        BorderColor="Green"
+                        BorderWidth="1"
+                        Command="{Binding PauseCommand}"
+                        CornerRadius="25"
+                        FontFamily="AudioIconFonts"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsVisible="{Binding IsPauseButtonVisible}"
+                        Text="&#xea1d;"
+                        TextColor="White"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsPauseButtonVisible}"
+                        Text="Pause" />
+
+                    <!--  Resume Button  -->
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="Red"
+                        BorderColor="Red"
+                        BorderWidth="1"
+                        Command="{Binding RecordCommand}"
+                        CornerRadius="25"
+                        FontFamily="AudioIconFonts"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsVisible="{Binding IsResumeButtonVisible}"
+                        Text="&#xea1c;"
+                        TextColor="White"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsResumeButtonVisible}"
+                        Text="Resume" />
+                </Grid>
+
+                <!--  Stop  -->
+                <Grid
+                    Grid.Column="2"
+                    RowDefinitions="auto,auto">
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="LightGray"
+                        BorderColor="#5F49FF"
+                        BorderWidth="1"
+                        Command="{Binding StopCommand}"
+                        CornerRadius="25"
+                        FontFamily="AudioIconFonts"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsEnabled="{Binding IsRecordingAudio}"
+                        Text="&#xea1e;"
+                        TextColor="#5F49FF"
+                        WidthRequest="50">
+                        <Button.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsRecordingAudio}"
+                                TargetType="Button"
+                                Value="False">
+                                <Setter
+                                    Property="TextColor"
+                                    Value="Gray" />
+                                <Setter
+                                    Property="BorderColor"
+                                    Value="Gray" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        Text="Stop" />
+                </Grid>
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
