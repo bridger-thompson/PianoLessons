@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="PianoLessons.Pages.AddLogPage"
-             Title="Add Practice Log">
-
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:converter="clr-namespace:PianoLessons.Models"
+    x:Class="PianoLessons.Pages.AddLogPage"
+    Title="Add Practice Log">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior 
             EventName="NavigatedTo"
@@ -43,7 +44,7 @@
             HorizontalOptions="Center">
             <Label
                 VerticalOptions="Center"
-                WidthRequest="70"
+                WidthRequest="80"
                 Text="Start Time: " />
             <TimePicker
                 Time="{Binding StartTime}" />
@@ -58,6 +59,20 @@
             <TimePicker
                 Time="{Binding EndTime}" />
         </HorizontalStackLayout>
+        <Button
+            Text="Start Timer"
+            HorizontalOptions="Center"
+            IsVisible="{Binding TimerStopped}"
+            Command="{Binding ToggleTimerCommand}"
+            VerticalOptions="Center"
+            BackgroundColor="LimeGreen" />
+        <Button
+            Text="Stop Timer"
+            HorizontalOptions="Center"
+            IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
+            Command="{Binding ToggleTimerCommand}"
+            VerticalOptions="Center"
+            BackgroundColor="Red" />
         <Label
             HorizontalOptions="Center"
             Margin="0,5"

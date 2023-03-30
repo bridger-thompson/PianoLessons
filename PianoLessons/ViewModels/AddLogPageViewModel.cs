@@ -39,6 +39,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedCourseName;
 
+	[ObservableProperty]
+	private bool timerStopped;
+
     public string Total => $"{(EndTime - StartTime).Hours} hour(s) {(EndTime - StartTime).Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
@@ -46,6 +49,9 @@ public partial class AddLogPageViewModel : ObservableObject
 		this.navService = navService;
 		this.service = service;
 		this.auth = auth;
+		TimerStopped = true;
+		StartTime = DateTime.Now.TimeOfDay;
+		EndTime = DateTime.Now.AddHours(1).TimeOfDay;
 	}
 
 	[RelayCommand]
@@ -98,8 +104,6 @@ public partial class AddLogPageViewModel : ObservableObject
 		{
             PageTitle = "New Practice Log";
 			LogDate = DateTime.Today;
-			StartTime = DateTime.Now.TimeOfDay;
-			EndTime = DateTime.Now.AddHours(1).TimeOfDay;
             Notes = string.Empty;
         }
 		var c = await service.GetStudentCourses(auth.User.Id);
@@ -109,5 +113,13 @@ public partial class AddLogPageViewModel : ObservableObject
 			CourseNames.Add(course.Name);
 		}
 		if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
+	}
+
+	[RelayCommand]
+	public void ToggleTimer()
+	{
+		if (TimerStopped) StartTime = DateTime.Now.TimeOfDay;
+		else EndTime = DateTime.Now.TimeOfDay;
+		TimerStopped = !TimerStopped;
 	}
 }
