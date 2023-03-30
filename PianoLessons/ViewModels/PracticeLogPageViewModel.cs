@@ -31,7 +31,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 
 	public bool NoLogs { get => !HasLogs; }
 
-	public bool NotTeacher { get => IsTeacher; }
+	public bool NotTeacher { get => !IsTeacher; }
 
 	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
@@ -75,13 +75,11 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		List<PracticeLog> ls = new();
 		if (SelectedStudentName == "All" && IsTeacher)
 		{
-			//user id (teacher)
-			ls = await service.GetAllStudentLogsForTeacher("1");
+			ls = await service.GetAllStudentLogsForTeacher(auth.User.Id);
 		}
 		else if (SelectedStudentName == "All" && !IsTeacher)
 		{
-			//user id (student)
-			ls = await service.GetLogsForStudent("1");
+			ls = await service.GetLogsForStudent(auth.User.Id);
 		}
 		else
 		{

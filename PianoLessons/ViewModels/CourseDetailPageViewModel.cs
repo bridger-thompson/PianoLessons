@@ -3,12 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Services;
 using PianoLessons.Shared.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PianoLessons.ViewModels;
 
@@ -16,7 +11,7 @@ namespace PianoLessons.ViewModels;
 public partial class CourseDetailPageViewModel : ObservableObject
 {
 	private readonly PianoLessonsService service;
-
+	private readonly AuthService auth;
 	[ObservableProperty]
 	private int id;
 
@@ -43,15 +38,16 @@ public partial class CourseDetailPageViewModel : ObservableObject
     public bool NotTeacher { get => !IsTeacher; }
 
 
-    public CourseDetailPageViewModel(PianoLessonsService service)
+    public CourseDetailPageViewModel(PianoLessonsService service, AuthService auth)
 	{
 		this.service = service;
+		this.auth = auth;
 	}
 
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		IsTeacher = await service.IsTeacher("1");
+		IsTeacher = auth.User.IsTeacher;
 		Students = new();
         CurrentCourse = await service.GetCourse(Id);
 		var s = await service.GetCourseStudents(Id);

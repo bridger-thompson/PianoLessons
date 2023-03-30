@@ -2,12 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using PianoLessons.Services;
 using PianoLessons.Shared.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PianoLessons.ViewModels;
 

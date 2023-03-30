@@ -164,4 +164,29 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
     {
         throw new NotImplementedException();
     }
+
+	public Task<bool> IsStudent(string studentId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<bool> IsUser(string userId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<Student> GetStudent(string studentId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<Teacher> GetTeacher(string teacherId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task RegisterUser(PianoLessonsUser user)
+	{
+		throw new NotImplementedException();
+	}
 }

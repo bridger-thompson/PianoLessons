@@ -33,7 +33,8 @@ public partial class RecordingPageViewModel : ObservableObject
     private bool isResumeButtonVisible;
 
     IRecordAudio recordAudioService;
-    IAudioPlayer audioPlayerService;
+	private readonly AuthService auth;
+	IAudioPlayer audioPlayerService;
     IDispatcherTimer recordTimer;
     IDispatcherTimer playTimer;
 
@@ -54,12 +55,13 @@ public partial class RecordingPageViewModel : ObservableObject
 
     public bool NotTeacher { get => !IsTeacher; }
 
-    public RecordingPageViewModel(PianoLessonsService service, IAudioPlayer audioPlayerService, IRecordAudio recordAudioService)
+    public RecordingPageViewModel(PianoLessonsService service, IAudioPlayer audioPlayerService, IRecordAudio recordAudioService, AuthService auth)
     {
         this.service = service;
         this.audioPlayerService = audioPlayerService;
         this.recordAudioService = recordAudioService;
-        IsRecordButtonVisible = true;
+		this.auth = auth;
+		IsRecordButtonVisible = true;
         IsRecordingAudio = false;
         IsResumeButtonVisible = false;
     }
@@ -67,9 +69,9 @@ public partial class RecordingPageViewModel : ObservableObject
     [RelayCommand]
     public async Task Loaded()
     {
-        IsTeacher = await service.IsTeacher("10");
+        IsTeacher = auth.User.IsTeacher;
         await GetCourses(IsTeacher);
-        await GetRecordings(IsTeacher);
+        await GetRecordings();
     }
 
     [RelayCommand]
@@ -78,8 +80,8 @@ public partial class RecordingPageViewModel : ObservableObject
         Courses = new();
         CourseNames = new();
         List<Course> c = new();
-        if (IsTeacher) c = await service.GetTeacherCourses("1");
-        else c = await service.GetStudentCourses("1");
+        if (IsTeacher) c = await service.GetTeacherCourses(auth.User.Id);
+        else c = await service.GetStudentCourses(auth.User.Id);
         foreach (var course in c)
         {
             Courses.Add(course);
@@ -89,15 +91,18 @@ public partial class RecordingPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task GetRecordings(bool isTeacher)
+    public async Task GetRecordings()
     {
         Recordings = new();
         List<Recording> r = new();
+        Course selectedCourse = Courses
+            .Where(c => c.Name == SelectedCourseName)
+            .FirstOrDefault();
         if (IsTeacher)
         {
             //get course recordings
         }
-        else r = await service.GetStudentCourseRecordings("1", 1);
+        else r = await service.GetStudentCourseRecordings(auth.User.Id, selectedCourse.Id);
         foreach (var recording in r)
         {
             Recordings.Add(recording);

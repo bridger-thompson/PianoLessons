@@ -11,7 +11,7 @@ public partial class AddLogPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
-
+	private readonly AuthService auth;
 	[ObservableProperty]
 	private int id;
 
@@ -39,19 +39,28 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedAssignmentName;
 
+	private bool isTeacher;
+
     public string Total => $"{(EndTime - StartTime).Hours} hour(s) {(EndTime - StartTime).Minutes} minute(s)";
 
-	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service)
+	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;
-    }
+		this.auth = auth;
+	}
 
 	[RelayCommand]
 	public async Task Submit()
 	{
+		isTeacher = auth.User.IsTeacher;
         var selectedAssignment = Assignments.Where(c => c.Name == SelectedAssignmentName)
             .FirstOrDefault();
+		if (isTeacher)
+		{
+			await Application.Current.MainPage.DisplayAlert("How'd you get here?", $"Only students can add practice logs", "OK");
+			await navService.NavigateToAsync("..");
+		}
 		PracticeLog log = new()
 		{
 			Id = Id,
@@ -59,7 +68,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			EndTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
 			Notes = Notes,
 			AssignmentId = selectedAssignment.Id,
-			StudentId = "1"
+			StudentId = auth.User.Id,
 		};
         if (Id != -1)
 		{
