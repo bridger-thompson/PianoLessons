@@ -24,10 +24,8 @@ public partial class ManageCoursesPageViewModel : ObservableObject
     [ObservableProperty, NotifyCanExecuteChangedFor(nameof(JoinCourseCommand))]
     private string newCode;
 
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
+    [ObservableProperty]
     private bool isTeacher;
-
-    public bool NotTeacher { get => !IsTeacher; }
 
 	[ObservableProperty]
 	private bool noCourses;

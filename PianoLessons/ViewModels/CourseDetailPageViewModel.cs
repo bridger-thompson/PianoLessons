@@ -27,16 +27,11 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<Student> students;
 
-	[ObservableProperty, NotifyPropertyChangedFor(nameof(NotEditing))]
+	[ObservableProperty]
 	private bool isEditing;
 
-	public bool NotEditing { get => !IsEditing; }
-
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
+    [ObservableProperty]
     private bool isTeacher;
-
-    public bool NotTeacher { get => !IsTeacher; }
-
 
     public CourseDetailPageViewModel(PianoLessonsService service, AuthService auth)
 	{

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:PianoLessons.ViewModels"
+    xmlns:converter="clr-namespace:PianoLessons.Models"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PianoLessons.Pages.CourseDetailPage"
     Title="{Binding CurrentCourse.Name}">
@@ -13,7 +14,7 @@
     </ContentPage.Behaviors>
     <VerticalStackLayout>
         <HorizontalStackLayout
-            IsVisible="{Binding NotEditing}"
+            IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}}"
             HorizontalOptions="Center"
             Spacing="10">
             <Label

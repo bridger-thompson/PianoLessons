@@ -39,8 +39,6 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedCourseName;
 
-	private bool isTeacher;
-
     public string Total => $"{(EndTime - StartTime).Hours} hour(s) {(EndTime - StartTime).Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
@@ -53,10 +51,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Submit()
 	{
-		isTeacher = auth.User.IsTeacher;
         var selectedCourse = Courses.Where(c => c.Name == SelectedCourseName)
             .FirstOrDefault();
-		if (isTeacher)
+		if (auth.User.IsTeacher)
 		{
 			await Application.Current.MainPage.DisplayAlert("How'd you get here?", $"Only students can add practice logs", "OK");
 			await navService.NavigateToAsync("..");

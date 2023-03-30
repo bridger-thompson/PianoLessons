@@ -50,10 +50,8 @@ public partial class RecordingPageViewModel : ObservableObject
     [ObservableProperty]
     private string selectedCourseName;
 
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(NotTeacher))]
+    [ObservableProperty]
     private bool isTeacher;
-
-    public bool NotTeacher { get => !IsTeacher; }
 
     public RecordingPageViewModel(PianoLessonsService service, IAudioPlayer audioPlayerService, IRecordAudio recordAudioService, AuthService auth)
     {
