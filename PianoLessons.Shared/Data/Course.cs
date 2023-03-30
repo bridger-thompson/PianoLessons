@@ -17,10 +17,9 @@ public partial class Course
 
     public string TeacherId { get; set; }
 
-    public virtual ICollection<PracticeAssignment>? PracticeAssignments { get; } = null!;
-
     public virtual ICollection<StudentCourse>? StudentCourses { get; } = null!;
-    public virtual ICollection<Recording>? Recordings { get; } = null!;
+    public virtual ICollection<PracticeLog>? PracticeLogs { get; } = null!;
+	public virtual ICollection<Recording>? Recordings { get; } = null!;
 
     public virtual Teacher? Teacher { get; set; } = null!;
     public virtual ICollection<CourseInvite>? CourseInvites { get; } = null!;

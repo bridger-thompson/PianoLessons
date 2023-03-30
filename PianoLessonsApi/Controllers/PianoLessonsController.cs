@@ -102,12 +102,6 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetPracticeScores(courseId, time);
 		}
 
-		[HttpGet("assignments/{studentId}")]
-        public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
-		{
-			return await app.GetStudentAssignments(studentId);
-		}
-
 		[HttpGet("isTeacher/{teacherId}")]
 		public async Task<bool> IsTeacher(string teacherId)
 		{

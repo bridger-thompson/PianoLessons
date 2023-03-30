@@ -13,7 +13,6 @@
     </ContentPage.Behaviors>
     
     <ScrollView
-        WidthRequest="500"
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout
             HorizontalOptions="Center">
@@ -46,13 +45,13 @@
                     IsVisible="{Binding NotTeacher}"
                     BackgroundColor="ForestGreen"
                     Command="{Binding ToAddLogCommand}"
-                    HorizontalOptions="End"
+                    HorizontalOptions="Center"
                     Text="Add Log" />
             </Grid>
             <Grid
                 RowDefinitions="*"
                 Padding="5,0,0,0"
-                ColumnDefinitions="75,150,75">
+                ColumnDefinitions="75,150,100,75">
                 <Label
                     FontAttributes="Bold"
                     Text="Date" />
@@ -63,6 +62,10 @@
                 <Label
                     FontAttributes="Bold"
                     Grid.Column="2"
+                    Text="Name" />
+                <Label
+                    FontAttributes="Bold"
+                    Grid.Column="3"
                     Text="Duration" />
             </Grid>
             <CollectionView
@@ -77,8 +80,8 @@
                             Padding="5,0,0,0">
                             <Grid
                                 RowDefinitions="Auto"
-                                WidthRequest="450"
-                                ColumnDefinitions="75,150,75,Auto,Auto">
+                                WidthRequest="540"
+                                ColumnDefinitions="75,150,100,75,Auto,Auto">
                                 <Label
                                     VerticalOptions="Center"
                                     Text="{Binding StartTime, StringFormat='{0:MM/dd}'}" />
@@ -90,9 +93,13 @@
                                 <Label
                                     VerticalOptions="Center"
                                     Grid.Column="2"
+                                    Text="{Binding Course.Name}" />
+                                <Label
+                                    VerticalOptions="Center"
+                                    Grid.Column="3"
                                     Text="{Binding Duration, StringFormat='{0:h\\:mm}'}" />
                                 <Button
-                                    Grid.Column="3"
+                                    Grid.Column="4"
                                     BackgroundColor="Gray"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=EditLogCommand}"
                                     CommandParameter="{Binding Id}"
@@ -101,7 +108,7 @@
                                     BackgroundColor="Red"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=DeleteLogCommand}"
                                     CommandParameter="{Binding Id}"
-                                    Grid.Column="4"
+                                    Grid.Column="5"
                                     Text="Delete" />
                             </Grid>
                         </Border>

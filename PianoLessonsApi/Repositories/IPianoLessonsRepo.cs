@@ -24,7 +24,6 @@ public interface IPianoLessonsRepo
 
 	public Task<List<Course>> GetTeacherCourses(string teacherId);
 
-	public Task<List<PracticeAssignment>> GetStudentAssignments(string studentId);
     Task<List<Student>> GetCourseStudents(int courseId);
     Task<bool> IsTeacher(string teacherId);
     Task AddCourse(Course course);

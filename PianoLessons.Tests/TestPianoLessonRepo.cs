@@ -60,11 +60,6 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
         throw new NotImplementedException();
     }
 
-    public Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<List<Student>> GetStudentsForTeacher(string teacherId)
     {
         throw new NotImplementedException();
@@ -86,7 +81,6 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
             log.StartTime = updatedLog.StartTime;
             log.EndTime = updatedLog.EndTime;
             log.Notes = updatedLog.Notes;
-            log.AssignmentId = updatedLog.AssignmentId;
         }
     }
 

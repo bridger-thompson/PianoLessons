@@ -88,11 +88,6 @@ public class PianoLessonsService
 		return await client.GetFromJsonAsync<PracticeLog>($"api/PianoLessons/logs/log/{logId}");
 	}
 
-	public async Task<List<PracticeAssignment>> GetStudentAssignments(int studentId)
-	{
-		return await client.GetFromJsonAsync<List<PracticeAssignment>>($"api/PianoLessons/assignments/{studentId}");
-	}
-
 	public async Task<bool> IsTeacher(string teacherId)
 	{
 		return await client.GetFromJsonAsync<bool>($"api/PianoLessons/isTeacher/{teacherId}");

@@ -26,7 +26,6 @@ public interface IPianoLessonsApplication
 
 	public Task<List<Course>> GetTeacherCourses(string teacherId);
 
-    public Task<List<PracticeAssignment>> GetStudentAssignments(string studentId);
     Task<Course> GetCourse(int id);
     Task<List<Appointment>> GetAppointmentsForStudent(string studentId);
     Task UpdateCourseName(int id, string newName);

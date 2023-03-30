@@ -24,13 +24,9 @@ public partial class PianoLessonDbContext : DbContext
 
     public virtual DbSet<PaymentHistory> PaymentHistories { get; set; }
 
-    public virtual DbSet<PracticeAssignment> PracticeAssignments { get; set; }
-
     public virtual DbSet<PracticeLog> PracticeLogs { get; set; }
 
     public virtual DbSet<Student> Students { get; set; }
-
-    public virtual DbSet<StudentAssignment> StudentAssignments { get; set; }
 
     public virtual DbSet<StudentCourse> StudentCourses { get; set; }
 
@@ -160,21 +156,6 @@ public partial class PianoLessonDbContext : DbContext
                 .HasConstraintName("payment_history_teacher_id_fkey");
         });
 
-        modelBuilder.Entity<PracticeAssignment>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("practice_assignment_pkey");
-
-            entity.ToTable("practice_assignment", "piano_lessons");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CourseId).HasColumnName("course_id");
-            entity.Property(e => e.Name).HasColumnName("name");
-
-            entity.HasOne(d => d.Course).WithMany(p => p.PracticeAssignments)
-                .HasForeignKey(d => d.CourseId)
-                .HasConstraintName("practice_assignment_course_id_fkey");
-        });
-
         modelBuilder.Entity<PracticeLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("practice_log_pkey");
@@ -182,7 +163,6 @@ public partial class PianoLessonDbContext : DbContext
             entity.ToTable("practice_log", "piano_lessons");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AssignmentId).HasColumnName("assignment_id");
             entity.Property(e => e.EndTime)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("end_time");
@@ -191,16 +171,17 @@ public partial class PianoLessonDbContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("start_time");
             entity.Property(e => e.StudentId).HasColumnName("student_id");
+            entity.Property(e => e.CourseId).HasColumnName("course_id");
 
-            entity.HasOne(d => d.Assignment).WithMany(p => p.PracticeLogs)
-                .HasForeignKey(d => d.AssignmentId)
-                .HasConstraintName("practice_log_assignment_id_fkey");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.PracticeLogs)
+			entity.HasOne(d => d.Student).WithMany(p => p.PracticeLogs)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("practice_log_student_id_fkey");
-        });
+			entity.HasOne(d => d.Course).WithMany(p => p.PracticeLogs)
+				.HasForeignKey(d => d.CourseId)
+				.OnDelete(DeleteBehavior.Cascade)
+				.HasConstraintName("practice_log_course_id_fkey");
+		});
 
         modelBuilder.Entity<Student>(entity =>
         {
@@ -210,26 +191,6 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name).HasColumnName("name");
-        });
-
-        modelBuilder.Entity<StudentAssignment>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("student_assignment_pkey");
-
-            entity.ToTable("student_assignment", "piano_lessons");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AssignmentId).HasColumnName("assignment_id");
-            entity.Property(e => e.StudentId).HasColumnName("student_id");
-
-            entity.HasOne(d => d.Assignment).WithMany(p => p.StudentAssignments)
-                .HasForeignKey(d => d.AssignmentId)
-                .HasConstraintName("student_assignment_assignment_id_fkey");
-
-            entity.HasOne(d => d.Student).WithMany(p => p.StudentAssignments)
-                .HasForeignKey(d => d.StudentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("student_assignment_student_id_fkey");
         });
 
         modelBuilder.Entity<StudentCourse>(entity =>

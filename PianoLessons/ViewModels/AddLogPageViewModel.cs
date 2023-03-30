@@ -31,13 +31,13 @@ public partial class AddLogPageViewModel : ObservableObject
 	private string pageTitle;
 
 	[ObservableProperty]
-	private ObservableCollection<PracticeAssignment> assignments;
+	private ObservableCollection<Course> courses;
 
 	[ObservableProperty]
-	private ObservableCollection<string> assignmentNames;
+	private ObservableCollection<string> courseNames;
 
 	[ObservableProperty]
-	private string selectedAssignmentName;
+	private string selectedCourseName;
 
 	private bool isTeacher;
 
@@ -54,7 +54,7 @@ public partial class AddLogPageViewModel : ObservableObject
 	public async Task Submit()
 	{
 		isTeacher = auth.User.IsTeacher;
-        var selectedAssignment = Assignments.Where(c => c.Name == SelectedAssignmentName)
+        var selectedCourse = Courses.Where(c => c.Name == SelectedCourseName)
             .FirstOrDefault();
 		if (isTeacher)
 		{
@@ -67,8 +67,8 @@ public partial class AddLogPageViewModel : ObservableObject
 			StartTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds),
 			EndTime = new DateTime(LogDate.Year, LogDate.Month, LogDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds),
 			Notes = Notes,
-			AssignmentId = selectedAssignment.Id,
 			StudentId = auth.User.Id,
+			CourseId = selectedCourse.Id,
 		};
         if (Id != -1)
 		{
@@ -76,6 +76,7 @@ public partial class AddLogPageViewModel : ObservableObject
 		}
 		else
 		{
+			log.Id = 0;
 			await service.AddLog(log);
 		}
 		await navService.NavigateToAsync("..");
@@ -84,8 +85,8 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		Assignments = new();
-		AssignmentNames = new();
+		Courses = new();
+		CourseNames = new();
 
 		if (Id != -1)
 		{
@@ -104,12 +105,12 @@ public partial class AddLogPageViewModel : ObservableObject
 			EndTime = DateTime.Now.AddHours(1).TimeOfDay;
             Notes = string.Empty;
         }
-		var studentAssignments = await service.GetStudentAssignments(1);
-		foreach (var assignment in studentAssignments)
+		var c = await service.GetStudentCourses(auth.User.Id);
+		foreach (var course in c)
 		{
-			Assignments.Add(assignment);
-			AssignmentNames.Add(assignment.Name);
+			Courses.Add(course);
+			CourseNames.Add(course.Name);
 		}
-		if (AssignmentNames.Count > 0) { SelectedAssignmentName = AssignmentNames[0]; }
+		if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
 	}
 }

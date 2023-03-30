@@ -37,25 +37,13 @@ create table course_invite (
 	used		boolean default false
 );
 
-create table practice_assignment (
-	id 			serial primary key,
-	name 		text not null,
-	course_id 	int not null references course(id) ON DELETE CASCADE
-);
-
-create table student_assignment (
-	id 				serial primary key,
-	student_id 		text references student(id) not null,
-	assignment_id	int not null references practice_assignment(id) ON DELETE CASCADE
-);
-
 create table practice_log (
 	id 				serial primary key,
 	start_time		timestamp not null,
 	end_time		timestamp not null,
 	student_id 		text references student(id) not null,
 	notes			text,
-	assignment_id	int not null references practice_assignment(id) ON DELETE CASCADE
+	course_id		int not null references course(id) ON DELETE CASCADE
 );
 
 create table student_course (
@@ -80,18 +68,11 @@ create table recording (
 	student_id 	text references student(id) not null
 );
 
--- INSERT INTO piano_lessons.teacher (id, "name") VALUES(1, 'Bridger');
--- INSERT INTO piano_lessons.student (id, "name") VALUES(1, 'Bob');
--- INSERT INTO piano_lessons.student (id, "name") VALUES(2, 'Anthony');
--- INSERT INTO piano_lessons.student (id, "name") VALUES(3, 'Steve');
--- INSERT INTO piano_lessons.course ("name", teacher_id) VALUES('Piano', 1);
--- INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(1, 1, 1);
--- INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(2, 1, 2);
--- INSERT INTO piano_lessons.student_course (id, course_id, student_id) VALUES(3, 1, 3);
--- INSERT INTO piano_lessons.practice_assignment (id, "name", course_id) VALUES(1, 'Scales', 1);
--- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes, assignment_id) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', NULL, 1);
--- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes, assignment_id) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 'Nailed it ;)', 1);
--- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes, assignment_id) VALUES(1, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', NULL, 1);
--- INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(1, 1, 1);
--- INSERT INTO piano_lessons.student_assignment (id, student_id, assignment_id) VALUES(2, 2, 1);
+INSERT INTO piano_lessons.teacher (id, "name") VALUES('testid', 'Bridger');
+INSERT INTO piano_lessons.student (id, "name") VALUES('teststudent', 'Bob');
+INSERT INTO piano_lessons.course ("name", teacher_id) VALUES('Piano', 'testid');
+INSERT INTO piano_lessons.student_course (course_id, student_id) VALUES(1, 'teststudent');
+-- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', NULL);
+-- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes) VALUES(2, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', 'Nailed it ;)');
+-- INSERT INTO piano_lessons.practice_log (student_id, start_time, end_time, notes) VALUES(1, '2023-03-16 09:00:00.000', '2023-03-16 10:00:00.000', NULL);
 

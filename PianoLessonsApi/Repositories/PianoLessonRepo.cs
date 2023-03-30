@@ -51,6 +51,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	{
 		return await context.PracticeLogs
 			.Include(l => l.Student)
+			.Include(l => l.Course)
 			.Where(l => l.StudentId == studentId)
 			.ToListAsync();
 	}
@@ -73,7 +74,6 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			log.StartTime = newLog.StartTime;
 			log.EndTime = newLog.EndTime;
 			log.Notes = newLog.Notes;
-			log.AssignmentId = newLog.AssignmentId;
 			log.StudentId = newLog.StudentId;
 			await context.SaveChangesAsync();
 		}
@@ -105,9 +105,8 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	{
 		var logs = await context.PracticeLogs
 			.Where(p => p.StudentId == studentId)
-			.Include(p => p.Assignment)
-			.Where(p => p.Assignment.CourseId == courseId)
             .Where(p => p.StartTime < DateTime.Now && p.StartTime > startDate)
+			.Where(p => p.CourseId == courseId)
             .ToListAsync();
 
 		return logs;
@@ -127,15 +126,6 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return await context.Courses
 			.Include(c => c.StudentCourses)
 			.Where(c => c.StudentCourses.Any(sc => sc.StudentId == studentId))
-			.ToListAsync();
-	}
-
-
-	public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
-	{
-		return await context.PracticeAssignments
-			.Include(sa => sa.StudentAssignments)
-			.Where(sa => sa.StudentAssignments.Any(a => a.StudentId == studentId))
 			.ToListAsync();
 	}
 

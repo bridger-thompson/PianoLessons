@@ -137,11 +137,6 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.UpdateLog(newLog);
 	}
 
-    public async Task<List<PracticeAssignment>> GetStudentAssignments(string studentId)
-	{
-		return await repo.GetStudentAssignments(studentId);
-	}
-
 	public async Task<bool> IsTeacher(string teacherId)
 	{
 		return await repo.IsTeacher(teacherId);
