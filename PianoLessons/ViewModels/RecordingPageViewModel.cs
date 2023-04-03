@@ -15,8 +15,6 @@ public partial class RecordingPageViewModel : ObservableObject
     [ObservableProperty]
     private string recentAudioFilePath;
     [ObservableProperty]
-    private bool isRecordingAudio;
-    [ObservableProperty]
     private TimeSpan timerValue;
     [ObservableProperty]
     private string timerLabel;
@@ -25,6 +23,8 @@ public partial class RecordingPageViewModel : ObservableObject
     [ObservableProperty]
     private Audio audioFile;
 
+    [ObservableProperty]
+    private bool isRecordingAudio;
     [ObservableProperty]
     private bool isRecordButtonVisible;
     [ObservableProperty]
@@ -86,6 +86,7 @@ public partial class RecordingPageViewModel : ObservableObject
             CourseNames.Add(course.Name);
         }
         if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
+        else { SelectedCourseName = ""; }
     }
 
     [RelayCommand]
@@ -96,14 +97,17 @@ public partial class RecordingPageViewModel : ObservableObject
         Course selectedCourse = Courses
             .Where(c => c.Name == SelectedCourseName)
             .FirstOrDefault();
-        if (IsTeacher)
+        if (selectedCourse != null)
         {
-            //get course recordings
-        }
-        else r = await service.GetStudentCourseRecordings(auth.User.Id, selectedCourse.Id);
-        foreach (var recording in r)
-        {
-            Recordings.Add(recording);
+            if (IsTeacher)
+            {
+                //get course recordings
+            }
+            else r = await service.GetStudentCourseRecordings(auth.User.Id, selectedCourse.Id);
+            foreach (var recording in r)
+            {
+                Recordings.Add(recording);
+            }
         }
     }
 
