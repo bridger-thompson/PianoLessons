@@ -6,10 +6,12 @@ namespace PianoLessonsApi.Repositories;
 public class PianoLessonRepo : IPianoLessonsRepo
 {
 	private readonly PianoLessonDbContext context;
+	private readonly ILogger<PianoLessonRepo> logger;
 
-	public PianoLessonRepo(PianoLessonDbContext context)
+	public PianoLessonRepo(PianoLessonDbContext context, ILogger<PianoLessonRepo> logger)
 	{
 		this.context = context;
+		this.logger = logger;
 	}
 
 	public async Task<List<Appointment>> GetAppointmentsForTeacher(string teacherid)
@@ -261,13 +263,16 @@ public class PianoLessonRepo : IPianoLessonsRepo
 
     public async Task RegisterUser(PianoLessonsUser user)
     {
+		logger.LogInformation($"Registering user {user.Name}");
         if (user.IsTeacher)
 		{
 			await context.Teachers.AddAsync(new Teacher(user));
+			logger.LogInformation($"Registered user as teacher {user.Name}");
 		}
 		else
 		{
 			await context.Students.AddAsync(new Student(user));
+			logger.LogInformation($"Registered user as student {user.Name}");
 		}
 
 		await context.SaveChangesAsync();
