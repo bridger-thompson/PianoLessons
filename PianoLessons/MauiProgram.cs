@@ -34,7 +34,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<PianoLessonsService>();
 		builder.Services.AddSingleton(client => new HttpClient
 		{
-			BaseAddress = new Uri("http://pianolessonsapi.azurewebsites.net")
+			BaseAddress = new Uri("http://pianolessonsapi.azurewebsites.net/")
 		});
 
         builder.Services.AddSingleton(new Auth0Client(new()
