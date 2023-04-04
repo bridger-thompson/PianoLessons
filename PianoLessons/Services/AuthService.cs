@@ -58,4 +58,19 @@ public class AuthService
         await auth0Client.LogoutAsync();
         User = null;
     }
+
+    public async Task<LoginResult> SilentLogin()
+    {
+        identityUser = await auth0Client.GetAuthenticatedUser();
+
+        if (identityUser != null)
+        {
+            var userId = identityUser.Claims.FirstOrDefault(c => c.Type == "sub").Value;
+            User = await service.GetUser(userId);
+
+            return User == null ? LoginResult.UserNotRegistered : LoginResult.Success;
+        }
+
+        return LoginResult.Error;
+    }
 }

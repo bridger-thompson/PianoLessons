@@ -1,6 +1,7 @@
 ﻿using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser; 
 using IdentityModel.Client;
+using System.Security.Claims;
 
 namespace PianoLessons.Auth0;
 
@@ -34,7 +35,15 @@ public class Auth0Client
 
     public async Task<LoginResult> LoginAsync()
     {
-        return await oidcClient.LoginAsync();
+        var loginResult = await oidcClient.LoginAsync();
+
+        if (!loginResult.IsError)
+        {
+            await SecureStorage.Default.SetAsync("access_token", loginResult.AccessToken);
+            await SecureStorage.Default.SetAsync("id_token", loginResult.IdentityToken);
+        }
+
+        return loginResult;
     }
 
     public async Task<BrowserResult> LogoutAsync()
@@ -56,6 +65,36 @@ public class Auth0Client
 
         var browserResult = await oidcClient.Options.Browser.InvokeAsync(browserOptions);
 
+        SecureStorage.Default.RemoveAll();
+
         return browserResult;
+    }
+
+    public async Task<ClaimsPrincipal> GetAuthenticatedUser()
+    {
+        ClaimsPrincipal user = null;
+
+        var idToken = await SecureStorage.Default.GetAsync("id_token");
+
+        if (idToken != null)
+        {
+            var doc = await new HttpClient().GetDiscoveryDocumentAsync(oidcClient.Options.Authority);
+            var validator = new JwtHandlerIdentityTokenValidator();
+            var options = new OidcClientOptions
+            {
+                ClientId = oidcClient.Options.ClientId,
+                ProviderInformation = new ProviderInformation
+                {
+                    IssuerName = doc.Issuer,
+                    KeySet = doc.KeySet
+                }
+            };
+
+            var validationResult = await validator.ValidateAsync(idToken, options);
+
+            if (!validationResult.IsError) user = validationResult.User;
+        }
+
+        return user;
     }
 }

@@ -28,7 +28,6 @@ namespace PianoLessons.ViewModels
             this.auth = auth;
             this.nav = nav;
             this.service = service;
-            LoginViewIsVisible = true;
         }
 
         [RelayCommand]
@@ -54,6 +53,19 @@ namespace PianoLessons.ViewModels
             LoginViewIsVisible = true;
             RegistrationViewIsVisible = false;
             await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
+        }
+
+        [RelayCommand]
+        public async Task Loaded()
+        {
+            var result = await auth.SilentLogin();
+
+            if (result == LoginResult.Success)
+            {
+                await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
+            }
+
+            LoginViewIsVisible = true;
         }
     }
 }
