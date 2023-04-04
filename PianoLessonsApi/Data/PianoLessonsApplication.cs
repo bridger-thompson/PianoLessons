@@ -54,21 +54,22 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetLogsForStudent(studentId);
 	}
 
-	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time)
-    {
-        DateTime startDate = GetStartDate(time, DateTime.Today);
-        var students = await repo.GetCourseStudents(courseId);
-        var studentScores = new List<StudentScore>();
-        foreach (var student in students)
-        {
-            StudentScore score = await GetStudentScoreForCourseAndStartDates(student, courseId, startDate);
-            studentScores.Add(score);
-        }
+	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0")
+	{
+		int modifier = version == "1.0" ? 10 : 1000;
+		DateTime startDate = GetStartDate(time, DateTime.Today);
+		var students = await repo.GetCourseStudents(courseId);
+		var studentScores = new List<StudentScore>();
+		foreach (var student in students)
+		{
+			StudentScore score = await GetStudentScoreForCourseAndStartDates(student, courseId, startDate, modifier);
+			studentScores.Add(score);
+		}
 
-        return GetRankedStudentScores(studentScores);
-    }
+		return GetRankedStudentScores(studentScores);
+	}
 
-    private static List<StudentScore> GetRankedStudentScores(List<StudentScore> studentScores)
+	private static List<StudentScore> GetRankedStudentScores(List<StudentScore> studentScores)
     {
         var rank = 1;
         var orderedStudentScores = studentScores.OrderByDescending(s => s.Score);
@@ -93,21 +94,21 @@ public class PianoLessonsApplication : IPianoLessonsApplication
         };
     }
 
-    private async Task<StudentScore> GetStudentScoreForCourseAndStartDates(Student student, int courseId, DateTime startDate)
+    private async Task<StudentScore> GetStudentScoreForCourseAndStartDates(Student student, int courseId, DateTime startDate, int modifier)
     {
 		var practiceLogs = await repo.GetStudentsPracticeLogsForCourseAndDate(student.Id, courseId, startDate);
 
-		int score = CalculateScore(practiceLogs);
+		int score = CalculateScore(practiceLogs, modifier);
 
 		return new StudentScore { Id = student.Id, Name = student.Name, Score = score };
     }
 
-	public int CalculateScore(List<PracticeLog> logs)
+	public int CalculateScore(List<PracticeLog> logs, int modifier)
 	{
 		int score = 0;
 		foreach (var log in logs)
 		{
-			score += (int)log.Duration.TotalMinutes * 10;
+			score += (int)log.Duration.TotalMinutes * modifier;
 		}
 		return score;
 	}

@@ -92,7 +92,9 @@ namespace PianoLessonsApi.Controllers
 		[HttpGet("scores/{courseId}/{time}")]
 		public async Task<List<StudentScore>> GetPracticeScoresForCourse(int courseId, string time)
 		{
-			return await app.GetPracticeScores(courseId, time);
+			var versionHeader = Request.Headers["version"].FirstOrDefault();
+			var scores = await app.GetPracticeScores(courseId, time, versionHeader);
+			return scores;
 		}
 
 		[HttpGet("isTeacher/{teacherId}")]

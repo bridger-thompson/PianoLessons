@@ -5,12 +5,14 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace PianoLessons.Services;
 
 public class PianoLessonsService
 {
 	private readonly HttpClient client;
+	private string version = "1.1";
 
 	public PianoLessonsService(HttpClient client)
 	{
@@ -38,7 +40,19 @@ public class PianoLessonsService
 
 	public async Task<List<StudentScore>> GetScoresForCourseAndTime(int courseId, string time)
 	{
-		return await client.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
+		var request = new HttpRequestMessage(HttpMethod.Get, $"api/PianoLessons/scores/{courseId}/{time}");
+		request.Headers.Add("version", version);
+
+		var response = await client.SendAsync(request);
+
+		if (response.IsSuccessStatusCode)
+		{
+			var json = await response.Content.ReadAsStringAsync();
+			var objects = JsonSerializer.Deserialize<List<StudentScore>>(json);
+			return objects;
+		}
+		var errorMessage = $"Failed to get scores for course {courseId}. Status code: {response.StatusCode}";
+		throw new HttpRequestException(errorMessage);
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
