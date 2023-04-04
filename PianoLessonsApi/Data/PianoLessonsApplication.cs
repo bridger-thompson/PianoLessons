@@ -117,11 +117,6 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetStudentsForTeacher(teacherId);
 	}
 
-	public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
-	{
-		return await repo.GetStudentsForTeacher(teacherId);
-	}
-
 	public async Task<List<Course>> GetTeacherCourses(string teacherId)
 	{
 		return await repo.GetTeacherCourses(teacherId);

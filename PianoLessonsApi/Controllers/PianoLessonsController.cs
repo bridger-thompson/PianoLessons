@@ -35,13 +35,6 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetAppointmentsForStudent(studentId);
 		}
 
-		[HttpGet("students/{teacherId}/{time}")]
-		public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
-		{
-			//need logic to calculate scores based on time
-			return await app.GetStudentsScoresForTeacher(teacherId, time);
-		}
-
 		[HttpGet("students/{teacherId}")]
 		public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 		{

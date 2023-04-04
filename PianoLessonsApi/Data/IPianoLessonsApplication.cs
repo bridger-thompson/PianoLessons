@@ -6,8 +6,6 @@ public interface IPianoLessonsApplication
 {
 	public Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId);
 
-	public Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time);
-
 	public Task<List<Student>> GetStudentsForTeacher(string teacherId);
 
 	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId);
