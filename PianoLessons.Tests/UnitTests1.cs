@@ -2,7 +2,7 @@ using FluentAssertions;
 using Moq;
 using PianoLessonsApi.Data;
 using PianoLessons.Shared.Data;
-using PianoLessonsApi.Repositories;
+using System.Text.RegularExpressions;
 
 namespace PianoLessons.Tests
 {
@@ -27,7 +27,7 @@ namespace PianoLessons.Tests
             await app.AddLog(new PracticeLog
             {
                 StartTime = today,
-                EndTime = today.AddMinutes(5),   
+                EndTime = today.AddMinutes(5),
                 StudentId = "1",
             });
             repo.Logs.Count.Should().Be(1);
@@ -99,7 +99,7 @@ namespace PianoLessons.Tests
             List<PracticeLog> logs = new()
             {
             };
-            app.CalculateScore(logs).Should().Be(0);
+            app.CalculateScore(logs, 10).Should().Be(0);
         }
 
         [Test]
@@ -114,33 +114,33 @@ namespace PianoLessons.Tests
                     EndTime = DateTime.Today.AddMinutes(1),
                     StudentId = "1",
                 }
-			};
-            app.CalculateScore(logs).Should().Be(10);
+            };
+            app.CalculateScore(logs, 10).Should().Be(10);
             logs[0].EndTime = DateTime.Today.AddMinutes(10);
-			app.CalculateScore(logs).Should().Be(100);
-		}
+            app.CalculateScore(logs, 10).Should().Be(100);
+        }
 
         [Test]
         public async Task CalculateScoreForManyLogs()
         {
-			List<PracticeLog> logs = new()
-			{
-				new()
-				{
-					Id = 1,
-					StartTime = DateTime.Today,
-					EndTime = DateTime.Today.AddMinutes(1),
-					StudentId = "1",
-				},
-				new()
-				{
-					Id = 1,
-					StartTime = DateTime.Today,
-					EndTime = DateTime.Today.AddMinutes(5),
-					StudentId = "1",
-				}
-			};
-			app.CalculateScore(logs).Should().Be(60);
+            List<PracticeLog> logs = new()
+            {
+                new()
+                {
+                    Id = 1,
+                    StartTime = DateTime.Today,
+                    EndTime = DateTime.Today.AddMinutes(1),
+                    StudentId = "1",
+                },
+                new()
+                {
+                    Id = 1,
+                    StartTime = DateTime.Today,
+                    EndTime = DateTime.Today.AddMinutes(5),
+                    StudentId = "1",
+                }
+            };
+            app.CalculateScore(logs, 10).Should().Be(60);
             logs.Add(new()
             {
                 Id = 1,
@@ -148,8 +148,36 @@ namespace PianoLessons.Tests
                 EndTime = DateTime.Today.AddMinutes(5),
                 StudentId = "1",
             });
-            app.CalculateScore(logs).Should().Be(110);
+            app.CalculateScore(logs, 10).Should().Be(110);
+        }
+
+        [Test]
+        public void TestDoubleDutch()
+        {
+            var nibame = ToDoubleDutch("name");
+            nibame.Should().Be("nibamibe");
+			var bridger = ToDoubleDutch("bridger");
+			bridger.Should().Be("bribidgiber");
 		}
 
-	}
+        public string ToDoubleDutch(string input)
+        {
+			string pattern = @"\b\w+\b";
+			string DoubleDutchDelegate(System.Text.RegularExpressions.Match match)
+            {
+                string word = match.Value; 
+                string doubledWord = "";
+			    foreach (char c in word) 
+                { 
+                    if ("aeiouAEIOU".Contains(c)) 
+                    { 
+                        doubledWord += "ib" + c.ToString().ToLower(); 
+                    } 
+                    else { doubledWord += c; } 
+                }
+			    return doubledWord;
+            }
+			string output = Regex.Replace(input, pattern, DoubleDutchDelegate); return output;
+		}
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using PianoLessons.Shared.Data;
 using PianoLessonsApi.Repositories;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace PianoLessonsApi.Data;
 
@@ -56,7 +57,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 
 	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0")
 	{
-		int modifier = version == "1.0" ? 10 : 1000;
+		int modifier = version == "2.0" ? 1000 : 10;
 		DateTime startDate = GetStartDate(time, DateTime.Today);
 		var students = await repo.GetCourseStudents(courseId);
 		var studentScores = new List<StudentScore>();
@@ -113,9 +114,37 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return score;
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(string teacherId, string? version = "1.0")
 	{
-		return await repo.GetStudentsForTeacher(teacherId);
+		var students = await repo.GetStudentsForTeacher(teacherId);
+		if (version == "2.0")
+		{
+			foreach (var student in students)
+			{
+				student.Name = ToDoubleDutch(student.Name);
+			}
+		}
+		return students;
+	}
+
+	private string ToDoubleDutch(string input)
+	{
+		string pattern = @"\b\w+\b";
+		string DoubleDutchDelegate(System.Text.RegularExpressions.Match match)
+		{
+			string word = match.Value;
+			string doubledWord = "";
+			foreach (char c in word)
+			{
+				if ("aeiouAEIOU".Contains(c))
+				{
+					doubledWord += "ib" + c.ToString().ToLower();
+				}
+				else { doubledWord += c; }
+			}
+			return doubledWord;
+		}
+		string output = Regex.Replace(input, pattern, DoubleDutchDelegate); return output;
 	}
 
 	public async Task<List<Course>> GetTeacherCourses(string teacherId)

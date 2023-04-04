@@ -1,22 +1,33 @@
-﻿namespace PianoLessons.Shared.Data;
+﻿using System.Text.Json.Serialization;
+
+namespace PianoLessons.Shared.Data;
 
 public partial class PracticeLog
 {
-    public int Id { get; set; }
+ 
+	[JsonPropertyName("id")]
+	public int Id { get; set; }
 
-    public string StudentId { get; set; }
+	[JsonPropertyName("studentId")]
+	public string StudentId { get; set; }
 
-    public int CourseId { get; set; }
+    [JsonPropertyName("courseId")]
+	public int CourseId { get; set; }
 
-    public DateTime StartTime { get; set; }
+	[JsonPropertyName("startTime")]
+	public DateTime StartTime { get; set; }
 
-    public DateTime EndTime { get; set; }
+    [JsonPropertyName("endTime")]
+	public DateTime EndTime { get; set; }
 
-    public string? Notes { get; set; }
+    [JsonPropertyName("notes")]
+	public string? Notes { get; set; }
 
-    public virtual Student? Student { get; set; } = null!;
+	[JsonPropertyName("student")]
+	public virtual Student? Student { get; set; } = null!;
 
-    public virtual Course? Course { get; set; } = null!;
+	[JsonPropertyName("course")]
+	public virtual Course? Course { get; set; } = null!;
 
 	public TimeSpan Duration => EndTime - StartTime;
 }

@@ -12,7 +12,7 @@ namespace PianoLessons.Services;
 public class PianoLessonsService
 {
 	private readonly HttpClient client;
-	private string version = "1.1";
+	private readonly string version = "1.0";
 
 	public PianoLessonsService(HttpClient client)
 	{
@@ -57,7 +57,19 @@ public class PianoLessonsService
 
 	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
-		return await client.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
+		var request = new HttpRequestMessage(HttpMethod.Get, $"api/PianoLessons/students/{teacherId}");
+		request.Headers.Add("version", version);
+
+		var response = await client.SendAsync(request);
+
+		if (response.IsSuccessStatusCode)
+		{
+			var json = await response.Content.ReadAsStringAsync();
+			var objects = JsonSerializer.Deserialize<List<Student>>(json);
+			return objects;
+		}
+		var errorMessage = $"Failed to get students for teacher {teacherId}. Status code: {response.StatusCode}";
+		throw new HttpRequestException(errorMessage);
 	}
 
 	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)

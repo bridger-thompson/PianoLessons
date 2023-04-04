@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PianoLessons.Shared.Data;
 
@@ -11,16 +12,20 @@ public partial class Course
         Teacher = new();
     }
     
-    public int Id { get; set; }
+	[JsonPropertyName("id")]
+	public int Id { get; set; }
 
-    public string Name { get; set; } = null!;
+	[JsonPropertyName("name")]
+	public string Name { get; set; } = null!;
 
-    public string TeacherId { get; set; }
+	[JsonPropertyName("teacherId")]
+	public string TeacherId { get; set; }
 
     public virtual ICollection<StudentCourse>? StudentCourses { get; } = null!;
     public virtual ICollection<PracticeLog>? PracticeLogs { get; } = null!;
 	public virtual ICollection<Recording>? Recordings { get; } = null!;
 
-    public virtual Teacher? Teacher { get; set; } = null!;
+	[JsonPropertyName("teacher")]
+	public virtual Teacher? Teacher { get; set; } = null!;
     public virtual ICollection<CourseInvite>? CourseInvites { get; } = null!;
 }

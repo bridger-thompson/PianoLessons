@@ -38,7 +38,8 @@ namespace PianoLessonsApi.Controllers
 		[HttpGet("students/{teacherId}")]
 		public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 		{
-			return await app.GetStudentsForTeacher(teacherId);
+			var versionHeader = Request.Headers["version"].FirstOrDefault();
+			return await app.GetStudentsForTeacher(teacherId, versionHeader);
 		}
 
 		[HttpGet("logs/all/{teacherId}")]

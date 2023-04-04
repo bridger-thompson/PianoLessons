@@ -32,12 +32,11 @@ public class PianoLessonRepo : IPianoLessonsRepo
 
 	public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
 	{
-		return await context.PracticeLogs.Include(l => l.Student)
-			.ThenInclude(s => s.StudentCourses)
-			.ThenInclude(sc => sc.Course)
-			.ThenInclude(c => c.Teacher)
-			.Where(l => l.Student.StudentCourses.Any(c => c.Course.TeacherId == teacherId))
-			.ToListAsync();
+		return await context.PracticeLogs
+				.Include(pl => pl.Student)
+				.Include(pl => pl.Course)
+				.Where(pl => pl.Course.TeacherId == teacherId)
+				.ToListAsync();
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
@@ -107,7 +106,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	{
 		var logs = await context.PracticeLogs
 			.Where(p => p.StudentId == studentId)
-            .Where(p => p.StartTime < DateTime.Now && p.StartTime > startDate)
+            .Where(p => p.StartTime <= DateTime.Now && p.StartTime >= startDate)
 			.Where(p => p.CourseId == courseId)
             .ToListAsync();
 
