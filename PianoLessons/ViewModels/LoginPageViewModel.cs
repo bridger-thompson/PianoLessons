@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PianoLessons.Auth0;
 using PianoLessons.Pages;
 using PianoLessons.Services;
 
@@ -39,7 +38,6 @@ namespace PianoLessons.ViewModels
 
             if (loginResult == LoginResult.Success)
             {
-                LoginViewIsVisible = false;
                 await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
             }
             if (loginResult == LoginResult.UserNotRegistered)
@@ -53,6 +51,8 @@ namespace PianoLessons.ViewModels
         public async Task SubmitRegistration()
         {
             await auth.RegisterUser(IsTeacher, UserName);
+            LoginViewIsVisible = true;
+            RegistrationViewIsVisible = false;
             await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
         }
     }

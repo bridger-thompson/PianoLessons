@@ -67,18 +67,8 @@
             </CollectionView>
             <!--  Button Setup  -->
             <Grid
-                Grid.Row="3"
-                Grid.ColumnSpan="2"
-                ColumnSpacing="60">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="*" />
-                    <ColumnDefinition
-                        Width="*" />
-                    <ColumnDefinition
-                        Width="*" />
-                </Grid.ColumnDefinitions>
-
+                ColumnDefinitions="*,*,*"
+                WidthRequest="400">
                 <!--  Retry  -->
                 <Grid
                     Grid.Column="0"
@@ -86,17 +76,16 @@
                     <Button
                         Grid.Row="0"
                         BackgroundColor="LightGray"
+                        HeightRequest="50"
+                        WidthRequest="50"
                         BorderColor="#5F49FF"
                         BorderWidth="1"
                         Command="{Binding ResetCommand}"
                         CornerRadius="25"
-                        FontFamily="AudioIconFonts"
                         FontSize="22"
-                        HeightRequest="50"
                         IsEnabled="{Binding IsRecordingAudio}"
-                        Text="&#xe900;"
-                        TextColor="#5F49FF"
-                        WidthRequest="50">
+                        Text="Retry"
+                        TextColor="#5F49FF">
                         <Button.Triggers>
                             <DataTrigger
                                 Binding="{Binding IsRecordingAudio}"
@@ -128,9 +117,8 @@
                         BackgroundColor="Red"
                         BorderColor="Red"
                         BorderWidth="1"
-                        Command="{Binding RecordCommand}"
+                        Command="{Binding StartRecordingCommand}"
                         CornerRadius="25"
-                        FontFamily="AudioIconFonts"
                         FontSize="22"
                         HeightRequest="50"
                         IsVisible="{Binding IsRecordButtonVisible}"
@@ -149,9 +137,8 @@
                         BackgroundColor="Green"
                         BorderColor="Green"
                         BorderWidth="1"
-                        Command="{Binding PauseCommand}"
+                        Command="{Binding PauseRecordingCommand}"
                         CornerRadius="25"
-                        FontFamily="AudioIconFonts"
                         FontSize="22"
                         HeightRequest="50"
                         IsVisible="{Binding IsPauseButtonVisible}"
@@ -170,9 +157,8 @@
                         BackgroundColor="Red"
                         BorderColor="Red"
                         BorderWidth="1"
-                        Command="{Binding RecordCommand}"
+                        Command="{Binding ResumeRecordingCommand}"
                         CornerRadius="25"
-                        FontFamily="AudioIconFonts"
                         FontSize="22"
                         HeightRequest="50"
                         IsVisible="{Binding IsResumeButtonVisible}"
@@ -195,13 +181,12 @@
                         BackgroundColor="LightGray"
                         BorderColor="#5F49FF"
                         BorderWidth="1"
-                        Command="{Binding StopCommand}"
+                        Command="{Binding StopRecordingCommand}"
                         CornerRadius="25"
-                        FontFamily="AudioIconFonts"
                         FontSize="22"
                         HeightRequest="50"
                         IsEnabled="{Binding IsRecordingAudio}"
-                        Text="&#xea1e;"
+                        Text="Stop"
                         TextColor="#5F49FF"
                         WidthRequest="50">
                         <Button.Triggers>

@@ -118,7 +118,7 @@ public class PianoLessonsService
 
 	public async Task RegisterUser(PianoLessonsUser user)
 	{
-		await client.PostAsJsonAsync($"api/PianoLessons/user", user);
+		var result = await client.PostAsJsonAsync($"api/PianoLessons/user", user);
 	}
 
     public async Task AddCourse(Course course)
