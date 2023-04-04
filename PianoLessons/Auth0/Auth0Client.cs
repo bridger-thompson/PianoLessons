@@ -2,6 +2,7 @@
 using IdentityModel.OidcClient.Browser; 
 using IdentityModel.Client;
 using System.Security.Claims;
+using IdentityModel.OidcClient.Results;
 
 namespace PianoLessons.Auth0;
 
@@ -41,6 +42,11 @@ public class Auth0Client
         {
             await SecureStorage.Default.SetAsync("access_token", loginResult.AccessToken);
             await SecureStorage.Default.SetAsync("id_token", loginResult.IdentityToken);
+
+            if (loginResult.RefreshToken != null)
+            {
+                await SecureStorage.Default.SetAsync("refresh_token", loginResult.RefreshToken);
+            }
         }
 
         return loginResult;
@@ -96,5 +102,23 @@ public class Auth0Client
         }
 
         return user;
+    }
+
+    public async Task<RefreshTokenResult> RefreshTokenAsync(string refreshToken)
+    {
+        var refreshResult = await oidcClient.RefreshTokenAsync(refreshToken);
+
+        if (!refreshResult.IsError)
+        {
+            await SecureStorage.Default.SetAsync("access_token", refreshResult.AccessToken);
+            await SecureStorage.Default.SetAsync("id_token", refreshResult.IdentityToken);
+
+            if (refreshResult.RefreshToken != null)
+            {
+                await SecureStorage.Default.SetAsync("refresh_token", refreshResult.RefreshToken);
+            }
+        }
+
+        return refreshResult;
     }
 }
