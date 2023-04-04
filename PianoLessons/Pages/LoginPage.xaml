@@ -5,7 +5,6 @@
              Title="LoginPage"
              BackgroundColor="DarkGray">
     <VerticalStackLayout>
-        <Label Text="Hello!"/>
         <VerticalStackLayout IsVisible="{Binding LoginViewIsVisible}">
             <Button Text="Log In"
                     SemanticProperties.Hint="Click to log in"
