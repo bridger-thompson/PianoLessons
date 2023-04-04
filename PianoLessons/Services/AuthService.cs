@@ -1,12 +1,6 @@
-﻿using IdentityModel.OidcClient;
-using PianoLessons.Auth0;
+﻿using PianoLessons.Auth0;
 using PianoLessons.Shared.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PianoLessons.Services;
 
@@ -25,12 +19,12 @@ public class AuthService
 
     public PianoLessonsUser User { get; private set; }
 
-    public IdentityModel.OidcClient.Browser.IBrowser Browser 
+    public IdentityModel.OidcClient.Browser.IBrowser Browser
     {
         set => auth0Client.Browser = value;
     }
 
-    public AuthService(Auth0Client auth0Client, PianoLessonsService service) 
+    public AuthService(Auth0Client auth0Client, PianoLessonsService service)
     {
         this.auth0Client = auth0Client;
         this.service = service;
@@ -56,6 +50,12 @@ public class AuthService
         var userId = identityUser.Claims.FirstOrDefault(c => c.Type == "sub").Value;
         var user = new PianoLessonsUser(userId, name, isTeacher);
         await service.RegisterUser(user);
-        User = await service.GetUser(userId);    
+        User = await service.GetUser(userId);
+    }
+
+    public async Task Logout()
+    {
+        await auth0Client.LogoutAsync();
+        User = null;
     }
 }

@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PianoLessons.Pages.LoginPage"
              Title="LoginPage"
-             BackgroundColor="Aqua">
+             BackgroundColor="DarkGray">
     <VerticalStackLayout>
+        <Label Text="Hello!"/>
         <VerticalStackLayout IsVisible="{Binding LoginViewIsVisible}">
             <Button Text="Log In"
                     SemanticProperties.Hint="Click to log in"

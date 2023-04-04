@@ -31,7 +31,11 @@
                 AppointmentsSource="{Binding Events}"
                 AllowedViews="Day,Week"
                 View="Week" />
-
+            <Button x:Name="LogoutBtn"
+                    Text="Log Out"
+                    SemanticProperties.Hint="Click to log out"
+                    Command="{Binding LogoutCommand}"
+                    HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 

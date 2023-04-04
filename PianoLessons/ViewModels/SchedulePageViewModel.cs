@@ -59,4 +59,11 @@ public partial class SchedulePageViewModel : ObservableObject
 			});
 		}
 	}
+
+	[RelayCommand]
+	public async Task Logout()
+	{
+		await auth.Logout();
+		await navService.NavigateToAsync($"///{nameof(LoginPage)}");
+	}
 }
