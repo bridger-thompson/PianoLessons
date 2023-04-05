@@ -104,7 +104,7 @@ public partial class AddLogPageViewModel : ObservableObject
 		{
             PageTitle = "New Practice Log";
 			LogDate = DateTime.Today;
-            Notes = string.Empty;
+            Notes = null;
         }
 		var c = await service.GetStudentCourses(auth.User.Id);
 		foreach (var course in c)
@@ -118,7 +118,11 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public void ToggleTimer()
 	{
-		if (TimerStopped) StartTime = DateTime.Now.TimeOfDay;
+		if (TimerStopped)
+		{
+			StartTime = DateTime.Now.TimeOfDay;
+			EndTime = DateTime.Now.TimeOfDay;
+		}
 		else EndTime = DateTime.Now.TimeOfDay;
 		TimerStopped = !TimerStopped;
 	}

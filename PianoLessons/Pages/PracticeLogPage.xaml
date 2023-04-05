@@ -63,7 +63,7 @@
                 <Label
                     FontAttributes="Bold"
                     Grid.Column="2"
-                    Text="Name" />
+                    Text="Course" />
                 <Label
                     FontAttributes="Bold"
                     Grid.Column="3"
@@ -76,13 +76,13 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            StrokeShape="RoundRectangle 10,10,10,10"
+                            StrokeShape="RoundRectangle 5,5,5,5"
                             Margin="0,2"
                             Padding="5,0,0,0">
                             <Grid
-                                RowDefinitions="Auto"
-                                WidthRequest="540"
-                                ColumnDefinitions="75,150,100,75,Auto,Auto">
+                                RowDefinitions="Auto,Auto"
+                                WidthRequest="400"
+                                ColumnDefinitions="75,150,100,75">
                                 <Label
                                     VerticalOptions="Center"
                                     Text="{Binding StartTime, StringFormat='{0:MM/dd}'}" />
@@ -99,8 +99,13 @@
                                     VerticalOptions="Center"
                                     Grid.Column="3"
                                     Text="{Binding Duration, StringFormat='{0:h\\:mm}'}" />
-                                <Button
-                                    Grid.Column="4"
+                                <Label
+                                    Text="{Binding Notes, StringFormat='Notes: {0}'}"
+                                    Grid.Row="1"
+                                    Margin="0,5"
+                                    Grid.ColumnSpan="4" />
+                                <!--<Button
+                                    Grid.Column="5"
                                     BackgroundColor="Gray"
                                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=EditLogCommand}"
@@ -110,8 +115,8 @@
                                     BackgroundColor="Red"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=DeleteLogCommand}"
                                     CommandParameter="{Binding Id}"
-                                    Grid.Column="5"
-                                    Text="Delete" />
+                                    Grid.Column="6"
+                                    Text="Delete" />-->
                             </Grid>
                         </Border>
                     </DataTemplate>
