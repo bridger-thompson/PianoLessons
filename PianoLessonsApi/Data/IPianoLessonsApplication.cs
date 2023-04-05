@@ -6,9 +6,7 @@ public interface IPianoLessonsApplication
 {
 	public Task<List<Appointment>> GetAppointmentsForTeacher(string teacherId);
 
-	public Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time);
-
-	public Task<List<Student>> GetStudentsForTeacher(string teacherId);
+	public Task<List<Student>> GetStudentsForTeacher(string teacherId, string? version = "1.0");
 
 	public Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId);
 
@@ -22,7 +20,7 @@ public interface IPianoLessonsApplication
 
 	public Task<PracticeLog> GetLog(int logId);
 
-	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time);
+	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0");
 
 	public Task<List<Course>> GetTeacherCourses(string teacherId);
 
@@ -34,7 +32,7 @@ public interface IPianoLessonsApplication
     Task<bool> IsTeacher(string teacherId);
     Task<List<Course>> GetStudentCourses(string studentId);
     Task<List<Student>> GetCourseStudents(int id);
-	int CalculateScore(List<PracticeLog> logs);
+	int CalculateScore(List<PracticeLog> logs, int modifier);
     Task<string> GenerateCourseInvite(int courseId);
     Task RemoveStudent(int courseId, string studentId);
     Task<bool> JoinCourse(string studentId, string code);

@@ -1,6 +1,7 @@
 ﻿using PianoLessons.Shared.Data;
 using PianoLessonsApi.Repositories;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace PianoLessonsApi.Data;
 
@@ -54,21 +55,22 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetLogsForStudent(studentId);
 	}
 
-	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time)
-    {
-        DateTime startDate = GetStartDate(time, DateTime.Today);
-        var students = await repo.GetCourseStudents(courseId);
-        var studentScores = new List<StudentScore>();
-        foreach (var student in students)
-        {
-            StudentScore score = await GetStudentScoreForCourseAndStartDates(student, courseId, startDate);
-            studentScores.Add(score);
-        }
+	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0")
+	{
+		int modifier = version == "2.0" ? 1000 : 10;
+		DateTime startDate = GetStartDate(time, DateTime.Today);
+		var students = await repo.GetCourseStudents(courseId);
+		var studentScores = new List<StudentScore>();
+		foreach (var student in students)
+		{
+			StudentScore score = await GetStudentScoreForCourseAndStartDates(student, courseId, startDate, modifier);
+			studentScores.Add(score);
+		}
 
-        return GetRankedStudentScores(studentScores);
-    }
+		return GetRankedStudentScores(studentScores);
+	}
 
-    private static List<StudentScore> GetRankedStudentScores(List<StudentScore> studentScores)
+	private static List<StudentScore> GetRankedStudentScores(List<StudentScore> studentScores)
     {
         var rank = 1;
         var orderedStudentScores = studentScores.OrderByDescending(s => s.Score);
@@ -93,33 +95,56 @@ public class PianoLessonsApplication : IPianoLessonsApplication
         };
     }
 
-    private async Task<StudentScore> GetStudentScoreForCourseAndStartDates(Student student, int courseId, DateTime startDate)
+    private async Task<StudentScore> GetStudentScoreForCourseAndStartDates(Student student, int courseId, DateTime startDate, int modifier)
     {
 		var practiceLogs = await repo.GetStudentsPracticeLogsForCourseAndDate(student.Id, courseId, startDate);
 
-		int score = CalculateScore(practiceLogs);
+		int score = CalculateScore(practiceLogs, modifier);
 
 		return new StudentScore { Id = student.Id, Name = student.Name, Score = score };
     }
 
-	public int CalculateScore(List<PracticeLog> logs)
+	public int CalculateScore(List<PracticeLog> logs, int modifier)
 	{
 		int score = 0;
 		foreach (var log in logs)
 		{
-			score += (int)log.Duration.TotalMinutes * 10;
+			score += (int)log.Duration.TotalMinutes * modifier;
 		}
 		return score;
 	}
 
-	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
+	public async Task<List<Student>> GetStudentsForTeacher(string teacherId, string? version = "1.0")
 	{
-		return await repo.GetStudentsForTeacher(teacherId);
+		var students = await repo.GetStudentsForTeacher(teacherId);
+		if (version == "2.0")
+		{
+			foreach (var student in students)
+			{
+				student.Name = ToDoubleDutch(student.Name);
+			}
+		}
+		return students;
 	}
 
-	public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
+	private string ToDoubleDutch(string input)
 	{
-		return await repo.GetStudentsForTeacher(teacherId);
+		string pattern = @"\b\w+\b";
+		string DoubleDutchDelegate(System.Text.RegularExpressions.Match match)
+		{
+			string word = match.Value;
+			string doubledWord = "";
+			foreach (char c in word)
+			{
+				if ("aeiouAEIOU".Contains(c))
+				{
+					doubledWord += "ib" + c.ToString().ToLower();
+				}
+				else { doubledWord += c; }
+			}
+			return doubledWord;
+		}
+		string output = Regex.Replace(input, pattern, DoubleDutchDelegate); return output;
 	}
 
 	public async Task<List<Course>> GetTeacherCourses(string teacherId)

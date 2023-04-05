@@ -58,7 +58,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		}
 		NewCourseName = string.Empty;
 		NewCode = string.Empty;
-		NoCourses = Courses.Count == 0;
+		NoCourses = Courses.Count == 0 && !IsTeacher;
 	}
 
 	[RelayCommand]

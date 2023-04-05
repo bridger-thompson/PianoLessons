@@ -27,7 +27,6 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedCourseName;
 
-	[ObservableProperty]
 	private bool isTeacher;
 
 	public ScoreboardPageViewModel(PianoLessonsService service, AuthService auth)
@@ -44,12 +43,12 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task GetCourses()
 	{
-		IsTeacher = auth.User.IsTeacher;
+		isTeacher = auth.User.IsTeacher;
 		courses = new();
 		CourseNames = new();
 
 		List<Course> c = new();
-		if (IsTeacher)
+		if (isTeacher)
 		{
 			c = await service.GetTeacherCourses(auth.User.Id);
 		}

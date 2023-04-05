@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PianoLessons.Shared.Data;
 
@@ -16,9 +17,11 @@ public partial class Teacher
         Name = user.Name;   
     }
 
-    public string Id { get; set; }
+	[JsonPropertyName("id")]
+	public string Id { get; set; }
 
-    public string Name { get; set; } = null!;
+	[JsonPropertyName("name")]
+	public string Name { get; set; } = null!;
 
     public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
 

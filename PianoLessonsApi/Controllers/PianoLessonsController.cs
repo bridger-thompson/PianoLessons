@@ -37,17 +37,11 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetAppointmentsForStudent(studentId);
 		}
 
-		[HttpGet("students/{teacherId}/{time}")]
-		public async Task<List<Student>> GetStudentsScoresForTeacher(string teacherId, string time)
-		{
-			//need logic to calculate scores based on time
-			return await app.GetStudentsScoresForTeacher(teacherId, time);
-		}
-
 		[HttpGet("students/{teacherId}")]
 		public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 		{
-			return await app.GetStudentsForTeacher(teacherId);
+			var versionHeader = Request.Headers["version"].FirstOrDefault();
+			return await app.GetStudentsForTeacher(teacherId, versionHeader);
 		}
 
 		[HttpGet("logs/all/{teacherId}")]
@@ -101,7 +95,9 @@ namespace PianoLessonsApi.Controllers
 		[HttpGet("scores/{courseId}/{time}")]
 		public async Task<List<StudentScore>> GetPracticeScoresForCourse(int courseId, string time)
 		{
-			return await app.GetPracticeScores(courseId, time);
+			var versionHeader = Request.Headers["version"].FirstOrDefault();
+			var scores = await app.GetPracticeScores(courseId, time, versionHeader);
+			return scores;
 		}
 
 		[HttpGet("isTeacher/{teacherId}")]
