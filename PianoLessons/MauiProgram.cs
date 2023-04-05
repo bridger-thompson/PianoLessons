@@ -6,6 +6,7 @@ using PianoLessons.ViewModels;
 using PianoLessons.Auth0;
 using Syncfusion.Maui.Core.Hosting;
 using PianoLessons.Interfaces;
+using System.Security.Principal;
 #if ANDROID || IOS
 using PianoLessons.Platforms.Service;
 #endif
@@ -32,17 +33,23 @@ public static class MauiProgram
 #endif
         builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 		builder.Services.AddSingleton<PianoLessonsService>();
-		builder.Services.AddSingleton(client => new HttpClient
-		{
-			BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/")
-			//BaseAddress = new Uri("http://localhost:5050")
-		});
+
+        builder.Services.AddSingleton<TokenHandler>();
+        builder.Services.AddHttpClient("Api",
+				c => c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/")
+				//c => c.BaseAddress = new Uri("https://localhost:7085")
+				//c => c.BaseAddress = new Uri("http://localhost:5050")
+			).AddHttpMessageHandler<TokenHandler>();
+        builder.Services.AddTransient(
+			sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api")
+		);
 
         builder.Services.AddSingleton(new Auth0Client(new()
         {
             Domain = "dev-djtfumdg4bnzmj45.us.auth0.com",
             ClientId = "1JnFZheOsQFlyGigeF0MWjwKCLlfRnSu",
             Scope = "openid profile offline_access",
+			Audience = "https://pianolessons/api",
 #if WINDOWS
             RedirectUri = "http://localhost/callback"
 #else

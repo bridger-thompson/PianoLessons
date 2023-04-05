@@ -1,4 +1,6 @@
-﻿namespace PianoLessons.Auth0;
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace PianoLessons.Auth0;
 
 public class Auth0ClientOptions
 {
@@ -7,6 +9,7 @@ public class Auth0ClientOptions
         Scope = "openid";
         RedirectUri = "myapp://callback";
         Browser = new WebBrowserAuthenticator();
+        Audience = "";
     }
 
     public string Domain { get; set; }
@@ -16,6 +19,7 @@ public class Auth0ClientOptions
     public string RedirectUri { get; set; }
 
     public string Scope { get; set; }
+    public string Audience { get; set; }
 
     public IdentityModel.OidcClient.Browser.IBrowser Browser { get; set; }
 }

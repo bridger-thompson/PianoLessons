@@ -1,5 +1,6 @@
 ﻿using PianoLessons.Auth0;
 using PianoLessons.Shared.Data;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace PianoLessons.Services;
@@ -35,6 +36,7 @@ public class AuthService
         var results = await auth0Client.LoginAsync();
         identityUser = results.User;
         var userId = identityUser.Claims.FirstOrDefault(c => c.Type == "sub").Value;
+
         User = await service.GetUser(userId);
 
         if (User == null)

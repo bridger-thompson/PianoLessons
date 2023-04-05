@@ -9,6 +9,7 @@ namespace PianoLessons.Auth0;
 public class Auth0Client
 {
     private readonly OidcClient oidcClient;
+    private string audience;
 
     public Auth0Client(Auth0ClientOptions options)
     {
@@ -20,6 +21,8 @@ public class Auth0Client
             RedirectUri = options.RedirectUri,
             Browser = options.Browser
         });
+
+        audience = options.Audience;
     }
 
     public IdentityModel.OidcClient.Browser.IBrowser Browser
@@ -36,7 +39,15 @@ public class Auth0Client
 
     public async Task<LoginResult> LoginAsync()
     {
-        var loginResult = await oidcClient.LoginAsync();
+        var loginRequest = new LoginRequest
+        {
+            FrontChannelExtraParameters = new Parameters(new Dictionary<string, string>()
+            {
+                {"audience", audience}
+            })
+        };
+
+        var loginResult = await oidcClient.LoginAsync(loginRequest);
 
         if (!loginResult.IsError)
         {
@@ -120,5 +131,15 @@ public class Auth0Client
         }
 
         return refreshResult;
+    }
+
+    public async Task<string> GetToken()
+    {
+        return await SecureStorage.Default.GetAsync("access_token");
+    }
+
+    public async Task<string> GetRefreshToken()
+    {
+        return await SecureStorage.Default.GetAsync("refresh_token");
     }
 }

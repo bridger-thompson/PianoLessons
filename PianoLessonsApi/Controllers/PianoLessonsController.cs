@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PianoLessons.Shared.Data;
 using PianoLessonsApi.Data;
@@ -8,6 +9,7 @@ namespace PianoLessonsApi.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class PianoLessonsController : ControllerBase
 	{
 		private readonly IPianoLessonsApplication app;
