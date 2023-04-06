@@ -196,6 +196,12 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetStudentCourseRecordings(courseId, studentId);
 		}
 
+		[HttpPost("recording/{studentId}")]
+		public async Task AddRecording(string studentId, FileData data)
+		{
+			await app.AddRecordingToAzure(data, studentId);
+		}
+
 
     }
 }

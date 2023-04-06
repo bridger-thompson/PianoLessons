@@ -75,7 +75,7 @@
                     <DataTemplate>
                         <Border
                             HeightRequest="175"
-                            WidthRequest="168"
+                            WidthRequest="170"
                             Margin="3"
                             BackgroundColor="LightBlue"
                             StrokeShape="RoundRectangle 5,5,5,5">

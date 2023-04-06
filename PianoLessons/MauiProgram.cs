@@ -7,6 +7,8 @@ using PianoLessons.Auth0;
 using Syncfusion.Maui.Core.Hosting;
 using PianoLessons.Interfaces;
 using System.Security.Principal;
+using static System.Net.WebRequestMethods;
+
 #if ANDROID || IOS
 using PianoLessons.Platforms.Service;
 #endif

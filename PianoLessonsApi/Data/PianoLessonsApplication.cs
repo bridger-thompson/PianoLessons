@@ -8,10 +8,12 @@ namespace PianoLessonsApi.Data;
 public class PianoLessonsApplication : IPianoLessonsApplication
 {
 	private readonly IPianoLessonsRepo repo;
+	private readonly RecordingRepo recordingRepo;
 
-	public PianoLessonsApplication(IPianoLessonsRepo repo)
+	public PianoLessonsApplication(IPianoLessonsRepo repo, RecordingRepo recordingRepo)
 	{
 		this.repo = repo;
+		this.recordingRepo = recordingRepo;
 	}
 
     public async Task AddLog(PracticeLog log)
@@ -268,5 +270,10 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	public async Task RegisterUser(PianoLessonsUser user)
 	{
 		await repo.RegisterUser(user);
+	}
+
+	public async Task AddRecordingToAzure(FileData data, string studentId)
+	{
+		await recordingRepo.SendRecordingToAzure(data, studentId);
 	}
 }

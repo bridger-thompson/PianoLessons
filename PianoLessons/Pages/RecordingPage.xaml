@@ -114,8 +114,8 @@
                     <!--  Record Button  -->
                     <Button
                         Grid.Row="0"
-                        BackgroundColor="Red"
-                        BorderColor="Red"
+                        BackgroundColor="LimeGreen"
+                        BorderColor="LimeGreen"
                         BorderWidth="1"
                         Command="{Binding StartRecordingCommand}"
                         CornerRadius="25"
@@ -134,8 +134,8 @@
                     <!--  Pause Button  -->
                     <Button
                         Grid.Row="0"
-                        BackgroundColor="Green"
-                        BorderColor="Green"
+                        BackgroundColor="LightBlue"
+                        BorderColor="LightBlue"
                         BorderWidth="1"
                         Command="{Binding PauseRecordingCommand}"
                         CornerRadius="25"
@@ -154,8 +154,8 @@
                     <!--  Resume Button  -->
                     <Button
                         Grid.Row="0"
-                        BackgroundColor="Red"
-                        BorderColor="Red"
+                        BackgroundColor="LimeGreen"
+                        BorderColor="LimeGreen"
                         BorderWidth="1"
                         Command="{Binding ResumeRecordingCommand}"
                         CornerRadius="25"
@@ -178,16 +178,16 @@
                     RowDefinitions="auto,auto">
                     <Button
                         Grid.Row="0"
-                        BackgroundColor="LightGray"
-                        BorderColor="#5F49FF"
+                        BackgroundColor="Red"
+                        BorderColor="Red"
                         BorderWidth="1"
                         Command="{Binding StopRecordingCommand}"
                         CornerRadius="25"
                         FontSize="22"
+                        TextColor="White"
                         HeightRequest="50"
                         IsEnabled="{Binding IsRecordingAudio}"
                         Text="Stop"
-                        TextColor="#5F49FF"
                         WidthRequest="50">
                         <Button.Triggers>
                             <DataTrigger

@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddDbContext<PianoLessonDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IPianoLessonsRepo, PianoLessonRepo>();
+builder.Services.AddScoped<RecordingRepo>();
 builder.Services.AddScoped<IPianoLessonsApplication, PianoLessonsApplication>();
 
 

@@ -208,15 +208,18 @@ public partial class RecordingPageViewModel : ObservableObject
         SendRecording();
     }
 
-    [RelayCommand]
-    public void SendRecording()
+    public async void SendRecording()
     {
-        //Audio recordedFile = new Audio() { AudioURL = RecentAudioFilePath };
-        //if (recordedFile != null)
-        //{
-        //    recordedFile.AudioName = Path.GetFileName(RecentAudioFilePath);
-        //    Audios.Insert(0, recordedFile);
-        //}
+        Audio recordedFile = new Audio() { AudioURL = RecentAudioFilePath };
+
+        if (recordedFile != null)
+        {
+            recordedFile.AudioName = Path.GetFileName(RecentAudioFilePath);
+            var fileBytes = File.ReadAllBytes(recordedFile.AudioURL);
+            var fileData = new FileData { FileName = recordedFile.AudioName, Data = fileBytes };
+            await service.AddRecording(fileData, auth.User.Id);
+            //Audios.Insert(0, recordedFile);
+        }
     }
 
     [RelayCommand]
