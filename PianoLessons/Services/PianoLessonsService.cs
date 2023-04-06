@@ -179,7 +179,7 @@ public class PianoLessonsService
 
     public async Task AddRecording(FileData data, string studentId)
     {
-        await clientV1.PostAsJsonAsync($"api/PianoLessons/recording/{studentId}", data);
+        var response = await clientV1.PostAsJsonAsync($"api/PianoLessons/recording/{studentId}", data);
     }
 }
 
