@@ -16,6 +16,9 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	private ObservableCollection<PracticeLog> logs;
 
 	[ObservableProperty]
+	private PracticeLog selectedLog;
+
+	[ObservableProperty]
 	private ObservableCollection<string> studentNames;
 
 	[ObservableProperty]
@@ -73,7 +76,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		{
 			ls = await service.GetAllStudentLogsForTeacher(auth.User.Id);
 		}
-		else if (SelectedStudentName == "All" && !IsTeacher)
+		else if (!IsTeacher)
 		{
 			ls = await service.GetLogsForStudent(auth.User.Id);
 		}
@@ -81,7 +84,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		{
 			var selectedStudent = students.Where(s => s.Name == SelectedStudentName)
 				.FirstOrDefault();
-			ls = await service.GetLogsForStudent(selectedStudent.Id);
+			ls = await service.GetLogsForStudentAndTeacher(selectedStudent.Id, auth.User.Id);
 		}
 		foreach (var log in ls)
 		{
@@ -98,8 +101,11 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public async Task EditLog(int logId)
+	public async Task EditLog()
 	{
-		await navService.NavigateToAsync($"{nameof(AddLogPage)}?Id={logId}");
+		if (!IsTeacher)
+		{
+			await navService.NavigateToAsync($"{nameof(AddLogPage)}?Id={SelectedLog.Id}");
+		}
 	}
 }

@@ -81,7 +81,12 @@ public class PianoLessonsService
         return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/{studentId}");
     }
 
-    public async Task DeleteLog(int logId)
+	public async Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId)
+	{
+		return await client.GetFromJsonAsync<List<PracticeLog>>($"api/PianoLessons/logs/student/{studentId}/teacher/{teacherId}");
+	}
+
+	public async Task DeleteLog(int logId)
     {
         await client.DeleteAsync($"api/PianoLessons/logs/{logId}");
     }

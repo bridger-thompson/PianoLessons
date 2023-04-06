@@ -42,6 +42,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool timerStopped;
 
+	[ObservableProperty]
+	private bool isEditing;
+
     public string Total => $"{(EndTime - StartTime).Hours} hour(s) {(EndTime - StartTime).Minutes} minute(s)";
 
 	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
@@ -73,7 +76,7 @@ public partial class AddLogPageViewModel : ObservableObject
 			StudentId = auth.User.Id,
 			CourseId = selectedCourse.Id,
 		};
-        if (Id != -1)
+        if (IsEditing)
 		{
 			await service.UpdateLog(log);
 		}
@@ -90,8 +93,9 @@ public partial class AddLogPageViewModel : ObservableObject
 	{
 		Courses = new();
 		CourseNames = new();
+		IsEditing = Id != -1;
 
-		if (Id != -1)
+		if (IsEditing)
 		{
 			var log = await service.GetLog(Id);
 			LogDate = log.StartTime;

@@ -7,12 +7,13 @@
     x:Class="PianoLessons.Pages.AddLogPage"
     Title="Add Practice Log">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior 
+        <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        WidthRequest="300">
         <Label
             FontSize="Title"
             HorizontalOptions="Center"
@@ -45,6 +46,7 @@
             <Label
                 VerticalOptions="Center"
                 WidthRequest="80"
+                Padding="9,0,0,15"
                 Text="Start Time: " />
             <TimePicker
                 Time="{Binding StartTime}" />
@@ -54,44 +56,56 @@
             HorizontalOptions="Center">
             <Label
                 VerticalOptions="Center"
-                WidthRequest="70"
+                Padding="15,0,0,15"
+                WidthRequest="80"
                 Text="End Time: " />
             <TimePicker
                 Time="{Binding EndTime}" />
         </HorizontalStackLayout>
-        <Button
-            Text="Start Timer"
-            HorizontalOptions="Center"
-            IsVisible="{Binding TimerStopped}"
-            Command="{Binding ToggleTimerCommand}"
-            VerticalOptions="Center"
-            BackgroundColor="LimeGreen" />
-        <Button
-            Text="Stop Timer"
-            HorizontalOptions="Center"
-            IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
-            Command="{Binding ToggleTimerCommand}"
-            VerticalOptions="Center"
-            BackgroundColor="Red" />
+        <VerticalStackLayout
+            IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}">
+            <Button
+                Text="Start Timer"
+                HorizontalOptions="Center"
+                IsVisible="{Binding TimerStopped}"
+                Command="{Binding ToggleTimerCommand}"
+                VerticalOptions="Center" />
+            <Button
+                Text="Stop Timer"
+                HorizontalOptions="Center"
+                IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
+                Command="{Binding ToggleTimerCommand}"
+                VerticalOptions="Center"
+                BackgroundColor="Red" />
+        </VerticalStackLayout>
         <Label
             HorizontalOptions="Center"
             Margin="0,5"
             FontSize="Small"
             Text="{Binding Total, StringFormat='Total: {0:h\\:mm}'}" />
-        <Label 
+        <Label
             Text="Notes:"
-            HorizontalOptions="Center"/>
-        <HorizontalStackLayout 
+            HorizontalOptions="Start" />
+        <HorizontalStackLayout
             HorizontalOptions="Center"
-            Margin="0, 5">
-            <Editor 
+            Margin="0,5">
+            <Editor
                 Text="{Binding Notes}"
                 AutoSize="TextChanges"
-                WidthRequest="300"/>
+                WidthRequest="300" />
         </HorizontalStackLayout>
-        <Button
+        <HorizontalStackLayout
             HorizontalOptions="Center"
-            Text="Submit"
-            Command="{Binding SubmitCommand}" />
+            Spacing="20">
+            <Button
+                Text="Delete"
+                BackgroundColor="Red"
+                IsVisible="{Binding IsEditing}"
+                Command="{Binding DeleteCommand}" />
+            <Button
+                Text="Submit"
+                BackgroundColor="LimeGreen"
+                Command="{Binding SubmitCommand}" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

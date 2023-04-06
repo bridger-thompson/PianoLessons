@@ -22,7 +22,6 @@
                 HorizontalOptions="Center"
                 Text="Practice Logs" />
             <Grid
-                Margin="0,10"
                 ColumnDefinitions="*,Auto">
                 <HorizontalStackLayout
                     IsVisible="{Binding IsTeacher}"
@@ -45,10 +44,9 @@
             <Button
                 IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
                 BackgroundColor="ForestGreen"
-                Margin="0,10"
                 Command="{Binding ToAddLogCommand}"
-                HorizontalOptions="Center"
-                Text="Add Log" />
+                HorizontalOptions="End"
+                Text="+" />
             <Grid
                 RowDefinitions="*"
                 Padding="5,0,0,0"
@@ -71,7 +69,10 @@
             </Grid>
             <CollectionView
                 HorizontalOptions="Center"
+                SelectionMode="Single"
                 IsVisible="{Binding HasLogs}"
+                SelectedItem="{Binding SelectedLog}"
+                SelectionChangedCommand="{Binding EditLogCommand}"
                 ItemsSource="{Binding Logs}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -104,19 +105,6 @@
                                     Grid.Row="1"
                                     Margin="0,5"
                                     Grid.ColumnSpan="4" />
-                                <!--<Button
-                                    Grid.Column="5"
-                                    BackgroundColor="Gray"
-                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=EditLogCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    Text="Edit" />
-                                <Button
-                                    BackgroundColor="Red"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PracticeLogPageViewModel}}, Path=DeleteLogCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    Grid.Column="6"
-                                    Text="Delete" />-->
                             </Grid>
                         </Border>
                     </DataTemplate>

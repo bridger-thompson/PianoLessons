@@ -55,6 +55,11 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetLogsForStudent(studentId);
 	}
 
+	public async Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId)
+	{
+		return await repo.GetLogsForStudentAndTeacher(studentId, teacherId);
+	}
+
 	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0")
 	{
 		int modifier = version == "2.0" ? 1000 : 10;

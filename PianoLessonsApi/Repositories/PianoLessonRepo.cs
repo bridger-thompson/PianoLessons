@@ -36,6 +36,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 				.Include(pl => pl.Student)
 				.Include(pl => pl.Course)
 				.Where(pl => pl.Course.TeacherId == teacherId)
+				.OrderByDescending(l => l.StartTime)
 				.ToListAsync();
 	}
 
@@ -54,6 +55,18 @@ public class PianoLessonRepo : IPianoLessonsRepo
 			.Include(l => l.Student)
 			.Include(l => l.Course)
 			.Where(l => l.StudentId == studentId)
+			.OrderByDescending(l => l.StartTime)
+			.ToListAsync();
+	}
+
+	public async Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId)
+	{
+		return await context.PracticeLogs
+			.Include(l => l.Student)
+			.Include(l => l.Course)
+			.Where(l => l.StudentId == studentId)
+			.Where(l => l.Course.TeacherId == teacherId)
+			.OrderByDescending(l => l.StartTime)
 			.ToListAsync();
 	}
 
@@ -80,16 +93,16 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		}
 	}
 
-    public async Task AddLog(PracticeLog log)
-    {
+	public async Task AddLog(PracticeLog log)
+	{
 		await context.PracticeLogs.AddAsync(log);
 		await context.SaveChangesAsync();
-    }
+	}
 
-    public async Task<PracticeLog> GetLog(int logId)
-    {
+	public async Task<PracticeLog> GetLog(int logId)
+	{
 		return await context.PracticeLogs.FirstOrDefaultAsync(l => l.Id == logId);
-    }
+	}
 
 	public async Task<List<PracticeLog>> GetPracticeLogsForCourseAndStartDate(int courseId, DateTime startDate)
 	{
@@ -106,9 +119,9 @@ public class PianoLessonRepo : IPianoLessonsRepo
 	{
 		var logs = await context.PracticeLogs
 			.Where(p => p.StudentId == studentId)
-            .Where(p => p.StartTime <= DateTime.Now && p.StartTime >= startDate)
+			.Where(p => p.StartTime <= DateTime.Now && p.StartTime >= startDate)
 			.Where(p => p.CourseId == courseId)
-            .ToListAsync();
+			.ToListAsync();
 
 		return logs;
 	}
@@ -255,15 +268,15 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		return await context.Students.FirstOrDefaultAsync(s => s.Id == studentId);
 	}
 
-    public async Task<Teacher> GetTeacher(string teacherId)
-    {
-        return await context.Teachers.FirstOrDefaultAsync(t => t.Id == teacherId);
-    }
+	public async Task<Teacher> GetTeacher(string teacherId)
+	{
+		return await context.Teachers.FirstOrDefaultAsync(t => t.Id == teacherId);
+	}
 
-    public async Task RegisterUser(PianoLessonsUser user)
-    {
+	public async Task RegisterUser(PianoLessonsUser user)
+	{
 		logger.LogInformation($"Registering user {user.Name}");
-        if (user.IsTeacher)
+		if (user.IsTeacher)
 		{
 			await context.Teachers.AddAsync(new Teacher(user));
 			logger.LogInformation($"Registered user as teacher {user.Name}");
@@ -275,5 +288,5 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		}
 
 		await context.SaveChangesAsync();
-    }
+	}
 }

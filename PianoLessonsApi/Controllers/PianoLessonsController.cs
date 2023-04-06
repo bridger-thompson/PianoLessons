@@ -56,6 +56,12 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetLogsForStudent(studentId);
 		}
 
+		[HttpGet("logs/student/{studentId}/teacher/{teacherId}")]
+		public async Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId)
+		{
+			return await app.GetLogsForStudentAndTeacher(studentId, teacherId);
+		}
+
 		[HttpGet("logs/log/{logId}")]
 		public async Task<PracticeLog> GetLog(int logId)
 		{

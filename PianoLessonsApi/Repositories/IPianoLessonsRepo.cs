@@ -43,4 +43,5 @@ public interface IPianoLessonsRepo
     Task<Student> GetStudent(string studentId);
     Task<Teacher> GetTeacher(string teacherId);
     Task RegisterUser(PianoLessonsUser user);
+	Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId);
 }
