@@ -23,6 +23,8 @@ public static class MauiProgram
 		builder.ConfigureSyncfusionCore();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
+			.UseMauiCommunityToolkitMediaElement()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

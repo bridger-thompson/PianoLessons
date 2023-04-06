@@ -280,6 +280,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 			CourseId = courseId,
 			StudentId = studentId,
 			FilePath = path,
+			Created = DateTime.Now,
 		};
 		await repo.AddRecording(recording);
 	}
