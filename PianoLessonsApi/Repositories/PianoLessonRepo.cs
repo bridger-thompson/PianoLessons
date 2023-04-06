@@ -259,6 +259,7 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		var recordings = await context.Recordings
 			.Include(r => r.Student)
 			.Where(r => r.StudentId == studentId && r.CourseId == courseId)
+			.OrderByDescending(r => r.Created)
 			.ToListAsync();
 		return recordings;
 	}

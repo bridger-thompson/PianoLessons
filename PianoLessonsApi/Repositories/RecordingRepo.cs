@@ -16,7 +16,6 @@ public class RecordingRepo
 		Uri accountUri = new Uri("https://pianorecordings.blob.core.windows.net/");
 		string accountName = config["StorageAccountName"];
 		string accountKey = config["StorageAccountAccessKey"];
-		this.logger.LogInformation(accountName, accountKey);
 		StorageSharedKeyCredential credential = new StorageSharedKeyCredential(accountName, accountKey);
 		client = new BlobServiceClient(accountUri, credential);
 	}
