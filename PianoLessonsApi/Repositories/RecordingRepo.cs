@@ -27,8 +27,7 @@ public class RecordingRepo
 		logger.LogInformation($"Getting container client {containerName}");
 		BlobContainerClient containerClient = client.GetBlobContainerClient(containerName);
 		logger.LogInformation($"Done. Creating if not exist");
-		await containerClient.SetAccessPolicyAsync(PublicAccessType.Blob);
-		await containerClient.CreateIfNotExistsAsync();
+		await containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
 		MemoryStream stream = new MemoryStream(data.Data);
 		logger.LogInformation($"Uploading blob");
 		await containerClient.UploadBlobAsync(data.FileName, stream);
