@@ -289,4 +289,10 @@ public class PianoLessonRepo : IPianoLessonsRepo
 
 		await context.SaveChangesAsync();
 	}
+
+	public async Task AddRecording(Recording recording)
+	{
+		await context.Recordings.AddAsync(recording);
+		await context.SaveChangesAsync();
+	}
 }

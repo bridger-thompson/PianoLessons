@@ -210,15 +210,18 @@ public partial class RecordingPageViewModel : ObservableObject
 
     public async void SendRecording()
     {
-        Audio recordedFile = new Audio() { AudioURL = RecentAudioFilePath };
+        Audio recordedFile = new() { AudioURL = RecentAudioFilePath };
 
         if (recordedFile != null)
         {
             recordedFile.AudioName = Path.GetFileName(RecentAudioFilePath);
             var fileBytes = File.ReadAllBytes(recordedFile.AudioURL);
             var fileData = new FileData { FileName = recordedFile.AudioName, Data = fileBytes };
-            await service.AddRecording(fileData, auth.User.Id);
-            //Audios.Insert(0, recordedFile);
+            var selectedCourse = Courses.Where(c => c.Name == SelectedCourseName).FirstOrDefault();
+            if (selectedCourse != null)
+            {
+                await service.AddRecording(fileData, auth.User.Id, selectedCourse.Id);
+            }
         }
     }
 

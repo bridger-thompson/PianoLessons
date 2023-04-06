@@ -177,9 +177,9 @@ public class PianoLessonsService
         return await clientV1.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
     }
 
-    public async Task AddRecording(FileData data, string studentId)
+    public async Task AddRecording(FileData data, string studentId, int courseId)
     {
-        var response = await clientV1.PostAsJsonAsync($"api/PianoLessons/recording/{studentId}", data);
+        var response = await clientV1.PostAsJsonAsync($"api/PianoLessons/recording/student/{studentId}/course/{courseId}", data);
     }
 }
 

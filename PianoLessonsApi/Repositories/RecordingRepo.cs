@@ -10,7 +10,7 @@ public class RecordingRepo
 {
 	private readonly ILogger logger;
 	private BlobServiceClient client;
-	public RecordingRepo(IConfiguration config, ILogger logger)
+	public RecordingRepo(IConfiguration config, ILogger<RecordingRepo> logger)
 	{
 		this.logger = logger;
 		Uri accountUri = new Uri("https://pianorecordings.blob.core.windows.net/");
@@ -21,7 +21,7 @@ public class RecordingRepo
 		client = new BlobServiceClient(accountUri, credential);
 	}
 
-	public async Task SendRecordingToAzure(FileData data, string studentId)
+	public async Task<string> SendRecordingToAzure(FileData data, string studentId)
 	{
 		logger.LogInformation($"Getting container client {studentId}");
 		BlobContainerClient containerClient = client.GetBlobContainerClient(studentId);
@@ -31,5 +31,6 @@ public class RecordingRepo
 		logger.LogInformation($"Uploading blob");
 		await containerClient.UploadBlobAsync(data.FileName, stream);
 		logger.LogInformation("Successfully uploaded recording");
+		return "";
 	}
 }

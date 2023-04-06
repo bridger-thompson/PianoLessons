@@ -272,8 +272,14 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		await repo.RegisterUser(user);
 	}
 
-	public async Task AddRecordingToAzure(FileData data, string studentId)
+	public async Task AddRecordingToAzure(FileData data, string studentId, int courseId)
 	{
-		await recordingRepo.SendRecordingToAzure(data, studentId);
+		var path = await recordingRepo.SendRecordingToAzure(data, studentId);
+		Recording recording = new()
+		{
+			CourseId = courseId,
+			StudentId = studentId,
+			FilePath = path,
+		};
 	}
 }

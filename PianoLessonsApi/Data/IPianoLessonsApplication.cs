@@ -44,5 +44,5 @@ public interface IPianoLessonsApplication
     Task<bool> IsUser(string userId);
     Task<PianoLessonsUser> GetUser(string userId);
     Task RegisterUser(PianoLessonsUser user);
-	Task AddRecordingToAzure(FileData data, string studentId);
+	Task AddRecordingToAzure(FileData data, string studentId, int courseId);
 }
