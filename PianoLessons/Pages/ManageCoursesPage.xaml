@@ -61,24 +61,31 @@
                 IsVisible="{Binding NoCourses}"
                 HorizontalOptions="Center" />
             <CollectionView
+                WidthRequest="350"
                 SelectionMode="Single"
                 SelectedItem="{Binding SelectedCourse}"
                 SelectionChangedCommand="{Binding ToCourseCommand}"
                 ItemsSource="{Binding Courses}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="2" />
+                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
                             HeightRequest="175"
-                            WidthRequest="175"
-                            Margin="10"
+                            WidthRequest="168"
+                            Margin="3"
                             BackgroundColor="LightBlue"
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid
-                                RowDefinitions="125,*"
+                                RowDefinitions="Auto,*"
                                 ColumnDefinitions="*,Auto">
                                 <Image
                                     Source="music_notes.jpg"
                                     Grid.ColumnSpan="2"
+                                    HorizontalOptions="Center"
                                     HeightRequest="125" />
                                 <Label
                                     Text="{Binding Name}"
