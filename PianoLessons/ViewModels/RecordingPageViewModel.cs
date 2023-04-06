@@ -221,6 +221,7 @@ public partial class RecordingPageViewModel : ObservableObject
             if (selectedCourse != null)
             {
                 await service.AddRecording(fileData, auth.User.Id, selectedCourse.Id);
+                await GetRecordingsCommand.ExecuteAsync(this);
             }
         }
     }

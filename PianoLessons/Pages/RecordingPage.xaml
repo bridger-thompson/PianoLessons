@@ -55,11 +55,11 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
                                     CommandParameter="{Binding Id}"
                                     VerticalOptions="Center" />
-                                <Label
+                                <toolkit:MediaElement 
+                                    Source="{Binding FilePath}"
                                     Grid.Row="1"
                                     Grid.ColumnSpan="2"
-                                    Text="{Binding FilePath}"
-                                    VerticalOptions="Center" />
+                                    ShouldShowPlaybackControls="True"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -281,5 +281,6 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 			StudentId = studentId,
 			FilePath = path,
 		};
+		await repo.AddRecording(recording);
 	}
 }

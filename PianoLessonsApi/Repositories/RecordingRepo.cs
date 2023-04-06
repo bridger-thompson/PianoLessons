@@ -32,6 +32,6 @@ public class RecordingRepo
 		logger.LogInformation($"Uploading blob");
 		await containerClient.UploadBlobAsync(data.FileName, stream);
 		logger.LogInformation("Successfully uploaded recording");
-		return "";
+		return $"https://pianorecordings.blob.core.windows.net/{containerName}/{data.FileName}";
 	}
 }
