@@ -23,8 +23,9 @@ public class RecordingRepo
 
 	public async Task<string> SendRecordingToAzure(FileData data, string studentId)
 	{
-		logger.LogInformation($"Getting container client {studentId}");
-		BlobContainerClient containerClient = client.GetBlobContainerClient(studentId);
+		var containerName = studentId.Split('|')[1];
+		logger.LogInformation($"Getting container client {containerName}");
+		BlobContainerClient containerClient = client.GetBlobContainerClient(containerName);
 		logger.LogInformation($"Done. Creating if not exist");
 		await containerClient.CreateIfNotExistsAsync();
 		MemoryStream stream = new MemoryStream(data.Data);
