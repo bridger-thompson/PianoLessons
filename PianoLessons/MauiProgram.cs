@@ -28,38 +28,64 @@ public static class MauiProgram
 			});
 		RegisterPagesAndViewModels(builder);
 #if ANDROID || IOS
-        builder.Services.AddTransient<IAudioPlayer, AudioPlayerService>();
-        builder.Services.AddTransient<IRecordAudio, RecordAudioService>();
+		builder.Services.AddTransient<IAudioPlayer, AudioPlayerService>();
+		builder.Services.AddTransient<IRecordAudio, RecordAudioService>();
 #endif
-        builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
-		builder.Services.AddSingleton<PianoLessonsService>();
+		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 
-        builder.Services.AddSingleton<TokenHandler>();
-        builder.Services.AddHttpClient("Api",
-				c => c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/")
+		builder.Services.AddScoped<TokenHandler>();
+		//builder.Services.AddHttpClient("Api",
+		//		c => c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/")
+		//	//c => c.BaseAddress = new Uri("https://localhost:7085")
+		//	//c => c.BaseAddress = new Uri("http://localhost:5050")
+		//	).AddHttpMessageHandler<TokenHandler>();
+
+		builder.Services.AddHttpClient("v1", c =>
+			{
+				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
 				//c => c.BaseAddress = new Uri("https://localhost:7085")
-				//c => c.BaseAddress = new Uri("http://localhost:5050")
-			).AddHttpMessageHandler<TokenHandler>();
-        builder.Services.AddTransient(
+				c.DefaultRequestHeaders.Add("version", "1.0");
+			}
+		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
+		 .AddHttpMessageHandler<TokenHandler>();
+
+		builder.Services.AddHttpClient("v2", c =>
+			{
+				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
+				//c => c.BaseAddress = new Uri("https://localhost:7085")
+				c.DefaultRequestHeaders.Add("version", "2.0");
+			}
+		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
+		 .AddHttpMessageHandler<TokenHandler>();
+
+		//builder.Services.AddSingleton<PianoLessonsService>();
+		builder.Services.AddSingleton<PianoLessonsService>(provider =>
+		{
+			var clientV1 = provider.GetRequiredService<IHttpClientFactory>().CreateClient("v1");
+			var clientV2 = provider.GetRequiredService<IHttpClientFactory>().CreateClient("v2");
+
+			return new PianoLessonsService(clientV1, clientV2);
+		});
+
+		builder.Services.AddTransient(
 			sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api")
 		);
-
-        builder.Services.AddSingleton(new Auth0Client(new()
-        {
-            Domain = "dev-djtfumdg4bnzmj45.us.auth0.com",
-            ClientId = "1JnFZheOsQFlyGigeF0MWjwKCLlfRnSu",
-            Scope = "openid profile offline_access",
+		builder.Services.AddSingleton(new Auth0Client(new()
+		{
+			Domain = "dev-djtfumdg4bnzmj45.us.auth0.com",
+			ClientId = "1JnFZheOsQFlyGigeF0MWjwKCLlfRnSu",
+			Scope = "openid profile offline_access",
 			Audience = "https://pianolessons/api",
 #if WINDOWS
             RedirectUri = "http://localhost/callback"
 #else
-            RedirectUri = "myapp://callback"
+			RedirectUri = "myapp://callback"
 #endif
-        }));
+		}));
 
 		builder.Services.AddSingleton<AuthService>();
 
-        builder.UseMauiCommunityToolkit();
+		builder.UseMauiCommunityToolkit();
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -87,6 +113,6 @@ public static class MauiProgram
 		builder.Services.AddSingleton<RecordingPage>();
 		builder.Services.AddSingleton<RecordingPageViewModel>();
 		builder.Services.AddSingleton<LoginPage>();
-		builder.Services.AddSingleton<LoginPageViewModel>();	
+		builder.Services.AddSingleton<LoginPageViewModel>();
 	}
 }
