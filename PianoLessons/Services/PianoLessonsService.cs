@@ -12,7 +12,6 @@ public class PianoLessonsService
 {
 	private readonly HttpClient clientV1;
 	private readonly HttpClient clientV2;
-	private readonly string version = "1.0";
 
     public PianoLessonsService(HttpClient clientV1, HttpClient clientV2)
     {
@@ -41,39 +40,16 @@ public class PianoLessonsService
 
 	public async Task<List<StudentScore>> GetScoresForCourseAndTime(int courseId, string time)
 	{
-		//var request = new HttpRequestMessage(HttpMethod.Get, $"api/PianoLessons/scores/{courseId}/{time}");
-		//request.Headers.Add("version", version);
-
-		//var response = await clientV1.SendAsync(request);
-
-		//if (response.IsSuccessStatusCode)
-		//{
-		//	var json = await response.Content.ReadAsStringAsync();
-		//	var objects = JsonSerializer.Deserialize<List<StudentScore>>(json);
-		//	return objects;
-		//}
-		//var errorMessage = $"Failed to get scores for course {courseId}. Status code: {response.StatusCode}";
-		//throw new HttpRequestException(errorMessage);
         var r1 = await clientV1.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
         var r2 = await clientV2.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
-        return r1;
+        return r2;
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
-		var request = new HttpRequestMessage(HttpMethod.Get, $"api/PianoLessons/students/{teacherId}");
-		request.Headers.Add("version", version);
-
-		var response = await clientV1.SendAsync(request);
-
-		if (response.IsSuccessStatusCode)
-		{
-			var json = await response.Content.ReadAsStringAsync();
-			var objects = JsonSerializer.Deserialize<List<Student>>(json);
-			return objects;
-		}
-		var errorMessage = $"Failed to get students for teacher {teacherId}. Status code: {response.StatusCode}";
-		throw new HttpRequestException(errorMessage);
+		var r1 = await clientV1.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
+		var r2 = await clientV2.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
+		return r2;
 	}
 
     public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
@@ -143,9 +119,8 @@ public class PianoLessonsService
         try
         {
             return await clientV1.GetFromJsonAsync<PianoLessonsUser>($"api/PianoLessons/user/{userId}");
-
         }
-        catch (Exception ex)
+        catch
         {
             return null;
         }

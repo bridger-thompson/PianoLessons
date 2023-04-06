@@ -22,7 +22,7 @@ public interface IPianoLessonsApplication
 
 	public Task<PracticeLog> GetLog(int logId);
 
-	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0");
+	public Task<List<StudentScore>> GetPracticeScores(int courseId, string time, int modifier);
 
 	public Task<List<Course>> GetTeacherCourses(string teacherId);
 

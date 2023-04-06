@@ -34,16 +34,11 @@ public static class MauiProgram
 		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 
 		builder.Services.AddScoped<TokenHandler>();
-		//builder.Services.AddHttpClient("Api",
-		//		c => c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/")
-		//	//c => c.BaseAddress = new Uri("https://localhost:7085")
-		//	//c => c.BaseAddress = new Uri("http://localhost:5050")
-		//	).AddHttpMessageHandler<TokenHandler>();
 
 		builder.Services.AddHttpClient("v1", c =>
 			{
 				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
-				//c => c.BaseAddress = new Uri("https://localhost:7085")
+				//c.BaseAddress = new Uri("https://localhost:7085");
 				c.DefaultRequestHeaders.Add("version", "1.0");
 			}
 		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
@@ -52,13 +47,12 @@ public static class MauiProgram
 		builder.Services.AddHttpClient("v2", c =>
 			{
 				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
-				//c => c.BaseAddress = new Uri("https://localhost:7085")
+				//c.BaseAddress = new Uri("https://localhost:7085");
 				c.DefaultRequestHeaders.Add("version", "2.0");
 			}
 		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
 		 .AddHttpMessageHandler<TokenHandler>();
 
-		//builder.Services.AddSingleton<PianoLessonsService>();
 		builder.Services.AddSingleton<PianoLessonsService>(provider =>
 		{
 			var clientV1 = provider.GetRequiredService<IHttpClientFactory>().CreateClient("v1");

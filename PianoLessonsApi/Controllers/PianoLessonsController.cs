@@ -98,12 +98,18 @@ namespace PianoLessonsApi.Controllers
 			return await app.GetStudentCourses(studentId);
 		}
 
-		[HttpGet("scores/{courseId}/{time}")]
-		public async Task<List<StudentScore>> GetPracticeScoresForCourse(int courseId, string time)
+		[HttpGet, Route("scores/{courseId}/{time}"), HttpHeader("version", "1.0")]
+		public async Task<IActionResult> GetPracticeScoresForCourseV1(int courseId, string time)
 		{
-			var versionHeader = Request.Headers["version"].FirstOrDefault();
-			var scores = await app.GetPracticeScores(courseId, time, versionHeader);
-			return scores;
+			var scores = await app.GetPracticeScores(courseId, time, 10);
+			return Ok(scores);
+		}
+
+		[HttpGet, Route("scores/{courseId}/{time}"), HttpHeader("version", "2.0")]
+		public async Task<IActionResult> GetPracticeScoresForCourseV2(int courseId, string time)
+		{
+			var scores = await app.GetPracticeScores(courseId, time, 1000);
+			return Ok(scores);
 		}
 
 		[HttpGet("isTeacher/{teacherId}")]

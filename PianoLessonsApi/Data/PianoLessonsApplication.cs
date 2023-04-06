@@ -60,9 +60,8 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetLogsForStudentAndTeacher(studentId, teacherId);
 	}
 
-	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, string? version = "1.0")
+	public async Task<List<StudentScore>> GetPracticeScores(int courseId, string time, int modifier)
 	{
-		int modifier = version == "2.0" ? 1000 : 10;
 		DateTime startDate = GetStartDate(time, DateTime.Today);
 		var students = await repo.GetCourseStudents(courseId);
 		var studentScores = new List<StudentScore>();
