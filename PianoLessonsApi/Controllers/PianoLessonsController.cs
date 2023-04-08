@@ -199,7 +199,7 @@ namespace PianoLessonsApi.Controllers
 		[HttpGet, Route("recording/student/{studentId}/course/{courseId}"), HttpHeader("version", "2.0")]
 		public async Task<List<Recording>> GetStudentCourseRecordingsV2(string studentId, int courseId)
 		{
-			return await app.GetStudentCourseRecordings(courseId, studentId);
+			return await app.GetStudentCourseRecordingsAndFun(courseId, studentId);
 		}
 
 		[HttpPost("recording/student/{studentId}/course/{courseId}")]
