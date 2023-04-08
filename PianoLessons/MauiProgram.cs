@@ -6,8 +6,6 @@ using PianoLessons.ViewModels;
 using PianoLessons.Auth0;
 using Syncfusion.Maui.Core.Hosting;
 using PianoLessons.Interfaces;
-using System.Security.Principal;
-using static System.Net.WebRequestMethods;
 
 #if ANDROID || IOS
 using PianoLessons.Platforms.Service;
@@ -36,26 +34,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<IRecordAudio, RecordAudioService>();
 #endif
 		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
-
-		builder.Services.AddScoped<TokenHandler>();
-
-		builder.Services.AddHttpClient("v1", c =>
-			{
-				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
-				//c.BaseAddress = new Uri("https://localhost:7085");
-				c.DefaultRequestHeaders.Add("version", "1.0");
-			}
-		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
-		 .AddHttpMessageHandler<TokenHandler>();
-
-		builder.Services.AddHttpClient("v2", c =>
-			{
-				c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
-				//c.BaseAddress = new Uri("https://localhost:7085");
-				c.DefaultRequestHeaders.Add("version", "2.0");
-			}
-		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
-		 .AddHttpMessageHandler<TokenHandler>();
+		RegisterHttpClients(builder);
 
 		builder.Services.AddSingleton<PianoLessonsService>(provider =>
 		{
@@ -90,6 +69,30 @@ public static class MauiProgram
 #endif
 
 		return builder.Build();
+
+	}
+
+	private static void RegisterHttpClients(MauiAppBuilder builder)
+	{
+		builder.Services.AddScoped<TokenHandler>();
+
+		builder.Services.AddHttpClient("v1", c =>
+		{
+			c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
+			//c.BaseAddress = new Uri("https://localhost:7085");
+			c.DefaultRequestHeaders.Add("version", "1.0");
+		}
+		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
+			.AddHttpMessageHandler<TokenHandler>();
+
+		builder.Services.AddHttpClient("v2", c =>
+		{
+			c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
+			//c.BaseAddress = new Uri("https://localhost:7085");
+			c.DefaultRequestHeaders.Add("version", "2.0");
+		}
+		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
+			.AddHttpMessageHandler<TokenHandler>();
 	}
 
 	private static void RegisterPagesAndViewModels(MauiAppBuilder builder)

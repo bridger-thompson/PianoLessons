@@ -172,8 +172,8 @@ public class PianoLessonsService
 
     public async Task<List<Recording>> GetStudentCourseRecordings(string studentId, int courseId)
     {
-        //return await clientV1.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
-        return await clientV2.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
+        return await clientV1.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
+        //return await clientV2.GetFromJsonAsync<List<Recording>>($"api/PianoLessons/recording/student/{studentId}/course/{courseId}");
 	}
 
     public async Task AddRecording(FileData data, string studentId, int courseId)

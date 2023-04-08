@@ -203,7 +203,6 @@ public partial class RecordingPageViewModel : ObservableObject
         TimerValue = new TimeSpan();
         recordTimer.Stop();
         RecentAudioFilePath = recordAudioService.StopRecord();
-        await App.Current.MainPage.DisplayAlert("Alert", "Audio has been recorded", "OK");
         TimerLabel = string.Format("{0:mm\\:ss}", TimerValue);
         SendRecording();
     }
