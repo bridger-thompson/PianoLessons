@@ -251,6 +251,15 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		return await repo.GetStudentCourseRecordings(courseId, studentId);
 	}
 
+	public async Task<List<Recording>> GetStudentCourseRecordingsAndFun(int courseId, string studentId)
+	{
+		var student_recordings = await repo.GetStudentCourseRecordings(courseId, studentId);
+		var fun_recording = await repo.GetFunRecording();
+		student_recordings.Insert(0, fun_recording);
+		return student_recordings;
+
+	}
+
 	public async Task<PianoLessonsUser> GetUser(string userId)
 	{
 		if (await IsTeacher(userId))

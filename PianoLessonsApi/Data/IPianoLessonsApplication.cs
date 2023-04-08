@@ -39,7 +39,8 @@ public interface IPianoLessonsApplication
     Task RemoveStudent(int courseId, string studentId);
     Task<bool> JoinCourse(string studentId, string code);
     Task<List<Recording>> GetStudentCourseRecordings(int courseId, string studentId);
-    Task AddAppointment(Appointment appointment);
+	Task<List<Recording>> GetStudentCourseRecordingsAndFun(int courseId, string studentId);
+	Task AddAppointment(Appointment appointment);
     Task<bool> IsStudent(string studentId);
     Task<bool> IsUser(string userId);
     Task<PianoLessonsUser> GetUser(string userId);

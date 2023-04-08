@@ -190,8 +190,14 @@ namespace PianoLessonsApi.Controllers
 			return await app.JoinCourse(studentId, code);
 		}
 
-		[HttpGet("recording/student/{studentId}/course/{courseId}")]
-        public async Task<List<Recording>> GetStudentCourseRecordings(string studentId, int courseId)
+		[HttpGet, Route("recording/student/{studentId}/course/{courseId}"), HttpHeader("version", "1.0")]
+		public async Task<List<Recording>> GetStudentCourseRecordingsV1(string studentId, int courseId)
+		{
+			return await app.GetStudentCourseRecordings(courseId, studentId);
+		}
+
+		[HttpGet, Route("recording/student/{studentId}/course/{courseId}"), HttpHeader("version", "2.0")]
+		public async Task<List<Recording>> GetStudentCourseRecordingsV2(string studentId, int courseId)
 		{
 			return await app.GetStudentCourseRecordings(courseId, studentId);
 		}

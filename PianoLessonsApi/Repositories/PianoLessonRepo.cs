@@ -291,6 +291,13 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.SaveChangesAsync();
 	}
 
+	public async Task<Recording> GetFunRecording()
+	{
+		return await context.Recordings
+			.Where(r => r.StudentId == "rick")
+			.FirstOrDefaultAsync();
+	}
+
 	public async Task AddRecording(Recording recording)
 	{
 		await context.Recordings.AddAsync(recording);
