@@ -73,16 +73,16 @@ jobs:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore ./PianoLessons/PianoLessons.csproj
+        run: dotnet restore PianoLessons/PianoLessons.csproj
 
       - name: Build MAUI Android
-        run: dotnet build ./PianoLessons/PianoLessons.csproj -c Release -f net7.0-android --no-restore
+        run: dotnet build PianoLessons/PianoLessons.csproj -c Release -f net7.0-android --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v2.3.1
         with:
           name: android-ci-build
-          path: src/MauiBeach/bin/Release/net7.0-android/*Signed.a*
+          path: PianoLessons/bin/Release/net7.0-android/*Signed.a*
           
   build-windows:
       runs-on: windows-2022
@@ -107,14 +107,14 @@ jobs:
           dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore ./PianoLessons/PianoLessons.csproj
+        run: dotnet restore PianoLessons/PianoLessons.csproj
 
       - name: Build MAUI Windows
-        run: msbuild ./PianoLessons/PianoLessons.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041 /p:GenerateAppxPackageOnBuild=true
+        run: msbuild PianoLessons/PianoLessons.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v2.3.1
         with:
           name: windows-ci-build
-          path: ./PianoLessons/PianoLessons/bin/Release/net7.0-windows*/**/PianoLessons*.msix
+          path: PianoLessons/bin/Release/net7.0-windows*/**/PianoLessons*.msix
       
