@@ -68,12 +68,12 @@ public partial class RecordingPageViewModel : ObservableObject
     public async Task Loaded()
     {
         IsTeacher = auth.User.IsTeacher;
-        await GetCourses(IsTeacher);
-        await GetRecordings();
+        await GetCoursesCommand.ExecuteAsync(this);
+        await GetRecordingsCommand.ExecuteAsync(this);
     }
 
     [RelayCommand]
-    public async Task GetCourses(bool isTeacher)
+    public async Task GetCourses()
     {
         Courses = new();
         CourseNames = new();
@@ -92,18 +92,18 @@ public partial class RecordingPageViewModel : ObservableObject
     [RelayCommand]
     public async Task GetRecordings()
     {
-        Recordings = new();
-        List<Recording> r = new();
         Course selectedCourse = Courses
             .Where(c => c.Name == SelectedCourseName)
             .FirstOrDefault();
         if (selectedCourse != null)
         {
+            List<Recording> r = new();
             if (IsTeacher)
             {
                 //get course recordings
             }
             else r = await service.GetStudentCourseRecordings(auth.User.Id, selectedCourse.Id);
+            Recordings = new();
             foreach (var recording in r)
             {
                 Recordings.Add(recording);

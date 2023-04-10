@@ -130,4 +130,12 @@ public partial class AddLogPageViewModel : ObservableObject
 		else EndTime = DateTime.Now.TimeOfDay;
 		TimerStopped = !TimerStopped;
 	}
+
+
+	[RelayCommand]
+	public async Task DeleteLog()
+	{
+		await service.DeleteLog(Id);
+		await navService.NavigateToAsync($"..");
+	}
 }

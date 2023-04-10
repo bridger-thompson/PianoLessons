@@ -94,13 +94,6 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public async Task DeleteLog(int logId)
-	{
-		await service.DeleteLog(logId);
-		GetLogsCommand.Execute(this);
-	}
-
-	[RelayCommand]
 	public async Task EditLog()
 	{
 		if (!IsTeacher)
