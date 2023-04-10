@@ -44,9 +44,6 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	public async Task GetCourses()
 	{
 		isTeacher = auth.User.IsTeacher;
-		courses = new();
-		CourseNames = new();
-
 		List<Course> c = new();
 		if (isTeacher)
 		{
@@ -56,6 +53,8 @@ public partial class ScoreboardPageViewModel : ObservableObject
 		{
 			c = await service.GetStudentCourses(auth.User.Id);
 		}
+		courses = new();
+		CourseNames = new();
 		foreach (var course in c)
 		{
 			courses.Add(course);
@@ -67,14 +66,12 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task GetScores()
 	{
-		StudentScores = new();
-		
 		var selectedCourse = courses.Where(c => c.Name == SelectedCourseName)
 			.FirstOrDefault();
-
 		if (selectedCourse != null)
 		{
 			var scores = await service.GetScoresForCourseAndTime(selectedCourse.Id, SelectedTime);
+			StudentScores = new();
 			foreach (var score in scores)
 			{
 				StudentScores.Add(score);

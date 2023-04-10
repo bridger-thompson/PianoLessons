@@ -47,9 +47,9 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		var s = await service.GetStudentsForTeacher(auth.User.Id);
 		Students = new();
 		StudentNames = new();
-		var s = await service.GetStudentsForTeacher(auth.User.Id);
 		foreach (var student in s)
 		{
 			Students.Add(student);

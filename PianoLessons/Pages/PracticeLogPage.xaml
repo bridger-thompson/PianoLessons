@@ -48,6 +48,10 @@
                 BackgroundColor="ForestGreen"
                 Command="{Binding ToAddLogCommand}"
                 HorizontalOptions="End"
+                Padding="0"
+                Scale=".8"
+                Margin="2,0"
+                FontSize="Title"
                 Text="+" />
             <Grid
                 RowDefinitions="*"

@@ -37,7 +37,6 @@ public partial class SchedulePageViewModel : ObservableObject
 	public async Task Loaded()
 	{
 		IsTeacher = auth.User.IsTeacher;
-		Events = new();
 		List<Appointment> appointments = new();
 		if (IsTeacher)
 		{
@@ -49,6 +48,7 @@ public partial class SchedulePageViewModel : ObservableObject
 			//user id (student)
 			appointments = await service.GetAppointmentsForStudent(auth.User.Id);
 		}
+		Events = new();
 		foreach (var appointment in appointments)
 		{
 			Events.Add(new SchedulerAppointment()

@@ -42,7 +42,6 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	public async Task Loaded()
     {
         IsTeacher = auth.User.IsTeacher;
-        Courses = new();
 		List<Course> c = new();
 		if (IsTeacher)
 		{
@@ -52,6 +51,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		{
 			c = await service.GetStudentCourses(auth.User.Id);
 		}
+        Courses = new();
 		foreach (var course in c)
 		{
 			Courses.Add(course);

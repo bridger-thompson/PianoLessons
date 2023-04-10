@@ -43,9 +43,9 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	public async Task Loaded()
 	{
 		IsTeacher = auth.User.IsTeacher;
-		Students = new();
         CurrentCourse = await service.GetCourse(Id);
 		var s = await service.GetCourseStudents(Id);
+		Students = new();
 		foreach (var student in s)
 		{
 			Students.Add(student);

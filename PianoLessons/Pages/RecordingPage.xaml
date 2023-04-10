@@ -49,17 +49,17 @@
                             <Grid
                                 Margin="5"
                                 RowDefinitions="*,*"
-                                ColumnDefinitions="2*,3*,*">
+                                ColumnDefinitions="2*,3*,50">
                                 <Label
                                     VerticalOptions="Center"
-                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy hh:mm}', Converter={converter:LocalTimeConverter}}" />
+                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy hh:mm tt}', Converter={converter:LocalTimeConverter}}" />
                                 <Label
                                     Grid.Column="1"
                                     Text="{Binding Student.Name}"
                                     VerticalOptions="Center" />
                                 <Button
                                     Grid.Column="2"
-                                    Grid.RowSpan="2"
+                                    Scale=".8"
                                     BackgroundColor="Red"
                                     Text="X"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
@@ -68,7 +68,8 @@
                                 <toolkit:MediaElement
                                     Source="{Binding FilePath}"
                                     Grid.Row="1"
-                                    Grid.ColumnSpan="2"
+                                    Aspect="AspectFit"
+                                    Grid.ColumnSpan="3"
                                     ShouldShowPlaybackControls="True" />
                             </Grid>
                         </Border>

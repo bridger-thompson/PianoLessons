@@ -91,8 +91,6 @@ public partial class AddLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
-		Courses = new();
-		CourseNames = new();
 		IsEditing = Id != -1;
 
 		if (IsEditing)
@@ -111,6 +109,8 @@ public partial class AddLogPageViewModel : ObservableObject
             Notes = null;
         }
 		var c = await service.GetStudentCourses(auth.User.Id);
+		Courses = new();
+		CourseNames = new();
 		foreach (var course in c)
 		{
 			Courses.Add(course);
