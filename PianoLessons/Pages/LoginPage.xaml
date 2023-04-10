@@ -3,19 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="PianoLessons.Pages.LoginPage"
-             Title="LoginPage"
+             Title="Login Page"
              BackgroundColor="DarkGray">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        HeightRequest="700">
         <VerticalStackLayout IsVisible="{Binding LoginViewIsVisible}">
             <Button Text="Log In"
                     SemanticProperties.Hint="Click to log in"
                     Command="{Binding LoginCommand}"
+                    VerticalOptions="End"
                     HorizontalOptions="Center" />
-            <WebView x:Name="WebViewInstance" />
+            <WebView x:Name="WebViewInstance" BackgroundColor="DarkGray"/>
         </VerticalStackLayout>
         <VerticalStackLayout IsVisible="{Binding RegistrationViewIsVisible}">
             <Label Text="Welcome To Piano Lessons!" 
