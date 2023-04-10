@@ -91,8 +91,13 @@ public class Auth0Client
     {
         ClaimsPrincipal user = null;
 
-        var idToken = await SecureStorage.Default.GetAsync("id_token");
+        var refreshToken = await GetRefreshToken();
+        if (refreshToken != null)
+        {
+            await RefreshTokenAsync(await GetRefreshToken());
+        }
 
+        var idToken = await SecureStorage.Default.GetAsync("id_token");
         if (idToken != null)
         {
             var doc = await new HttpClient().GetDiscoveryDocumentAsync(oidcClient.Options.Authority);
