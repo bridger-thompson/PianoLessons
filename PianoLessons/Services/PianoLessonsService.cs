@@ -42,13 +42,13 @@ public class PianoLessonsService
 	public async Task<List<StudentScore>> GetScoresForCourseAndTime(int courseId, string time)
 	{
         //return await clientV1.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
-        return await clientV1.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
+        return await clientV2.GetFromJsonAsync<List<StudentScore>>($"api/PianoLessons/scores/{courseId}/{time}");
 	}
 
 	public async Task<List<Student>> GetStudentsForTeacher(string teacherId)
 	{
-		//return await clientV1.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
 		return await clientV1.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
+		//return await clientV2.GetFromJsonAsync<List<Student>>($"api/PianoLessons/students/{teacherId}");
 	}
 
     public async Task<List<PracticeLog>> GetAllStudentLogsForTeacher(string teacherId)
