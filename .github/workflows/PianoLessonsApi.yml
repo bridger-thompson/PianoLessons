@@ -1,8 +1,8 @@
 name: Build and deploy .NET Core application to Web App PianoLessonsApi
 on:
   push:
-    branches:
-    - master
+    tags:
+      - '*'
 env:
   AZURE_WEBAPP_NAME: PianoLessonsApi
   AZURE_WEBAPP_PACKAGE_PATH: PianoLessonsApi/publish
@@ -24,8 +24,10 @@ jobs:
       run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
-    - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+    - name: Publish Windows App
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output PianoLessonsApi/publish/win-x64
+    - name: Publish Android APK
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output PianoLessonsApi/publish/android-arm64
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
