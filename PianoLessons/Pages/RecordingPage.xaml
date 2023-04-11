@@ -5,6 +5,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:converter="clr-namespace:PianoLessons.Converters"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:PianoLessons.Components"
     x:Class="PianoLessons.Pages.RecordingPage"
     Title="Recordings">
     <ContentPage.Behaviors>
@@ -31,16 +32,35 @@
                 <Picker.Behaviors>
                     <toolkit:EventToCommandBehavior
                         EventName="SelectedIndexChanged"
+                        Command="{Binding GetStudentsCommand}" />
+                </Picker.Behaviors>
+            </Picker>
+            <Label
+                Text="Student:"
+                VerticalOptions="Center" />
+            <Picker
+                ItemsSource="{Binding StudentNames}"
+                SelectedItem="{Binding SelectedStudentName}"
+                WidthRequest="150">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
                         Command="{Binding GetRecordingsCommand}" />
                 </Picker.Behaviors>
             </Picker>
         </HorizontalStackLayout>
+        <Label
+            Text="No Recordings"
+            Margin="0,5"
+            HorizontalOptions="Center"
+            IsVisible="{Binding HasRecordings, Converter={converter:BooleanConverter}}" />
         <ScrollView
             VerticalScrollBarVisibility="Always"
             HeightRequest="525">
             <CollectionView
                 ItemsSource="{Binding Recordings}"
                 HorizontalOptions="Center"
+                x:Name="recordingCollection"
                 Margin="0,5">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -48,7 +68,7 @@
                             WidthRequest="400">
                             <Grid
                                 Margin="5"
-                                RowDefinitions="*,*"
+                                RowDefinitions="*,Auto"
                                 ColumnDefinitions="2*,3*,50">
                                 <Label
                                     VerticalOptions="Center"
@@ -66,12 +86,9 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
                                     CommandParameter="{Binding Id}"
                                     VerticalOptions="Center" />
-                                <toolkit:MediaElement
-                                    Source="{Binding FilePath}"
-                                    Grid.Row="1"
-                                    Aspect="AspectFit"
-                                    Grid.ColumnSpan="3"
-                                    ShouldShowPlaybackControls="True" />
+                                <components:CustomMediaElement Source="{Binding FilePath}"
+                                                               Grid.Row="1"
+                                                               Grid.ColumnSpan="3"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

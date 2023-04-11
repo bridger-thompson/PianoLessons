@@ -18,10 +18,13 @@
             VerticalOptions="FillAndExpand"
             Padding="30,0">
             <Button
+                Margin="0,5"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsTeacher}"
                 VerticalOptions="Start"
-                Text="Add New Item"
+                Text="+"
+                FontSize="Title"
+                Padding="0"
                 BackgroundColor="ForestGreen"
                 Command="{Binding ToAddScheduleItemCommand}" />
             <scheduler:SfScheduler

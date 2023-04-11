@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PianoLessons.Components.CustomMediaElement">
+    <VerticalStackLayout>
+        <toolkit:MediaElement
+            x:Name="mediaElement"
+            IsVisible="False" />
+        <HorizontalStackLayout
+            Spacing="10"
+            HorizontalOptions="Center">
+            <Label x:Name="duration"/>
+            <Button
+                x:Name="Play"
+                BackgroundColor="LimeGreen"
+                Text="Play"
+                HorizontalOptions="Center"
+                Clicked="PlayRecording">
+            </Button>
+            <Button
+                x:Name="Stop"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                BackgroundColor="Red"
+                Clicked="StopPlayingRecording"
+                Text="Stop">
+            </Button>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

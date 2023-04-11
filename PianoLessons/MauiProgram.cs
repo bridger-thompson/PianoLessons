@@ -30,7 +30,6 @@ public static class MauiProgram
 			});
 		RegisterPagesAndViewModels(builder);
 #if ANDROID || IOS
-		builder.Services.AddTransient<IAudioPlayer, AudioPlayerService>();
 		builder.Services.AddTransient<IRecordAudio, RecordAudioService>();
 #endif
 		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();

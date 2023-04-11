@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Core.Primitives;
+using CommunityToolkit.Maui.Views;
 using PianoLessons.ViewModels;
 
 namespace PianoLessons.Pages;
