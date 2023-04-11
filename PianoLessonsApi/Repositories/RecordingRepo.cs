@@ -4,6 +4,8 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using PianoLessons.Shared.Data;
 using System.Collections;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.IO;
 
 namespace PianoLessonsApi.Repositories;
 
@@ -33,5 +35,14 @@ public class RecordingRepo
 		await containerClient.UploadBlobAsync(data.FileName, stream);
 		logger.LogInformation("Successfully uploaded recording");
 		return $"https://pianorecordings.blob.core.windows.net/{containerName}/{data.FileName}";
+	}
+
+	public async Task DeleteAzureRecording(string studentId, string fileName)
+	{
+		var containerName = studentId.Split('|')[1];
+		logger.LogInformation($"Deleting recording {fileName} for container {containerName}");
+		BlobContainerClient containerClient = client.GetBlobContainerClient(containerName);
+		await containerClient.DeleteBlobAsync(fileName);
+		logger.LogInformation($"Deleted recording {fileName} for container {containerName}");
 	}
 }

@@ -208,6 +208,10 @@ namespace PianoLessonsApi.Controllers
 			await app.AddRecordingToAzure(data, studentId, courseId);
 		}
 
-
+		[HttpDelete("recording/student/{studentId}/{recordingId}/{fileName}")]
+		public async Task DeleteRecording(string studentId, int recordingId, string fileName)
+		{
+			await app.DeleteRecording(studentId, fileName, recordingId);
+		}
     }
 }

@@ -61,6 +61,7 @@
                                     Grid.Column="2"
                                     Scale=".8"
                                     BackgroundColor="Red"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                     Text="X"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
                                     CommandParameter="{Binding Id}"

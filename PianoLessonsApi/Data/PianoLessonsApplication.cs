@@ -293,4 +293,10 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 		};
 		await repo.AddRecording(recording);
 	}
+
+	public async Task DeleteRecording(string studentId, string fileName, int recordingId)
+	{
+		await repo.DeleteRecording(recordingId);
+		await recordingRepo.DeleteAzureRecording(studentId, fileName);
+	}
 }

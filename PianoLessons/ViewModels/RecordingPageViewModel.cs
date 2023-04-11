@@ -114,7 +114,12 @@ public partial class RecordingPageViewModel : ObservableObject
     [RelayCommand]
     public async Task DeleteRecording(int id)
     {
-        //delete
+        if (auth.User.IsStudent)
+        {
+            var recording = Recordings.Where(r => r.Id == id).FirstOrDefault();
+            var fileName = recording.FilePath.Split('/')[3];
+            await service.DeleteRecording(auth.User.Id, id, recording.FilePath);
+        }
     }
 
     [RelayCommand]

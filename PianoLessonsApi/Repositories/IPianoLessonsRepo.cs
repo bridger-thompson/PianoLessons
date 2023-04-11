@@ -46,4 +46,5 @@ public interface IPianoLessonsRepo
 	Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId);
 	Task AddRecording(Recording recording);
 	Task<Recording> GetFunRecording();
+	Task DeleteRecording(int id);
 }

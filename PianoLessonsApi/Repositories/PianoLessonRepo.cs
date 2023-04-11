@@ -303,4 +303,14 @@ public class PianoLessonRepo : IPianoLessonsRepo
 		await context.Recordings.AddAsync(recording);
 		await context.SaveChangesAsync();
 	}
+
+	public async Task DeleteRecording(int id)
+	{
+		var recording = await context.Recordings.Where(r => r.Id == id).FirstOrDefaultAsync();
+		if (recording != null)
+		{
+			context.Recordings.Remove(recording);
+			await context.SaveChangesAsync();
+		}
+	}
 }

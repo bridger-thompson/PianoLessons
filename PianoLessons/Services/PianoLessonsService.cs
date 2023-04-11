@@ -180,5 +180,10 @@ public class PianoLessonsService
     {
         var response = await clientV1.PostAsJsonAsync($"api/PianoLessons/recording/student/{studentId}/course/{courseId}", data);
     }
+
+    public async Task DeleteRecording(string studentId, int recordingId, string fileName)
+    {
+        var response = await clientV1.DeleteAsync($"api/PianoLessons/recording/student/{studentId}/{recordingId}/{fileName}");
+    }
 }
 
