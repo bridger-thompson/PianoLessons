@@ -41,6 +41,7 @@
                 Route="ManageCoursesPage" />
         </Tab>
         <Tab
+            x:Name="recording"
             Title="Recordings">
             <ShellContent
                 Title="Recordings"
