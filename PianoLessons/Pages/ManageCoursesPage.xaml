@@ -14,10 +14,6 @@
     </ContentPage.Behaviors>
     <ScrollView>
         <VerticalStackLayout>
-            <Label
-                FontSize="Title"
-                HorizontalOptions="Center"
-                Text="Manage Courses" />
             <HorizontalStackLayout
                 HorizontalOptions="Center"
                 IsVisible="{Binding IsTeacher}"
@@ -75,21 +71,22 @@
                     <DataTemplate>
                         <Border
                             HeightRequest="175"
-                            WidthRequest="170"
                             Margin="3"
                             BackgroundColor="LightBlue"
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid
                                 RowDefinitions="Auto,*"
                                 ColumnDefinitions="*,Auto">
-                                <Image
-                                    Source="music_notes.jpg"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalOptions="Center"
-                                    HeightRequest="125" />
+                                <Border
+                                    StrokeShape="RoundRectangle 5,5,5,5">
+                                    <Image
+                                        Source="music_notes.jpg"
+                                        Grid.ColumnSpan="2" />
+                                </Border>
                                 <Label
                                     Text="{Binding Name}"
                                     Grid.Row="1"
+                                    FontSize="Subtitle"
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center" />
                                 <Button

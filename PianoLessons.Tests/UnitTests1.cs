@@ -3,6 +3,7 @@ using Moq;
 using PianoLessonsApi.Data;
 using PianoLessons.Shared.Data;
 using System.Text.RegularExpressions;
+using PianoLessonsApi.Repositories;
 
 namespace PianoLessons.Tests
 {
@@ -10,13 +11,14 @@ namespace PianoLessons.Tests
     {
         private PianoLessonsApplication app;
         private TestPianoLessonRepo repo;
+        private RecordingRepo recordingRepo;
         private DateTime today;
 
         [SetUp]
         public void Setup()
         {
             repo = new();
-            app = new(repo);
+            app = new(repo, recordingRepo);
             today = DateTime.Today;
         }
 

@@ -5,7 +5,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:converter="clr-namespace:PianoLessons.Converters"
     x:Class="PianoLessons.Pages.AddLogPage"
-    Title="Add Practice Log">
+    Title="{Binding PageTitle}">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
@@ -13,99 +13,116 @@
     </ContentPage.Behaviors>
 
     <VerticalStackLayout
+        HeightRequest="500"
         WidthRequest="300">
-        <Label
-            FontSize="Title"
-            HorizontalOptions="Center"
-            Text="{Binding PageTitle}" />
-        <HorizontalStackLayout
-            Spacing="5"
-            Margin="0,0,0,5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                Text="Date: " />
-            <DatePicker
-                Date="{Binding LogDate}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Margin="0,0,0,10"
-            Spacing="5">
-            <Label
-                VerticalOptions="Center"
-                Text="Course:" />
-            <Picker
-                ItemsSource="{Binding CourseNames}"
-                WidthRequest="150"
-                SelectedItem="{Binding SelectedCourseName}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                WidthRequest="80"
-                Padding="9,0,0,15"
-                Text="Start Time: " />
-            <TimePicker
-                Time="{Binding StartTime}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                Padding="15,0,0,15"
-                WidthRequest="80"
-                Text="End Time: " />
-            <TimePicker
-                Time="{Binding EndTime}" />
-        </HorizontalStackLayout>
-        <VerticalStackLayout
-            IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}">
-            <Button
-                Text="Start Timer"
-                HorizontalOptions="Center"
-                IsVisible="{Binding TimerStopped}"
-                Command="{Binding ToggleTimerCommand}"
-                VerticalOptions="Center" />
-            <Button
-                Text="Stop Timer"
-                HorizontalOptions="Center"
-                IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
-                Command="{Binding ToggleTimerCommand}"
-                VerticalOptions="Center"
-                BackgroundColor="Red" />
-        </VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Margin="0,5"
-            FontSize="Small"
-            Text="{Binding Total, StringFormat='Total: {0:h\\:mm}'}" />
-        <Label
-            Text="Notes:"
-            HorizontalOptions="Start" />
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Margin="0,5">
-            <Editor
-                Text="{Binding Notes}"
-                AutoSize="TextChanges"
-                WidthRequest="300" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Spacing="20">
-            <Button
-                Text="Delete"
-                BackgroundColor="Red"
-                IsVisible="{Binding IsEditing}"
-                Command="{Binding DeleteLogCommand}" />
-            <Button
-                Text="Submit"
-                BackgroundColor="LimeGreen"
-                Command="{Binding SubmitCommand}" />
-        </HorizontalStackLayout>
+        <Border
+            StrokeShape="RoundRectangle 15,15,15,15">
+            <Border.Shadow>
+                <Shadow
+                    Brush="lightgray"
+                    Offset="5,5"
+                    Radius="20"
+                    Opacity="0.8" />
+            </Border.Shadow>
+            <VerticalStackLayout
+                Padding="10">
+                <Grid
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    RowDefinitions="*,*,*,*"
+                    ColumnDefinitions="*,Auto">
+                    <Label
+                        VerticalOptions="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalOptions="End"
+                        Text="Date: " />
+                    <DatePicker
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Date="{Binding LogDate}" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Text="Course:" />
+                    <Picker
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ItemsSource="{Binding CourseNames}"
+                        WidthRequest="150"
+                        SelectedItem="{Binding SelectedCourseName}" />
+                    <Label
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Grid.Row="2"
+                        Text="Start Time: " />
+                    <TimePicker
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Time="{Binding StartTime}" />
+                    <Label
+                        Grid.Row="3"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Text="End Time: " />
+                    <TimePicker
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Time="{Binding EndTime}" />
+                </Grid>
+                <VerticalStackLayout
+                    IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}">
+                    <Button
+                        Text="Start Timer"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding TimerStopped}"
+                        Command="{Binding ToggleTimerCommand}"
+                        VerticalOptions="Center" />
+                    <Button
+                        Text="Stop Timer"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
+                        Command="{Binding ToggleTimerCommand}"
+                        VerticalOptions="Center"
+                        BackgroundColor="Red" />
+                </VerticalStackLayout>
+                <Label
+                    HorizontalOptions="Center"
+                    Margin="0,5"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="{Binding Total, StringFormat='Total: {0:h\\:mm}'}" />
+                <Grid
+                    RowDefinitions="*,Auto"
+                    WidthRequest="200"
+                    ColumnDefinitions="*,*">
+                    <Label
+                        Text="Notes:"
+                        FontAttributes="Italic"
+                        FontSize="12"
+                        HorizontalOptions="Start" />
+                    <Editor
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Text="{Binding Notes}"
+                        AutoSize="TextChanges"/>
+                </Grid>
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="20">
+                    <Button
+                        Text="Delete"
+                        BackgroundColor="Red"
+                        IsVisible="{Binding IsEditing}"
+                        Command="{Binding DeleteLogCommand}" />
+                    <Button
+                        Text="Submit"
+                        BackgroundColor="LimeGreen"
+                        Command="{Binding SubmitCommand}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
     </VerticalStackLayout>
 </ContentPage>

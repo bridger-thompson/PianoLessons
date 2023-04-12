@@ -6,21 +6,17 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:converter="clr-namespace:PianoLessons.Converters"
     x:Class="PianoLessons.Pages.PracticeLogPage"
-    Title="Practice Log">
+    Title="Practice Logs">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
-    
+
     <ScrollView
         VerticalScrollBarVisibility="Always">
         <VerticalStackLayout
             HorizontalOptions="Center">
-            <Label
-                FontSize="Title"
-                HorizontalOptions="Center"
-                Text="Practice Logs" />
             <Grid
                 ColumnDefinitions="*,Auto">
                 <HorizontalStackLayout
@@ -85,6 +81,13 @@
                         <Border
                             StrokeShape="RoundRectangle 10,10,10,10"
                             Padding="5,3">
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="lightgray"
+                                    Offset="5,5"
+                                    Radius="20"
+                                    Opacity="0.5" />
+                            </Border.Shadow>
                             <Grid
                                 RowDefinitions="Auto,Auto"
                                 ColumnDefinitions="75,150,100,75">
@@ -107,6 +110,7 @@
                                 <Label
                                     Text="{Binding Notes, StringFormat='Notes: {0}'}"
                                     Grid.Row="1"
+                                    FontSize="11"
                                     Margin="0,5"
                                     Grid.ColumnSpan="4" />
                             </Grid>

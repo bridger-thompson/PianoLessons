@@ -28,7 +28,7 @@
             <Picker
                 ItemsSource="{Binding CourseNames}"
                 SelectedItem="{Binding SelectedCourseName}"
-                WidthRequest="150">
+                WidthRequest="125">
                 <Picker.Behaviors>
                     <toolkit:EventToCommandBehavior
                         EventName="SelectedIndexChanged"
@@ -41,7 +41,7 @@
             <Picker
                 ItemsSource="{Binding StudentNames}"
                 SelectedItem="{Binding SelectedStudentName}"
-                WidthRequest="150">
+                WidthRequest="125">
                 <Picker.Behaviors>
                     <toolkit:EventToCommandBehavior
                         EventName="SelectedIndexChanged"
@@ -65,30 +65,40 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            WidthRequest="400">
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            WidthRequest="350">
                             <Grid
-                                Margin="5"
+                                Margin="5,0"
                                 RowDefinitions="*,Auto"
-                                ColumnDefinitions="2*,3*,50">
+                                ColumnDefinitions="*,3*,Auto">
                                 <Label
-                                    VerticalOptions="Center"
-                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy hh:mm tt}', Converter={converter:LocalTimeConverter}}" />
+                                    VerticalOptions="Start"
+                                    Margin="0,14"
+                                    Grid.RowSpan="2"
+                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy h:mm tt}', Converter={converter:LocalTimeConverter}}" />
                                 <Label
                                     Grid.Column="1"
                                     Text="{Binding Student.Name}"
                                     VerticalOptions="Center" />
-                                <Button
-                                    Grid.Column="2"
+                                <Border
+                                    StrokeShape="RoundRectangle 5,5,5,5"
                                     Scale=".8"
-                                    BackgroundColor="Red"
-                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
-                                    Text="X"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    VerticalOptions="Center" />
-                                <components:CustomMediaElement Source="{Binding FilePath}"
-                                                               Grid.Row="1"
-                                                               Grid.ColumnSpan="3"/>
+                                    Grid.Column="2"
+                                    Stroke="Red">
+                                    <Button
+                                        BackgroundColor="White"
+                                        TextColor="Red"
+                                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
+                                        Text="X"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
+                                        CommandParameter="{Binding Id}"
+                                        VerticalOptions="Center" />
+                                </Border>
+                                <components:CustomMediaElement
+                                    Source="{Binding FilePath}"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Column="1" />
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -97,72 +107,33 @@
         </ScrollView>
         <!--  Button Setup  -->
         <Grid
+            RowDefinitions="auto,auto">
+            <Button
+                Grid.Row="0"
+                BackgroundColor="Red"
+                BorderColor="Red"
+                BorderWidth="1"
+                Command="{Binding StartRecordingCommand}"
+                CornerRadius="25"
+                FontSize="22"
+                HeightRequest="50"
+                IsVisible="{Binding IsRecordButtonVisible}"
+                Text="R"
+                TextColor="White"
+                WidthRequest="50" />
+            <Label
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsRecordButtonVisible}"
+                Text="Record" />
+        </Grid>
+        <Grid
             Margin="0,5,0,0"
-            ColumnDefinitions="*,*,*"
+            ColumnDefinitions="*,*"
             WidthRequest="400">
-            <!--  Retry  -->
             <Grid
-                Grid.Column="0"
-                RowDefinitions="auto,auto">
-                <Button
-                    Grid.Row="0"
-                    BackgroundColor="LightGray"
-                    HeightRequest="50"
-                    WidthRequest="50"
-                    BorderColor="DarkGray"
-                    BorderWidth="1"
-                    Command="{Binding ResetCommand}"
-                    CornerRadius="25"
-                    FontSize="22"
-                    IsVisible="{Binding IsRecordingAudio}"
-                    Text="Retry"
-                    TextColor="DarkGray">
-                    <Button.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsRecordingAudio}"
-                            TargetType="Button"
-                            Value="False">
-                            <Setter
-                                Property="TextColor"
-                                Value="Gray" />
-                            <Setter
-                                Property="BorderColor"
-                                Value="Gray" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-                <Label
-                    IsVisible="{Binding IsRecordingAudio}"
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
-                    Text="Retry" />
-            </Grid>
-
-            <!--  Play  -->
-            <Grid
-                Grid.Column="1"
                 HorizontalOptions="CenterAndExpand"
                 RowDefinitions="auto,auto">
-                <!--  Record Button  -->
-                <Button
-                    Grid.Row="0"
-                    BackgroundColor="Red"
-                    BorderColor="Red"
-                    BorderWidth="1"
-                    Command="{Binding StartRecordingCommand}"
-                    CornerRadius="25"
-                    FontSize="22"
-                    HeightRequest="50"
-                    IsVisible="{Binding IsRecordButtonVisible}"
-                    Text="R"
-                    TextColor="White"
-                    WidthRequest="50" />
-                <Label
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsRecordButtonVisible}"
-                    Text="Record" />
-
                 <!--  Pause Button  -->
                 <Button
                     Grid.Row="0"
@@ -206,7 +177,7 @@
 
             <!--  Stop  -->
             <Grid
-                Grid.Column="2"
+                Grid.Column="1"
                 RowDefinitions="auto,auto">
                 <Button
                     Grid.Row="0"

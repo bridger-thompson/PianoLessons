@@ -4,33 +4,48 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PianoLessons.Components.CustomMediaElement">
-    <VerticalStackLayout>
+    <StackLayout>
         <toolkit:MediaElement
             x:Name="mediaElement"
             IsVisible="False" />
-        <HorizontalStackLayout Spacing="10"
-                               HorizontalOptions="Center">
-            <Button x:Name="Play"
+        <Grid
+            ColumnDefinitions="*,Auto">
+            <HorizontalStackLayout
+                VerticalOptions="Center"
+                Grid.Column="0">
+                <Label
+                    x:Name="position"
+                    HorizontalOptions="Start"
+                    TextColor="Gray"
+                    FontSize="Small" />
+                <Label
+                    Text="/" />
+                <Label
+                    x:Name="duration"
+                    HorizontalOptions="End"
+                    TextColor="Gray"
+                    FontSize="Small" />
+            </HorizontalStackLayout>
+
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="End">
+                <Button
+                    x:Name="Play"
+                    Text="▶"
+                    Scale=".8"
                     BackgroundColor="LimeGreen"
-                    Text="Play"
-                    HorizontalOptions="Center"
-                    Clicked="PlayRecording">
-            </Button>
-            <Button x:Name="Stop"
-                    HorizontalOptions="Center"
-                    IsVisible="False"
+                    TextColor="White"
+                    Clicked="PlayRecording" />
+                <Button
+                    x:Name="Stop"
+                    Text="Stop"
                     BackgroundColor="Red"
+                    TextColor="White"
                     Clicked="StopPlayingRecording"
-                    Text="Stop">
-            </Button>
-        </HorizontalStackLayout>
-        <Grid ColumnDefinitions="*,Auto,*">
-            <Label x:Name="position"
-                   HorizontalOptions="Start" 
-                   Grid.Column="0" />
-            <Label x:Name="duration"
-                   HorizontalOptions="End" 
-                   Grid.Column="2" />
+                    CornerRadius="8"
+                    IsVisible="False" />
+            </StackLayout>
         </Grid>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentView>

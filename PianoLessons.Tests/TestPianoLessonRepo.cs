@@ -183,4 +183,19 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 	{
 		throw new NotImplementedException();
 	}
+
+	public Task<List<PracticeLog>> GetLogsForStudentAndTeacher(string studentId, string teacherId)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task AddRecording(Recording recording)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<Recording> GetFunRecording()
+	{
+		throw new NotImplementedException();
+	}
 }
