@@ -3,6 +3,12 @@ on:
   push:
     tags:
       - "V*.*"
+env:
+  AZURE_WEBAPP_NAME: PianoLessonsApi
+  AZURE_WEBAPP_PACKAGE_PATH: PianoLessonsApi/publish
+  CONFIGURATION: Release
+  DOTNET_CORE_VERSION: 7.0.x
+  WORKING_DIRECTORY: PianoLessonsApi
 jobs:
   build:
     runs-on: ubuntu-latest
