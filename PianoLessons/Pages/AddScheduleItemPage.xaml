@@ -57,6 +57,7 @@
         </HorizontalStackLayout>
         <Button
             HorizontalOptions="Center"
+            BackgroundColor="CornflowerBlue"
             Text="Add Item"
             Command="{Binding AddItemCommand}" />
     </VerticalStackLayout>

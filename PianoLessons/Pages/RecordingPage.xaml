@@ -15,10 +15,6 @@
     </ContentPage.Behaviors>
     <VerticalStackLayout
         HorizontalOptions="Center">
-        <Label
-            FontSize="Title"
-            HorizontalOptions="Center"
-            Text="Recordings" />
         <HorizontalStackLayout
             HorizontalOptions="Center"
             Spacing="5">

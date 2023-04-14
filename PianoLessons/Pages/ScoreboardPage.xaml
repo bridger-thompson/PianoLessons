@@ -63,6 +63,13 @@
                             WidthRequest="300"
                             Padding="5,0,0,0"
                             StrokeShape="RoundRectangle 10,10,10,10">
+                            <Border.Shadow>
+                                <Shadow
+                                    Brush="lightgray"
+                                    Offset="5,5"
+                                    Radius="5"
+                                    Opacity="0.5" />
+                            </Border.Shadow>
                             <Grid
                                 ColumnDefinitions="40,*,100">
                                 <components:StudentRanking 

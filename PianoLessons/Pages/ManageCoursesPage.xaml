@@ -26,8 +26,9 @@
                     Text="{Binding NewCourseName}"
                     WidthRequest="150" />
                 <Button
+                    TextColor="White"
                     Text="Add"
-                    BackgroundColor="LimeGreen"
+                    BackgroundColor="CornflowerBlue"
                     Command="{Binding AddCourseCommand}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout
@@ -44,7 +45,8 @@
                     Text="{Binding NewCode}" />
                 <Button
                     VerticalOptions="Center"
-                    BackgroundColor="LimeGreen"
+                    TextColor="White"
+                    BackgroundColor="CornflowerBlue"
                     Text="Add"
                     Command="{Binding JoinCourseCommand}" />
             </HorizontalStackLayout>
@@ -78,26 +80,36 @@
                                 RowDefinitions="Auto,*"
                                 ColumnDefinitions="*,Auto">
                                 <Border
+                                    Grid.ColumnSpan="2"
                                     StrokeShape="RoundRectangle 5,5,5,5">
                                     <Image
-                                        Source="music_notes.jpg"
-                                        Grid.ColumnSpan="2" />
+                                        WidthRequest="150"
+                                        HeightRequest="120"
+                                        HorizontalOptions="Center"
+                                        Source="music_notes.jpg" />
                                 </Border>
                                 <Label
                                     Text="{Binding Name}"
                                     Grid.Row="1"
+                                    Margin="5,0"
                                     FontSize="Subtitle"
                                     VerticalOptions="Center"
                                     HorizontalOptions="Center" />
                                 <Button
                                     Text="X"
                                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:ManageCoursesPageViewModel}}, Path=IsTeacher}"
-                                    BackgroundColor="Red"
+                                    BackgroundColor="White"
+                                    TextColor="Red"
+                                    FontSize="Subtitle"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ManageCoursesPageViewModel}}, Path=RemoveCourseCommand}"
                                     CommandParameter="{Binding Id}"
                                     VerticalOptions="Center"
+                                    BorderWidth=".2"
+                                    BorderColor="Red"
+                                    Margin="0,0,5,0"
                                     Grid.Row="1"
-                                    Grid.Column="1" />
+                                    Grid.Column="1">
+                                </Button>
                             </Grid>
                         </Border>
                     </DataTemplate>

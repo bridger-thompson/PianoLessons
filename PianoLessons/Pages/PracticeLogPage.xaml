@@ -41,18 +41,20 @@
             </Grid>
             <Button
                 IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
-                BackgroundColor="ForestGreen"
+                BackgroundColor="CornflowerBlue"
                 Command="{Binding ToAddLogCommand}"
                 HorizontalOptions="End"
                 Padding="0"
                 Scale=".8"
-                Margin="2,0"
+                Margin="2,0,38,0"
                 FontSize="Title"
                 Text="+" />
             <Grid
+                WidthRequest="350"
+                HorizontalOptions="Center"
                 RowDefinitions="*"
                 Padding="5,0,0,0"
-                ColumnDefinitions="75,150,100,75">
+                ColumnDefinitions="50,150,75,60">
                 <Label
                     FontAttributes="Bold"
                     Text="Date" />
@@ -79,6 +81,8 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
+                            WidthRequest="350"
+                            BackgroundColor="#f7f3ed"
                             StrokeShape="RoundRectangle 10,10,10,10"
                             Padding="5,3">
                             <Border.Shadow>
@@ -90,7 +94,7 @@
                             </Border.Shadow>
                             <Grid
                                 RowDefinitions="Auto,Auto"
-                                ColumnDefinitions="75,150,100,75">
+                                ColumnDefinitions="50,150,75,60">
                                 <Label
                                     VerticalOptions="Center"
                                     Text="{Binding StartTime, StringFormat='{0:MM/dd}'}" />

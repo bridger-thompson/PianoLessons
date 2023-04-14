@@ -34,12 +34,13 @@
                     x:Name="Play"
                     Text="▶"
                     Scale=".8"
-                    BackgroundColor="LimeGreen"
+                    BackgroundColor="CornflowerBlue"
                     TextColor="White"
                     Clicked="PlayRecording" />
                 <Button
                     x:Name="Stop"
-                    Text="Stop"
+                    Scale=".8"
+                    Text="||"
                     BackgroundColor="Red"
                     TextColor="White"
                     Clicked="StopPlayingRecording"
