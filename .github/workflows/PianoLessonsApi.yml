@@ -1,10 +1,8 @@
-name: Build and deploy .NET Core application to Web App PianoLessonsApi and Maui PianoLessons
+name: Build and deploy .NET Core application to Web App PianoLessonsApi
 on:
   push:
     branches:
       - master
-    tags:
-      - "V*.*"
 env:
   AZURE_WEBAPP_NAME: PianoLessonsApi
   AZURE_WEBAPP_PACKAGE_PATH: PianoLessonsApi/publish
@@ -48,75 +46,5 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.PianoLessonsApi_C730 }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        
-  build-android:
-       runs-on: windows-2022
-       needs: build
-       name: Android Build
-       steps:
-       - name: Checkout
-         uses: actions/checkout@v2
 
-       - name: Setup .NET 7
-         uses: actions/setup-dotnet@v1
-         with:
-           dotnet-version: 7.0.x
-           include-prerelease: true
-
-       - uses: actions/setup-java@v2
-         with:
-           distribution: 'microsoft'
-           java-version: '11'
-
-       - name: Install MAUI Workloads
-         run: |
-           dotnet workload install android --ignore-failed-sources
-           dotnet workload install maui --ignore-failed-sources
-
-       - name: Restore Dependencies
-         run: dotnet restore PianoLessons/PianoLessons.csproj
-
-       - name: Build MAUI Android
-         run: dotnet build PianoLessons/PianoLessons.csproj -c Release -f net7.0-android --no-restore
-
-       - name: Upload Android Artifact
-         uses: actions/upload-artifact@v2.3.1
-         with:
-           name: android-ci-build
-           path: PianoLessons/bin/Release/net7.0-android/*Signed.a*
-          
-  build-windows:
-       runs-on: windows-2022
-       name: Windows Build
-       needs: build
-       steps:
-       - name: Checkout
-         uses: actions/checkout@v2
-
-       - name: Setup .NET 7
-         uses: actions/setup-dotnet@v1
-         with:
-           dotnet-version: 7.0.x
-           include-prerelease: true
-
-       - name: Setup MSBuild
-         uses: microsoft/setup-msbuild@v1.1
-         with:
-           vs-prerelease: true
-
-       - name: Install MAUI Workloads
-         run: |
-           dotnet workload install maui --ignore-failed-sources
-
-       - name: Restore Dependencies
-         run: dotnet restore PianoLessons/PianoLessons.csproj
-
-       - name: Build MAUI Windows
-         run: msbuild PianoLessons/PianoLessons.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
-
-       - name: Upload Windows Artifact
-         uses: actions/upload-artifact@v2.3.1
-         with:
-           name: windows-ci-build
-           path: PianoLessons/bin/Release/net7.0-windows*/**/PianoLessons*.msix
       
