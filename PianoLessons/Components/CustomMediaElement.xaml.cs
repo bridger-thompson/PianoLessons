@@ -13,6 +13,7 @@ public partial class CustomMediaElement : ContentView
 		var source = (string)newValue;
 		var media = (CustomMediaElement)bindable;
 		media.mediaElement.Source = source;
+
 	}
 
 	public string Source
