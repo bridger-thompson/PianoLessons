@@ -4,7 +4,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="PianoLessons.Pages.LoginPage"
              Title="Login Page"
-             BackgroundColor="DarkGray">
+    BackgroundColor="#004E98">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="NavigatedTo"
                                         Command="{Binding LoadedCommand}" />
@@ -19,6 +19,18 @@
                     HorizontalOptions="Center" />
             <WebView x:Name="WebViewInstance" BackgroundColor="DarkGray"/>
         </VerticalStackLayout>
+        <Border
+            Stroke="Black"
+            HeightRequest="200"
+            WidthRequest="200"
+            StrokeShape="Ellipse">
+            <Image
+                VerticalOptions="Center"
+                Source="piano_lessons.jpg"
+                IsVisible="{Binding ShowIcon}"
+                HeightRequest="200"
+                WidthRequest="200" />
+        </Border>
         <VerticalStackLayout IsVisible="{Binding RegistrationViewIsVisible}">
             <Label Text="Welcome To Piano Lessons!" 
                    FontSize="Large"
