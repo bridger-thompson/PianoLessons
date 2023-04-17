@@ -406,7 +406,7 @@
         TargetType="TabBar">
         <Setter
             Property="Shell.TabBarBackgroundColor"
-            Value="Blue" />
+            Value="#004E98" />
         <Setter
             Property="Shell.TabBarTitleColor"
             Value="DarkGray" />

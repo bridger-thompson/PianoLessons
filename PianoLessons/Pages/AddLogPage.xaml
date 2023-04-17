@@ -76,7 +76,7 @@
                     <Button
                         Text="Start Timer"
                         HorizontalOptions="Center"
-                        BackgroundColor="LightBlue"
+                        BackgroundColor="CornflowerBlue"
                         IsVisible="{Binding TimerStopped}"
                         Command="{Binding ToggleTimerCommand}"
                         VerticalOptions="Center" />

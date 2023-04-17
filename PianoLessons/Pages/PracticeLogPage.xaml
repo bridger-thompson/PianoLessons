@@ -17,7 +17,6 @@
         <ScrollView
             VerticalScrollBarVisibility="Always">
             <VerticalStackLayout
-                Margin="0,5"
                 HorizontalOptions="Center">
                 <Grid
                     ColumnDefinitions="*,Auto">
@@ -128,7 +127,7 @@
             VerticalOptions="End"
             Padding="0"
             CornerRadius="45"
-            Scale="1.3"
+            Scale="1.2"
             Margin="20"
             FontSize="Title"
             Text="+" />

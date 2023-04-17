@@ -198,4 +198,9 @@ public class TestPianoLessonRepo : IPianoLessonsRepo
 	{
 		throw new NotImplementedException();
 	}
+
+	public Task DeleteRecording(int id)
+	{
+		throw new NotImplementedException();
+	}
 }
