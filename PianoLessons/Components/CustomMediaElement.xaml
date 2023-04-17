@@ -39,12 +39,11 @@
                     BackgroundColor="CornflowerBlue"
                     TextColor="White"
                     Clicked="PlayRecording" />
-                <Button
+                <ImageButton
                     x:Name="StopButton"
                     Scale=".8"
-                    Text="||"
-                    BackgroundColor="Red"
-                    TextColor="White"
+                    BackgroundColor="Gray"
+                    Source="pause_fill.svg"
                     Clicked="StopPlayingRecording"
                     CornerRadius="8"
                     IsVisible="False" />
