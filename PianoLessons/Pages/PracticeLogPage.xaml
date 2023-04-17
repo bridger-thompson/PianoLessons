@@ -13,119 +13,124 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
 
-    <ScrollView
-        VerticalScrollBarVisibility="Always">
-        <VerticalStackLayout
-            HorizontalOptions="Center">
-            <Grid
-                ColumnDefinitions="*,Auto">
-                <HorizontalStackLayout
-                    Margin="0,5"
+    <Grid>
+        <ScrollView
+            VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout
+                Margin="0,5"
+                HorizontalOptions="Center">
+                <Grid
+                    ColumnDefinitions="*,Auto">
+                    <HorizontalStackLayout
+                        Margin="0,5"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsTeacher}"
+                        Spacing="5">
+                        <Label
+                            VerticalOptions="Center"
+                            Text="Student:" />
+                        <Picker
+                            ItemsSource="{Binding StudentNames}"
+                            WidthRequest="150"
+                            SelectedItem="{Binding SelectedStudentName}">
+                            <Picker.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    EventName="SelectedIndexChanged"
+                                    Command="{Binding GetLogsCommand}" />
+                            </Picker.Behaviors>
+                        </Picker>
+                    </HorizontalStackLayout>
+                </Grid>
+                <Grid
+                    WidthRequest="350"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsTeacher}"
-                    Spacing="5">
+                    RowDefinitions="*"
+                    Padding="5,0,0,0"
+                    ColumnDefinitions="50,150,75,60">
                     <Label
-                        VerticalOptions="Center"
-                        Text="Student:" />
-                    <Picker
-                        ItemsSource="{Binding StudentNames}"
-                        WidthRequest="150"
-                        SelectedItem="{Binding SelectedStudentName}">
-                        <Picker.Behaviors>
-                            <toolkit:EventToCommandBehavior
-                                EventName="SelectedIndexChanged"
-                                Command="{Binding GetLogsCommand}" />
-                        </Picker.Behaviors>
-                    </Picker>
-                </HorizontalStackLayout>
-            </Grid>
-            <Button
-                IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
-                BackgroundColor="CornflowerBlue"
-                Command="{Binding ToAddLogCommand}"
-                HorizontalOptions="End"
-                Padding="0"
-                Scale=".8"
-                Margin="2,0,38,0"
-                FontSize="Title"
-                Text="+" />
-            <Grid
-                WidthRequest="350"
-                HorizontalOptions="Center"
-                RowDefinitions="*"
-                Padding="5,0,0,0"
-                ColumnDefinitions="50,150,75,60">
+                        FontAttributes="Bold"
+                        Text="Date" />
+                    <Label
+                        FontAttributes="Bold"
+                        Grid.Column="1"
+                        Text="Name" />
+                    <Label
+                        FontAttributes="Bold"
+                        Grid.Column="2"
+                        Text="Course" />
+                    <Label
+                        FontAttributes="Bold"
+                        Grid.Column="3"
+                        Text="Duration" />
+                </Grid>
+                <CollectionView
+                    HorizontalOptions="Center"
+                    SelectionMode="Single"
+                    IsVisible="{Binding HasLogs}"
+                    SelectedItem="{Binding SelectedLog}"
+                    SelectionChangedCommand="{Binding EditLogCommand}"
+                    ItemsSource="{Binding Logs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                WidthRequest="350"
+                                BackgroundColor="LightBlue"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                Padding="5,3">
+                                <Border.Shadow>
+                                    <Shadow
+                                        Brush="lightgray"
+                                        Offset="5,5"
+                                        Radius="20"
+                                        Opacity="0.5" />
+                                </Border.Shadow>
+                                <Grid
+                                    RowDefinitions="Auto,Auto"
+                                    ColumnDefinitions="50,150,75,60">
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Text="{Binding StartTime, StringFormat='{0:MM/dd}'}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Grid.Column="1"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding Student.Name}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Grid.Column="2"
+                                        Text="{Binding Course.Name}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Grid.Column="3"
+                                        Text="{Binding Duration, StringFormat='{0:h\\:mm}'}" />
+                                    <Label
+                                        Text="{Binding Notes, StringFormat='Notes: {0}'}"
+                                        Grid.Row="1"
+                                        FontSize="11"
+                                        Margin="0,5"
+                                        Grid.ColumnSpan="4" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Label
-                    FontAttributes="Bold"
-                    Text="Date" />
-                <Label
-                    FontAttributes="Bold"
-                    Grid.Column="1"
-                    Text="Name" />
-                <Label
-                    FontAttributes="Bold"
-                    Grid.Column="2"
-                    Text="Course" />
-                <Label
-                    FontAttributes="Bold"
-                    Grid.Column="3"
-                    Text="Duration" />
-            </Grid>
-            <CollectionView
-                HorizontalOptions="Center"
-                SelectionMode="Single"
-                IsVisible="{Binding HasLogs}"
-                SelectedItem="{Binding SelectedLog}"
-                SelectionChangedCommand="{Binding EditLogCommand}"
-                ItemsSource="{Binding Logs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            WidthRequest="350"
-                            BackgroundColor="LightBlue"
-                            StrokeShape="RoundRectangle 10,10,10,10"
-                            Padding="5,3">
-                            <Border.Shadow>
-                                <Shadow
-                                    Brush="lightgray"
-                                    Offset="5,5"
-                                    Radius="20"
-                                    Opacity="0.5" />
-                            </Border.Shadow>
-                            <Grid
-                                RowDefinitions="Auto,Auto"
-                                ColumnDefinitions="50,150,75,60">
-                                <Label
-                                    VerticalOptions="Center"
-                                    Text="{Binding StartTime, StringFormat='{0:MM/dd}'}" />
-                                <Label
-                                    VerticalOptions="Center"
-                                    Grid.Column="1"
-                                    LineBreakMode="TailTruncation"
-                                    Text="{Binding Student.Name}" />
-                                <Label
-                                    VerticalOptions="Center"
-                                    Grid.Column="2"
-                                    Text="{Binding Course.Name}" />
-                                <Label
-                                    VerticalOptions="Center"
-                                    Grid.Column="3"
-                                    Text="{Binding Duration, StringFormat='{0:h\\:mm}'}" />
-                                <Label
-                                    Text="{Binding Notes, StringFormat='Notes: {0}'}"
-                                    Grid.Row="1"
-                                    FontSize="11"
-                                    Margin="0,5"
-                                    Grid.ColumnSpan="4" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Label
-                Text="No logs for student"
-                HorizontalOptions="Center"
-                IsVisible="{Binding HasLogs, Converter={converter:BooleanConverter}}" />
-        </VerticalStackLayout>
-    </ScrollView>
+                    Text="No logs for student"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasLogs, Converter={converter:BooleanConverter}}" />
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button
+            IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
+            BackgroundColor="CornflowerBlue"
+            Command="{Binding ToAddLogCommand}"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Padding="0"
+            CornerRadius="45"
+            Scale="1.3"
+            Margin="20"
+            FontSize="Title"
+            Text="+" />
+    </Grid>
 </ContentPage>

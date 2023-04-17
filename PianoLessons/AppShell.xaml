@@ -13,6 +13,7 @@
         Route="LoginPage"/>
     <TabBar>
         <Tab
+            Icon="house_fill.svg"
             Title="Home">
             <ShellContent
                 Title="Home"
@@ -21,35 +22,35 @@
                 Route="SchedulePage" />
         </Tab>
         <Tab
+            Icon="music_note_list.svg"
             Title="Practice Logs">
             <ShellContent
                 Title="Practice Logs"
-                Icon="music_note_list.svg"
                 ContentTemplate="{DataTemplate pages:PracticeLogPage}" 
                 Route="PracticeLogPage" />
         </Tab>
         <Tab
+            Icon="trophy_fill.svg"
             Title="Scoreboard">
             <ShellContent
                 Title="Scoreboard"
-                Icon="trophy_fill.svg"
                 ContentTemplate="{DataTemplate pages:ScoreboardPage}"
                 Route="ScoreboardPage" />
         </Tab>
         <Tab
+            Icon="book_half.svg"
             Title="Courses">
             <ShellContent
                 Title="Courses"
-                Icon="book_half.svg"
                 ContentTemplate="{DataTemplate pages:ManageCoursesPage}"
                 Route="ManageCoursesPage" />
         </Tab>
         <Tab
             x:Name="recording"
+            Icon="vinyl_fill"
             Title="Recordings">
             <ShellContent
                 Title="Recordings"
-                Icon="vinyl_fill"
                 ContentTemplate="{DataTemplate pages:RecordingPage}"
                 Route="RecordingPage" />
         </Tab>
