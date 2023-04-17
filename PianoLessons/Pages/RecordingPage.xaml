@@ -78,13 +78,13 @@
                                     VerticalOptions="Center" />
                                 <Border
                                     StrokeShape="RoundRectangle 5,5,5,5"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                     Scale=".8"
                                     Grid.Column="2"
                                     Stroke="Red">
                                     <Button
                                         BackgroundColor="White"
                                         TextColor="Red"
-                                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                         Text="X"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
                                         CommandParameter="{Binding Id}"
