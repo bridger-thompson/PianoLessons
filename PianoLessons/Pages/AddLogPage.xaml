@@ -76,6 +76,7 @@
                     <Button
                         Text="Start Timer"
                         HorizontalOptions="Center"
+                        BackgroundColor="LightBlue"
                         IsVisible="{Binding TimerStopped}"
                         Command="{Binding ToggleTimerCommand}"
                         VerticalOptions="Center" />
@@ -85,7 +86,10 @@
                         IsVisible="{Binding TimerStopped, Converter={converter:BooleanConverter}}"
                         Command="{Binding ToggleTimerCommand}"
                         VerticalOptions="Center"
-                        BackgroundColor="Red" />
+                        BackgroundColor="White"
+                        TextColor="Red"
+                        BorderColor="Red"
+                        BorderWidth=".3" />
                 </VerticalStackLayout>
                 <Label
                     HorizontalOptions="Center"
@@ -113,12 +117,15 @@
                     Spacing="20">
                     <Button
                         Text="Delete"
-                        BackgroundColor="Red"
+                        BackgroundColor="White"
+                        TextColor="Red"
+                        BorderColor="Red"
+                        BorderWidth=".3"
                         IsVisible="{Binding IsEditing}"
                         Command="{Binding DeleteLogCommand}" />
                     <Button
                         Text="Submit"
-                        BackgroundColor="LimeGreen"
+                        BackgroundColor="CornflowerBlue"
                         Command="{Binding SubmitCommand}" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
