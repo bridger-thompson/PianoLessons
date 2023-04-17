@@ -16,6 +16,7 @@
             Title="Home">
             <ShellContent
                 Title="Home"
+                Icon="house_fill.svg"
                 ContentTemplate="{DataTemplate pages:SchedulePage}"
                 Route="SchedulePage" />
         </Tab>
@@ -23,6 +24,7 @@
             Title="Practice Logs">
             <ShellContent
                 Title="Practice Logs"
+                Icon="music_note_list.svg"
                 ContentTemplate="{DataTemplate pages:PracticeLogPage}" 
                 Route="PracticeLogPage" />
         </Tab>
@@ -30,6 +32,7 @@
             Title="Scoreboard">
             <ShellContent
                 Title="Scoreboard"
+                Icon="trophy_fill.svg"
                 ContentTemplate="{DataTemplate pages:ScoreboardPage}"
                 Route="ScoreboardPage" />
         </Tab>
@@ -37,6 +40,7 @@
             Title="Courses">
             <ShellContent
                 Title="Courses"
+                Icon="book_half.svg"
                 ContentTemplate="{DataTemplate pages:ManageCoursesPage}"
                 Route="ManageCoursesPage" />
         </Tab>
@@ -45,6 +49,7 @@
             Title="Recordings">
             <ShellContent
                 Title="Recordings"
+                Icon="vinyl_fill"
                 ContentTemplate="{DataTemplate pages:RecordingPage}"
                 Route="RecordingPage" />
         </Tab>
