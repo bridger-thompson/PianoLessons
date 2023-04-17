@@ -33,6 +33,8 @@
                 <Button
                     x:Name="PlayButton"
                     Text="▶"
+                    FontSize="Title"
+                    Padding="0"
                     Scale=".8"
                     BackgroundColor="CornflowerBlue"
                     TextColor="White"

@@ -51,6 +51,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 			Students.Add(student);
 		}
 		NewName = CurrentCourse.Name;
+		IsEditing = false;
 	}
 
 	[RelayCommand]

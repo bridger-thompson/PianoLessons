@@ -82,7 +82,7 @@
                     <DataTemplate>
                         <Border
                             WidthRequest="350"
-                            BackgroundColor="#f7f3ed"
+                            BackgroundColor="LightBlue"
                             StrokeShape="RoundRectangle 10,10,10,10"
                             Padding="5,3">
                             <Border.Shadow>
