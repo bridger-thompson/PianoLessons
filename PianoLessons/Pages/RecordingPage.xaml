@@ -15,172 +15,184 @@
     </ContentPage.Behaviors>
     <VerticalStackLayout
         HorizontalOptions="Center">
-        <HorizontalStackLayout
+        <ActivityIndicator
+            IsVisible="{Binding IsLoading}"
+            Color="CornflowerBlue"
             HorizontalOptions="Center"
-            Spacing="5">
-            <Label
-                Text="Course:"
-                VerticalOptions="Center" />
-            <Picker
-                ItemsSource="{Binding CourseNames}"
-                SelectedItem="{Binding SelectedCourseName}"
-                WidthRequest="125">
-                <Picker.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        EventName="SelectedIndexChanged"
-                        Command="{Binding GetStudentsCommand}" />
-                </Picker.Behaviors>
-            </Picker>
-            <Label
-                Text="Student:"
-                VerticalOptions="Center" />
-            <Picker
-                ItemsSource="{Binding StudentNames}"
-                SelectedItem="{Binding SelectedStudentName}"
-                WidthRequest="125">
-                <Picker.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        EventName="SelectedIndexChanged"
-                        Command="{Binding GetRecordingsCommand}" />
-                </Picker.Behaviors>
-            </Picker>
-        </HorizontalStackLayout>
-        <Label
-            Text="No Recordings"
-            Margin="0,5"
+            VerticalOptions="Center"
+            IsRunning="{Binding IsLoading}" />
+        <StackLayout
             HorizontalOptions="Center"
-            IsVisible="{Binding HasRecordings, Converter={converter:BooleanConverter}}" />
-        <ScrollView
-            VerticalScrollBarVisibility="Always"
-            HeightRequest="525">
-            <CollectionView
-                ItemsSource="{Binding Recordings}"
+            IsVisible="{Binding IsLoading, Converter={converter:BooleanConverter}}">
+            <HorizontalStackLayout
                 HorizontalOptions="Center"
-                x:Name="recordingCollection"
-                Margin="0,5">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            StrokeShape="RoundRectangle 10,10,10,10"
-                            WidthRequest="350">
-                            <Grid
-                                Margin="5,0"
-                                RowDefinitions="*,Auto"
-                                ColumnDefinitions="*,3*,Auto">
-                                <Label
-                                    VerticalOptions="Start"
-                                    Margin="0,14"
-                                    Grid.RowSpan="2"
-                                    Text="{Binding Created, StringFormat='{0:MM/dd/yy h:mm tt}', Converter={converter:LocalTimeConverter}}" />
-                                <Label
-                                    Grid.Column="1"
-                                    Text="{Binding Student.Name}"
-                                    VerticalOptions="Center" />
-                                <Border
-                                    StrokeShape="RoundRectangle 5,5,5,5"
-                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
-                                    Scale=".8"
-                                    Grid.Column="2"
-                                    Stroke="Red">
-                                    <Button
-                                        BackgroundColor="White"
-                                        TextColor="Red"
-                                        Text="X"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
-                                        CommandParameter="{Binding Id}"
+                Spacing="5">
+                <Label
+                    Text="Course:"
+                    VerticalOptions="Center" />
+                <Picker
+                    ItemsSource="{Binding CourseNames}"
+                    SelectedItem="{Binding SelectedCourseName}"
+                    WidthRequest="125">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding GetStudentsCommand}" />
+                    </Picker.Behaviors>
+                </Picker>
+                <Label
+                    IsVisible="{Binding IsTeacher}"
+                    Text="Student:"
+                    VerticalOptions="Center" />
+                <Picker
+                    IsVisible="{Binding IsTeacher}"
+                    ItemsSource="{Binding StudentNames}"
+                    SelectedItem="{Binding SelectedStudentName}"
+                    WidthRequest="125">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="SelectedIndexChanged"
+                            Command="{Binding GetRecordingsCommand}" />
+                    </Picker.Behaviors>
+                </Picker>
+            </HorizontalStackLayout>
+            <Label
+                Text="No Recordings"
+                Margin="0,5"
+                HorizontalOptions="Center"
+                IsVisible="{Binding HasRecordings, Converter={converter:BooleanConverter}}" />
+            <ScrollView
+                VerticalScrollBarVisibility="Always"
+                HeightRequest="525">
+                <CollectionView
+                    ItemsSource="{Binding Recordings}"
+                    HorizontalOptions="Center"
+                    x:Name="recordingCollection"
+                    Margin="0,5">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                WidthRequest="350">
+                                <Grid
+                                    Margin="5,0"
+                                    RowDefinitions="*,Auto"
+                                    ColumnDefinitions="*,3*,Auto">
+                                    <Label
+                                        VerticalOptions="Start"
+                                        Margin="0,14"
+                                        Grid.RowSpan="2"
+                                        Text="{Binding Created, StringFormat='{0:MM/dd/yy h:mm tt}', Converter={converter:LocalTimeConverter}}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Student.Name}"
                                         VerticalOptions="Center" />
-                                </Border>
-                                <components:CustomMediaElement
-                                    Source="{Binding FilePath}"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="2"
-                                    Grid.Column="1" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
-        <!--  Button Setup  -->
-        <Grid
-            RowDefinitions="auto,auto">
-            <ImageButton
-                Grid.Row="0"
-                Command="{Binding StartRecordingCommand}"
-                CornerRadius="25"
-                Padding="0"
-                HeightRequest="50"
-                IsVisible="{Binding IsRecordButtonVisible}"
-                Source="record_circle.svg"
-                WidthRequest="50" />
-            <Label
-                Grid.Row="1"
-                HorizontalOptions="Center"
-                IsVisible="{Binding IsRecordButtonVisible}"
-                Text="Record" />
-        </Grid>
-        <Grid
-            Margin="0,5,0,0"
-            ColumnDefinitions="*,*"
-            WidthRequest="400">
+                                    <Border
+                                        StrokeShape="RoundRectangle 5,5,5,5"
+                                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
+                                        Scale=".8"
+                                        Grid.Column="2"
+                                        Stroke="Red">
+                                        <Button
+                                            BackgroundColor="White"
+                                            TextColor="Red"
+                                            Text="X"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            VerticalOptions="Center" />
+                                    </Border>
+                                    <components:CustomMediaElement
+                                        Source="{Binding FilePath}"
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        Grid.Column="1" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <!--  Button Setup  -->
             <Grid
-                HorizontalOptions="CenterAndExpand"
-                RowDefinitions="auto,auto">
-                <!--  Pause Button  -->
-                <ImageButton
-                    Grid.Row="0"
-                    Command="{Binding PauseRecordingCommand}"
-                    CornerRadius="25"
-                    Source="pause_fill.svg"
-                    BackgroundColor="Gray"
-                    HeightRequest="50"
-                    IsVisible="{Binding IsPauseButtonVisible}"
-                    WidthRequest="50" />
-                <Label
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsPauseButtonVisible}"
-                    Text="Pause" />
-
-                <!--  Resume Button  -->
-                <Button
-                    Grid.Row="0"
-                    BackgroundColor="CornflowerBlue"
-                    Command="{Binding ResumeRecordingCommand}"
-                    CornerRadius="25"
-                    FontSize="22"
-                    HeightRequest="50"
-                    IsVisible="{Binding IsResumeButtonVisible}"
-                    Text="▶"
-                    TextColor="White"
-                    WidthRequest="50" />
-                <Label
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsResumeButtonVisible}"
-                    Text="Resume" />
-            </Grid>
-
-            <!--  Stop  -->
-            <Grid
-                Grid.Column="1"
                 RowDefinitions="auto,auto">
                 <ImageButton
                     Grid.Row="0"
-                    Command="{Binding StopRecordingCommand}"
+                    Command="{Binding StartRecordingCommand}"
                     CornerRadius="25"
+                    Padding="0"
                     HeightRequest="50"
-                    BorderColor="Red"
-                    BorderWidth="1"
-                    IsVisible="{Binding IsRecordingAudio}"
-                    Source="stop_fill.svg"
+                    IsVisible="{Binding IsRecordButtonVisible}"
+                    Source="record_circle.svg"
                     WidthRequest="50" />
                 <Label
                     Grid.Row="1"
-                    IsVisible="{Binding IsRecordingAudio}"
                     HorizontalOptions="Center"
-                    Text="Stop" />
+                    IsVisible="{Binding IsRecordButtonVisible}"
+                    Text="Record" />
             </Grid>
-        </Grid>
+            <Grid
+                Margin="0,5,0,0"
+                ColumnDefinitions="*,*"
+                WidthRequest="400">
+                <Grid
+                    HorizontalOptions="CenterAndExpand"
+                    RowDefinitions="auto,auto">
+                    <!--  Pause Button  -->
+                    <ImageButton
+                        Grid.Row="0"
+                        Command="{Binding PauseRecordingCommand}"
+                        CornerRadius="25"
+                        Source="pause_fill.svg"
+                        BackgroundColor="Gray"
+                        HeightRequest="50"
+                        IsVisible="{Binding IsPauseButtonVisible}"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsPauseButtonVisible}"
+                        Text="Pause" />
+
+                    <!--  Resume Button  -->
+                    <Button
+                        Grid.Row="0"
+                        BackgroundColor="CornflowerBlue"
+                        Command="{Binding ResumeRecordingCommand}"
+                        CornerRadius="25"
+                        FontSize="22"
+                        HeightRequest="50"
+                        IsVisible="{Binding IsResumeButtonVisible}"
+                        Text="▶"
+                        TextColor="White"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsResumeButtonVisible}"
+                        Text="Resume" />
+                </Grid>
+
+                <!--  Stop  -->
+                <Grid
+                    Grid.Column="1"
+                    RowDefinitions="auto,auto">
+                    <ImageButton
+                        Grid.Row="0"
+                        Command="{Binding StopRecordingCommand}"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        BorderColor="Red"
+                        BorderWidth="1"
+                        IsVisible="{Binding IsRecordingAudio}"
+                        Source="stop_fill.svg"
+                        WidthRequest="50" />
+                    <Label
+                        Grid.Row="1"
+                        IsVisible="{Binding IsRecordingAudio}"
+                        HorizontalOptions="Center"
+                        Text="Stop" />
+                </Grid>
+            </Grid>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

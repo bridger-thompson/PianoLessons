@@ -6,8 +6,9 @@
              Title="Login Page"
     BackgroundColor="#004E98">
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="NavigatedTo"
-                                        Command="{Binding LoadedCommand}" />
+        <toolkit:EventToCommandBehavior
+            EventName="NavigatedTo"
+            Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
     <VerticalStackLayout
         HeightRequest="700">
@@ -15,6 +16,7 @@
             <Button Text="Log In"
                     SemanticProperties.Hint="Click to log in"
                     Command="{Binding LoginCommand}"
+                    BackgroundColor="CornflowerBlue"
                     VerticalOptions="End"
                     HorizontalOptions="Center" />
             <WebView x:Name="WebViewInstance" BackgroundColor="DarkGray"/>
@@ -23,14 +25,22 @@
             Stroke="Black"
             HeightRequest="200"
             WidthRequest="200"
+            IsVisible="{Binding ShowIcon}"
             StrokeShape="Ellipse">
             <Image
                 VerticalOptions="Center"
                 Source="piano_lessons.jpg"
-                IsVisible="{Binding ShowIcon}"
                 HeightRequest="200"
                 WidthRequest="200" />
         </Border>
+        <ActivityIndicator
+            Margin="0,25"
+            HeightRequest="70"
+            WidthRequest="70"
+            Color="CornflowerBlue"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsRunning="{Binding IsLoggingIn}" />
         <VerticalStackLayout IsVisible="{Binding RegistrationViewIsVisible}">
             <Label Text="Welcome To Piano Lessons!" 
                    FontSize="Large"

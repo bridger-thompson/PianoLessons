@@ -27,6 +27,9 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string selectedCourseName;
 
+	[ObservableProperty]
+	private bool isLoading;
+
 	private bool isTeacher;
 
 	public ScoreboardPageViewModel(PianoLessonsService service, AuthService auth)
@@ -43,6 +46,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task GetCourses()
 	{
+		IsLoading = true;
 		isTeacher = auth.User.IsTeacher;
 		List<Course> c = new();
 		if (isTeacher)
@@ -61,11 +65,13 @@ public partial class ScoreboardPageViewModel : ObservableObject
 			CourseNames.Add(course.Name);
 		}
 		if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
+		IsLoading = false;
 	}
 
 	[RelayCommand]
 	public async Task GetScores()
 	{
+		IsLoading = true;
 		var selectedCourse = courses.Where(c => c.Name == SelectedCourseName)
 			.FirstOrDefault();
 		if (selectedCourse != null)
@@ -77,5 +83,6 @@ public partial class ScoreboardPageViewModel : ObservableObject
 				StudentScores.Add(score);
 			}
 		}
+		IsLoading = false;
 	}
 }

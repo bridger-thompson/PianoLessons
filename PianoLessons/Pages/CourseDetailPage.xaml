@@ -42,7 +42,8 @@
         </HorizontalStackLayout>
         <Label
             Margin="0,5"
-            Text="{Binding TeacherName}"
+            FontSize="Subtitle"
+            Text="{Binding TeacherName, StringFormat='Teacher: {0}'}"
             HorizontalOptions="Center" />
         <Button
             IsVisible="{Binding IsTeacher}"
