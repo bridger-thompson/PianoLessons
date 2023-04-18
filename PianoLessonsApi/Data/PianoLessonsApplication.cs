@@ -225,15 +225,13 @@ public class PianoLessonsApplication : IPianoLessonsApplication
     private static string GenerateRandomCode()
     {
         Random rand = new();
-        string str = "";
-        char letter;
+        string code = "";
         for (int i = 0; i < 4; i++)
         {
-            int randValue = rand.Next(0, 26);
-            letter = Convert.ToChar(randValue + 65);
-            str += letter;
+            var randomUpperCaseLetter = rand.Next('A', 'Z' + 1);
+            code += randomUpperCaseLetter;
         }
-		return str;
+		return code;
     }
 
     public async Task<bool> JoinCourse(string studentId, string code)

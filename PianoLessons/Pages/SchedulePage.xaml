@@ -17,25 +17,30 @@
             Spacing="5"
             VerticalOptions="FillAndExpand"
             Padding="30,0">
-            <Button
-                Margin="0,5"
-                HorizontalOptions="End"
-                IsVisible="{Binding IsTeacher}"
-                VerticalOptions="Start"
-                Text="+"
-                FontSize="Title"
-                Padding="0"
-                BackgroundColor="CornflowerBlue"
-                Command="{Binding ToAddScheduleItemCommand}" />
-            <scheduler:SfScheduler
-                x:Name="Scheduler"
-                HeightRequest="600"
-                CellBorderBrush="DarkGray"
-                AppointmentsSource="{Binding Events}"
-                AllowedViews="Day,Week"
-                View="Week" />
+            <Grid>
+                <scheduler:SfScheduler
+                    x:Name="Scheduler"
+                    HeightRequest="600"
+                    CellBorderBrush="DarkGray"
+                    AppointmentsSource="{Binding Events}"
+                    AllowedViews="Day,Week"
+                    View="Week" />
+                <Button
+                    Margin="0,5"
+                    CornerRadius="45"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsTeacher}"
+                    Text="+"
+                    FontSize="Title"
+                    Padding="0"
+                    BackgroundColor="CornflowerBlue"
+                    Command="{Binding ToAddScheduleItemCommand}" />
+            </Grid>
             <Button x:Name="LogoutBtn"
                     Text="Log Out"
+                    Margin="0,5"
+                    BackgroundColor="CornflowerBlue"
                     SemanticProperties.Hint="Click to log out"
                     Command="{Binding LogoutCommand}"
                     HorizontalOptions="Center" />

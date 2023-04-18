@@ -78,13 +78,13 @@
                                     VerticalOptions="Center" />
                                 <Border
                                     StrokeShape="RoundRectangle 5,5,5,5"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                     Scale=".8"
                                     Grid.Column="2"
                                     Stroke="Red">
                                     <Button
                                         BackgroundColor="White"
                                         TextColor="Red"
-                                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=IsTeacher, Converter={converter:BooleanConverter}}"
                                         Text="X"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RecordingPageViewModel}}, Path=DeleteRecordingCommand}"
                                         CommandParameter="{Binding Id}"
@@ -104,18 +104,14 @@
         <!--  Button Setup  -->
         <Grid
             RowDefinitions="auto,auto">
-            <Button
+            <ImageButton
                 Grid.Row="0"
-                BackgroundColor="Red"
-                BorderColor="Red"
-                BorderWidth="1"
                 Command="{Binding StartRecordingCommand}"
                 CornerRadius="25"
-                FontSize="22"
+                Padding="0"
                 HeightRequest="50"
                 IsVisible="{Binding IsRecordButtonVisible}"
-                Text="R"
-                TextColor="White"
+                Source="record_circle.svg"
                 WidthRequest="50" />
             <Label
                 Grid.Row="1"
@@ -131,18 +127,14 @@
                 HorizontalOptions="CenterAndExpand"
                 RowDefinitions="auto,auto">
                 <!--  Pause Button  -->
-                <Button
+                <ImageButton
                     Grid.Row="0"
-                    BackgroundColor="SkyBlue"
-                    BorderColor="SkyBlue"
-                    BorderWidth="1"
                     Command="{Binding PauseRecordingCommand}"
                     CornerRadius="25"
-                    FontSize="22"
+                    Source="pause_fill.svg"
+                    BackgroundColor="Gray"
                     HeightRequest="50"
                     IsVisible="{Binding IsPauseButtonVisible}"
-                    Text="&#xea1d;"
-                    TextColor="White"
                     WidthRequest="50" />
                 <Label
                     Grid.Row="1"
@@ -153,15 +145,13 @@
                 <!--  Resume Button  -->
                 <Button
                     Grid.Row="0"
-                    BackgroundColor="LimeGreen"
-                    BorderColor="LimeGreen"
-                    BorderWidth="1"
+                    BackgroundColor="CornflowerBlue"
                     Command="{Binding ResumeRecordingCommand}"
                     CornerRadius="25"
                     FontSize="22"
                     HeightRequest="50"
                     IsVisible="{Binding IsResumeButtonVisible}"
-                    Text="&#xea1c;"
+                    Text="▶"
                     TextColor="White"
                     WidthRequest="50" />
                 <Label
@@ -175,33 +165,16 @@
             <Grid
                 Grid.Column="1"
                 RowDefinitions="auto,auto">
-                <Button
+                <ImageButton
                     Grid.Row="0"
-                    BackgroundColor="Red"
-                    BorderColor="Red"
-                    BorderWidth="1"
                     Command="{Binding StopRecordingCommand}"
                     CornerRadius="25"
-                    FontSize="22"
-                    TextColor="White"
                     HeightRequest="50"
+                    BorderColor="Red"
+                    BorderWidth="1"
                     IsVisible="{Binding IsRecordingAudio}"
-                    Text="Stop"
-                    WidthRequest="50">
-                    <Button.Triggers>
-                        <DataTrigger
-                            Binding="{Binding IsRecordingAudio}"
-                            TargetType="Button"
-                            Value="False">
-                            <Setter
-                                Property="TextColor"
-                                Value="Gray" />
-                            <Setter
-                                Property="BorderColor"
-                                Value="Gray" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    Source="stop_fill.svg"
+                    WidthRequest="50" />
                 <Label
                     Grid.Row="1"
                     IsVisible="{Binding IsRecordingAudio}"

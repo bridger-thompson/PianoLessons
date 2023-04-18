@@ -5,8 +5,7 @@
     xmlns:vm="clr-namespace:PianoLessons.ViewModels"
     xmlns:converter="clr-namespace:PianoLessons.Converters"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PianoLessons.Pages.CourseDetailPage"
-    Title="{Binding CurrentCourse.Name}">
+    x:Class="PianoLessons.Pages.CourseDetailPage">
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="NavigatedTo"
@@ -14,7 +13,8 @@
     </ContentPage.Behaviors>
     <VerticalStackLayout>
         <HorizontalStackLayout
-            IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}}"
+            Margin="0,5"
+            IsVisible="{Binding IsEditing, Converter={converter:BooleanConverter}}"
             HorizontalOptions="Center"
             Spacing="10">
             <Label
@@ -36,6 +36,8 @@
                 Text="{Binding NewName}" />
             <Button
                 Text="Submit"
+                TextColor="Gray"
+                BackgroundColor="LightBlue"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
         <Label
@@ -47,7 +49,7 @@
             Text="Generate Invite Code"
             Margin="0,5"
             Command="{Binding InviteCommand}"
-            BackgroundColor="LimeGreen"
+            BackgroundColor="CornflowerBlue"
             HorizontalOptions="Center" />
         <CollectionView
             HorizontalOptions="Center"
@@ -56,6 +58,7 @@
                 <DataTemplate>
                     <Border
                         Padding="5,0,0,0"
+                        BackgroundColor="LightBlue"
                         WidthRequest="250"
                         Margin="0,3"
                         MinimumHeightRequest="50"
@@ -70,7 +73,11 @@
                                 Text="X"
                                 IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:CourseDetailPageViewModel}}, Path=IsTeacher}"
                                 Grid.Column="2"
-                                BackgroundColor="Red"
+                                TextColor="Red"
+                                BorderColor="Red"
+                                BorderWidth=".3"
+                                Scale=".8"
+                                BackgroundColor="White"
                                 VerticalOptions="Center"
                                 CommandParameter="{Binding Id}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CourseDetailPageViewModel}}, Path=RemoveStudentCommand}" />

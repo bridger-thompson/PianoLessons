@@ -7,14 +7,16 @@ namespace PianoLessons.ViewModels
 {
     public partial class LoginPageViewModel : ObservableObject
     {
-        [ObservableProperty]
+        [ObservableProperty, NotifyPropertyChangedFor(nameof(ShowIcon))]
         private bool loginViewIsVisible;
 
-        [ObservableProperty]
+        [ObservableProperty, NotifyPropertyChangedFor(nameof(ShowIcon))]
         private bool registrationViewIsVisible;
 
         [ObservableProperty]
         private bool isTeacher;
+
+        public bool ShowIcon => !LoginViewIsVisible && !RegistrationViewIsVisible;
 
         [ObservableProperty]
         private string userName;

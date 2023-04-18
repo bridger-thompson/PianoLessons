@@ -13,13 +13,16 @@
         Route="LoginPage"/>
     <TabBar>
         <Tab
+            Icon="house_fill.svg"
             Title="Home">
             <ShellContent
                 Title="Home"
+                Icon="house_fill.svg"
                 ContentTemplate="{DataTemplate pages:SchedulePage}"
                 Route="SchedulePage" />
         </Tab>
         <Tab
+            Icon="music_note_list.svg"
             Title="Practice Logs">
             <ShellContent
                 Title="Practice Logs"
@@ -27,6 +30,7 @@
                 Route="PracticeLogPage" />
         </Tab>
         <Tab
+            Icon="trophy_fill.svg"
             Title="Scoreboard">
             <ShellContent
                 Title="Scoreboard"
@@ -34,6 +38,7 @@
                 Route="ScoreboardPage" />
         </Tab>
         <Tab
+            Icon="book_half.svg"
             Title="Courses">
             <ShellContent
                 Title="Courses"
@@ -42,6 +47,7 @@
         </Tab>
         <Tab
             x:Name="recording"
+            Icon="vinyl_fill"
             Title="Recordings">
             <ShellContent
                 Title="Recordings"

@@ -31,18 +31,19 @@
                 Grid.Column="1"
                 HorizontalOptions="End">
                 <Button
-                    x:Name="Play"
+                    x:Name="PlayButton"
                     Text="▶"
+                    FontSize="Title"
+                    Padding="0"
                     Scale=".8"
                     BackgroundColor="CornflowerBlue"
                     TextColor="White"
                     Clicked="PlayRecording" />
-                <Button
-                    x:Name="Stop"
+                <ImageButton
+                    x:Name="StopButton"
                     Scale=".8"
-                    Text="||"
-                    BackgroundColor="Red"
-                    TextColor="White"
+                    BackgroundColor="Gray"
+                    Source="pause_fill.svg"
                     Clicked="StopPlayingRecording"
                     CornerRadius="8"
                     IsVisible="False" />

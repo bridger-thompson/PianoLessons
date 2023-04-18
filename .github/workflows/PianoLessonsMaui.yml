@@ -25,7 +25,8 @@ jobs:
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      run: |
+        dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
@@ -93,10 +94,18 @@ jobs:
 
     - name: Build MAUI Windows
       run: msbuild PianoLessons/PianoLessons.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
+      
+    - name: Output folder
+      run: |
+        dir PianoLessons
+        dir PianoLessons/bin
+        dir PianoLessons/bin/Release
+        dir PianoLessons/bin/Release/net7.0-windows10.0.19041.0
+        dir PianoLessons/bin/Release/net7.0-windows10.0.19041.0/win10-x64
 
     - name: Upload Windows Artifact
       uses: actions/upload-artifact@v2.3.1
       with:
         name: windows-ci-build
-        path: PianoLessons/bin/Release/net7.0-windows*/**/PianoLessons*.msix
+        path: PianoLessons/bin/Release/net7.0-windows/**/PianoLessons*.msix
   

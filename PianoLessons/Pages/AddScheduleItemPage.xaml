@@ -11,54 +11,76 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
     <VerticalStackLayout
+        HeightRequest="500"
+        WidthRequest="300"
         Spacing="5">
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                Text="Title: " />
-            <Entry
-                WidthRequest="200"
-                Text="{Binding Title}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                Text="Student:"
-                VerticalOptions="Center" />
-            <Picker
-                ItemsSource="{Binding StudentNames}"
-                WidthRequest="150"
-                SelectedItem="{Binding SelectedStudentName}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                Text="Start: " />
-            <DatePicker
-                Date="{Binding Start}" />
-            <TimePicker
-                Time="{Binding StartTime}"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout
-            Spacing="5"
-            HorizontalOptions="Center">
-            <Label
-                VerticalOptions="Center"
-                Text="End: " />
-            <DatePicker
-                Date="{Binding End}" />
-            <TimePicker
-                Time="{Binding EndTime}" />
-        </HorizontalStackLayout>
-        <Button
-            HorizontalOptions="Center"
-            BackgroundColor="CornflowerBlue"
-            Text="Add Item"
-            Command="{Binding AddItemCommand}" />
+        <Border
+            StrokeShape="RoundRectangle 15,15,15,15">
+            <Border.Shadow>
+                <Shadow
+                    Brush="lightgray"
+                    Offset="5,5"
+                    Radius="20"
+                    Opacity="0.8" />
+            </Border.Shadow>
+            <VerticalStackLayout
+                Padding="10">
+                <Grid
+                    RowDefinitions="*,*,*,*"
+                    ColumnDefinitions="*,*,*">
+                    <Label
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Text="Title: " />
+                    <Entry
+                        Grid.ColumnSpan="2"
+                        Grid.Column="1"
+                        Text="{Binding Title}" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalOptions="End"
+                        Text="Student:"
+                        VerticalOptions="Center" />
+                    <Picker
+                        Grid.Row="1"
+                        ItemsSource="{Binding StudentNames}"
+                        Grid.ColumnSpan="2"
+                        Grid.Column="1"
+                        SelectedItem="{Binding SelectedStudentName}" />
+                    <Label
+                        Grid.Row="2"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Text="Start: " />
+                    <DatePicker
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Date="{Binding Start}" />
+                    <TimePicker
+                        Grid.Column="2"
+                        Grid.Row="2"
+                        Time="{Binding StartTime}" />
+                    <Label
+                        Grid.Row="3"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Text="End: " />
+                    <DatePicker
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Date="{Binding End}" />
+                    <TimePicker
+                        Grid.Column="2"
+                        Grid.Row="3"
+                        Time="{Binding EndTime}" />
+                </Grid>
+                <Button
+                    HorizontalOptions="Center"
+                    BackgroundColor="CornflowerBlue"
+                    TextColor="LightGray"
+                    Text="Add Item"
+                    Command="{Binding AddItemCommand}" />
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>
