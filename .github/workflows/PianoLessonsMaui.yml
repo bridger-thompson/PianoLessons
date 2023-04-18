@@ -28,7 +28,7 @@ jobs:
       run: |
         dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
         dir bin\Release\net7.0-windows10.0.19041.0\win10-x64\
-        echo **************************** - garrett
+        echo ****************************
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
