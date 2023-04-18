@@ -33,6 +33,9 @@ public partial class CourseDetailPageViewModel : ObservableObject
     [ObservableProperty]
     private bool isTeacher;
 
+	[ObservableProperty]
+	private string teacherName;
+
     public CourseDetailPageViewModel(PianoLessonsService service, AuthService auth)
 	{
 		this.service = service;
@@ -44,6 +47,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	{
 		IsTeacher = auth.User.IsTeacher;
         CurrentCourse = await service.GetCourse(Id);
+		TeacherName = CurrentCourse.Teacher.Name;
 		var s = await service.GetCourseStudents(Id);
 		Students = new();
 		foreach (var student in s)

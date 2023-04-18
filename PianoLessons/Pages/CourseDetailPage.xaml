@@ -38,6 +38,10 @@
                 Text="Submit"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
+        <Label
+            Margin="0,5"
+            Text="{Binding TeacherName}"
+            HorizontalOptions="Center" />
         <Button
             IsVisible="{Binding IsTeacher}"
             Text="Generate Invite Code"
