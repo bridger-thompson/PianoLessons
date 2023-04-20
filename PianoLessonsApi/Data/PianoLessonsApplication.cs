@@ -229,7 +229,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
         for (int i = 0; i < 4; i++)
         {
             var randomUpperCaseLetter = rand.Next('A', 'Z' + 1);
-            code += randomUpperCaseLetter;
+            code += (char)randomUpperCaseLetter;
         }
 		return code;
     }
