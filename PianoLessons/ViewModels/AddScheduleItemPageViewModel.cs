@@ -10,8 +10,8 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
 	private readonly PianoLessonsService service;
-    private readonly AuthService auth;
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
+	private readonly AuthService auth;
+	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
 	private string title;
 
 	[ObservableProperty]
@@ -20,8 +20,17 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	[ObservableProperty]
 	private DateTime end;
 
-	[ObservableProperty]
 	private TimeSpan startTime;
+
+	public TimeSpan StartTime
+	{
+		get => startTime;
+		set
+		{
+			SetProperty(ref startTime, value);
+			EndTime = startTime + TimeSpan.FromHours(1);
+		}
+	}
 
 	[ObservableProperty]
 	private TimeSpan endTime;
@@ -39,8 +48,8 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	{
 		this.navService = navService;
 		this.service = service;
-        this.auth = auth;
-        Title = string.Empty;
+		this.auth = auth;
+		Title = string.Empty;
 		SelectedStudentName = string.Empty;
 	}
 
