@@ -130,7 +130,7 @@ public partial class RecordingPageViewModel : ObservableObject
 			}
 		}
 		List<Recording> r = await service.GetStudentCourseRecordings(studentId, selectedCourse.Id);
-		Recordings = new();
+		Recordings.Clear();
 		foreach (var recording in r)
 		{
 			Recordings.Add(recording);
@@ -165,7 +165,8 @@ public partial class RecordingPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task DeleteRecording(int id)
 	{
-		if (auth.User.IsStudent)
+		bool confirmDelete = await Application.Current.MainPage.DisplayAlert("Are you sure?", "Do you want to delete this recording?", "Yes", "No");
+		if (auth.User.IsStudent && confirmDelete)
 		{
 			var recording = Recordings.Where(r => r.Id == id).FirstOrDefault();
 			var fileName = recording.FilePath.Split('/')[4];

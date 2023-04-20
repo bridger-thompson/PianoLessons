@@ -107,5 +107,10 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		{
 			await navService.NavigateToAsync($"{nameof(AddLogPage)}?Id={SelectedLog.Id}");
 		}
+		else
+		{
+			var alertContent = $"Duration: {SelectedLog.Duration.ToString(@"hh\:mm")}\nCourse: {SelectedLog.Course.Name}\nNotes: {SelectedLog.Notes}";
+			await Application.Current.MainPage.DisplayAlert(SelectedLog.Student.Name, alertContent, "OK");
+		}
 	}
 }
