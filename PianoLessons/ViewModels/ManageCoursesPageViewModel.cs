@@ -15,7 +15,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
     [ObservableProperty]
 	private ObservableCollection<Course> courses;
 
-	[ObservableProperty]
+	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddCourseCommand))]
 	private string newCourseName;
 
 	[ObservableProperty]
@@ -66,7 +66,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		IsLoading = false;
 	}
 
-	[RelayCommand]
+	[RelayCommand(CanExecute = nameof(CanAdd))]
 	public async Task AddCourse()
 	{
 		Course newCourse = new()
@@ -81,6 +81,11 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		};
 		await service.AddCourse(newCourse);
 		LoadedCommand.Execute(this);
+	}
+
+	private bool CanAdd()
+	{
+		return NewCourseName != string.Empty;
 	}
 
 	[RelayCommand]
