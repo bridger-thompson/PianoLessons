@@ -72,6 +72,7 @@ public partial class RecordingPageViewModel : ObservableObject
 		this.recordAudioService = recordAudioService;
 		this.auth = auth;
 		IsRecordingAudio = false;
+		IsRecordButtonVisible = auth.User.IsStudent;
 		IsResumeButtonVisible = false;
 		Recordings = new();
 	}
@@ -80,7 +81,6 @@ public partial class RecordingPageViewModel : ObservableObject
 	public async Task Loaded()
 	{
 		IsLoading = true;
-		IsRecordButtonVisible = auth.User.IsStudent;
 		IsTeacher = auth.User.IsTeacher;
 		await GetCoursesCommand.ExecuteAsync(this);
 		IsLoading = false;
