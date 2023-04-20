@@ -197,7 +197,8 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
-                    Text="{Binding RecordTimer}" />
+                    IsVisible="{Binding IsRecordButtonVisible, Converter={converter:BooleanConverter}}"
+                    Text="{Binding TimerLabel}" />
             </Grid>
         </StackLayout>
     </VerticalStackLayout>

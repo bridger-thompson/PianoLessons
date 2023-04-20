@@ -16,7 +16,10 @@ public partial class RecordingPageViewModel : ObservableObject
 
 	private string recentAudioFilePath;
 	private TimeSpan timerValue;
+
+	[ObservableProperty]
 	private string timerLabel;
+
 	private bool isRecord;
 	private Audio audioFile;
 
@@ -31,8 +34,6 @@ public partial class RecordingPageViewModel : ObservableObject
 
 	IRecordAudio recordAudioService;
 	private readonly AuthService auth;
-
-	[ObservableProperty]
 	IDispatcherTimer recordTimer;
 
 	[ObservableProperty]
@@ -74,14 +75,15 @@ public partial class RecordingPageViewModel : ObservableObject
 		this.recordAudioService = recordAudioService;
 		this.auth = auth;
 		IsRecordingAudio = false;
-		IsRecordButtonVisible = auth.User.IsStudent;
 		IsResumeButtonVisible = false;
 		Recordings = new();
 	}
 
+
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsRecordButtonVisible = auth.User.IsStudent && !IsRecordingAudio;
 		IsLoading = true;
 		IsTeacher = auth.User.IsTeacher;
 		await GetCoursesCommand.ExecuteAsync(this);
@@ -175,16 +177,16 @@ public partial class RecordingPageViewModel : ObservableObject
 	[RelayCommand]
 	public void CreateTimer()
 	{
-		RecordTimer = Application.Current.Dispatcher.CreateTimer();
+		recordTimer = Application.Current.Dispatcher.CreateTimer();
 
 		//timer start
-		RecordTimer.Interval = new TimeSpan(0, 0, 1);
-		RecordTimer.Tick += (s, e) =>
+		recordTimer.Interval = new TimeSpan(0, 0, 1);
+		recordTimer.Tick += (s, e) =>
 		{
 			if (isRecord)
 			{
 				timerValue += new TimeSpan(0, 0, 1);
-				timerLabel = string.Format("{0:mm\\:ss}", timerValue);
+				TimerLabel = string.Format("{0:mm\\:ss}", timerValue);
 			}
 		};
 	}
@@ -203,9 +205,9 @@ public partial class RecordingPageViewModel : ObservableObject
 				IsRecordButtonVisible = false;
 				isRecord = true;
 				timerValue = new TimeSpan(0, 0, -1);
-				if (RecordTimer == null)
+				if (recordTimer == null)
 					CreateTimer();
-				RecordTimer.Start();
+				recordTimer.Start();
 			}
 			else
 			{
@@ -245,9 +247,9 @@ public partial class RecordingPageViewModel : ObservableObject
 		IsRecordingAudio = false;
 		IsRecordButtonVisible = true;
 		timerValue = new TimeSpan();
-		RecordTimer.Stop();
+		recordTimer.Stop();
 		recentAudioFilePath = recordAudioService.StopRecord();
-		timerLabel = string.Format("{0:mm\\:ss}", timerValue);
+		TimerLabel = string.Format("{0:mm\\:ss}", timerValue);
 		SendRecording();
 	}
 
