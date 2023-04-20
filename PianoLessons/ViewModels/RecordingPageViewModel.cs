@@ -60,6 +60,9 @@ public partial class RecordingPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool hasRecordings;
 
+	[ObservableProperty]
+	private bool isLoading;
+
 	private Course selectedCourse;
 
 
@@ -76,14 +79,17 @@ public partial class RecordingPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsLoading = true;
 		IsRecordButtonVisible = auth.User.IsStudent;
 		IsTeacher = auth.User.IsTeacher;
 		await GetCoursesCommand.ExecuteAsync(this);
+		IsLoading = false;
 	}
 
 	[RelayCommand]
 	public async Task GetCourses()
 	{
+		IsLoading = true;
 		Courses = new();
 		CourseNames = new();
 		List<Course> c = new();
@@ -97,10 +103,13 @@ public partial class RecordingPageViewModel : ObservableObject
 		if (CourseNames.Count > 0) { SelectedCourseName = CourseNames[0]; }
 		else { SelectedCourseName = ""; }
 		await GetStudentsCommand.ExecuteAsync(this);
+		IsLoading = false;
 	}
 
+	[RelayCommand]
 	public async Task GetRecordings()
 	{
+		IsLoading = true;
 		var studentId = auth.User.Id;
 		if (IsTeacher)
 		{
@@ -123,11 +132,13 @@ public partial class RecordingPageViewModel : ObservableObject
 			Recordings.Add(recording);
 		}
 		HasRecordings = Recordings.Count > 0;
+		IsLoading = false;
 	}
 
 	[RelayCommand]
 	public async Task GetStudents()
 	{
+		IsLoading = true;
 		selectedCourse = Courses
 			.Where(c => c.Name == SelectedCourseName)
 			.FirstOrDefault();
@@ -142,8 +153,9 @@ public partial class RecordingPageViewModel : ObservableObject
 				StudentNames.Add(student.Name);
 			}
 			if (StudentNames.Count > 0) SelectedStudentName = StudentNames[0];
-			await GetRecordings();
+			await GetRecordingsCommand.ExecuteAsync(this);
 		}
+		IsLoading = false;
 	}
 
 	[RelayCommand]
@@ -154,7 +166,7 @@ public partial class RecordingPageViewModel : ObservableObject
 			var recording = Recordings.Where(r => r.Id == id).FirstOrDefault();
 			var fileName = recording.FilePath.Split('/')[4];
 			await service.DeleteRecording(auth.User.Id, id, fileName);
-			await GetRecordings();
+			await GetRecordingsCommand.ExecuteAsync(this);
 		}
 	}
 

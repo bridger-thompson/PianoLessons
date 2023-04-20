@@ -30,6 +30,9 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool hasLogs;
 
+	[ObservableProperty]
+	private bool isLoading;
+
 	private List<Student> students = new();
 
 	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
@@ -48,6 +51,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsLoading = true;
 		IsTeacher = auth.User.IsTeacher;
 		if (IsTeacher)
 		{
@@ -64,11 +68,13 @@ public partial class PracticeLogPageViewModel : ObservableObject
 		}
 
 		SelectedStudentName = StudentNames[0];
+		IsLoading = false;
 	}
 
 	[RelayCommand]
 	public async Task GetLogs()
 	{
+		IsLoading = true;
 		SelectedStudentName ??= "All";
 		List<PracticeLog> ls = new();
 		if (SelectedStudentName == "All" && IsTeacher)
@@ -91,6 +97,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 			Logs.Add(log);
 		}
 		HasLogs = Logs.Count > 0;
+		IsLoading = false;
 	}
 
 	[RelayCommand]

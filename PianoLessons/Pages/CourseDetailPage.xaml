@@ -40,6 +40,11 @@
                 BackgroundColor="LightBlue"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
+        <Label
+            Margin="0,5"
+            FontSize="Subtitle"
+            Text="{Binding TeacherName, StringFormat='Teacher: {0}'}"
+            HorizontalOptions="Center" />
         <Button
             IsVisible="{Binding IsTeacher}"
             Text="Generate Invite Code"

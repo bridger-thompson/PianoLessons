@@ -30,6 +30,9 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool noCourses;
 
+	[ObservableProperty]
+	private bool isLoading;
+
     public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService, AuthService auth)
 	{
 		this.service = service;
@@ -41,6 +44,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
     {
+		IsLoading = true;
         IsTeacher = auth.User.IsTeacher;
 		List<Course> c = new();
 		if (IsTeacher)
@@ -59,6 +63,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 		NewCourseName = string.Empty;
 		NewCode = string.Empty;
 		NoCourses = Courses.Count == 0 && !IsTeacher;
+		IsLoading = false;
 	}
 
 	[RelayCommand]

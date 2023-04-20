@@ -16,6 +16,9 @@ namespace PianoLessons.ViewModels
         [ObservableProperty]
         private bool isTeacher;
 
+        [ObservableProperty]
+        private bool isLoggingIn;
+
         public bool ShowIcon => !LoginViewIsVisible && !RegistrationViewIsVisible;
 
         [ObservableProperty]
@@ -60,9 +63,11 @@ namespace PianoLessons.ViewModels
         [RelayCommand]
         public async Task Loaded()
         {
+            IsLoggingIn = true;
             var result = await auth.SilentLogin();
+			IsLoggingIn = false;
 
-            if (result == LoginResult.Success)
+			if (result == LoginResult.Success)
             {
                 await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
             }

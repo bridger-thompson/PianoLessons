@@ -20,6 +20,9 @@ public partial class SchedulePageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isTeacher;
 
+	[ObservableProperty]
+	private bool isLoading;
+
 	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
 	{
 		this.navService = navService;
@@ -36,6 +39,7 @@ public partial class SchedulePageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Loaded()
 	{
+		IsLoading = true;
 		IsTeacher = auth.User.IsTeacher;
 		List<Appointment> appointments = new();
 		if (IsTeacher)
@@ -58,6 +62,7 @@ public partial class SchedulePageViewModel : ObservableObject
 				Subject = appointment.Subject,
 			});
 		}
+		IsLoading = false;
 	}
 
 	[RelayCommand]
