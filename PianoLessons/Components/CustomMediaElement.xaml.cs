@@ -36,6 +36,13 @@ public partial class CustomMediaElement : ContentView
         HideStopButtonShowPlayButton();
     }
 
+    void RestartRecording(object sender, EventArgs args)
+    {
+        mediaElement.Stop();
+        mediaElement.Play();
+        HidePlayButtonShowStopButton();
+	}
+
     private static void OnSourceChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var source = (string)newValue;

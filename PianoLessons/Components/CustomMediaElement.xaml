@@ -9,7 +9,7 @@
             x:Name="mediaElement"
             IsVisible="False" />
         <Grid
-            ColumnDefinitions="*,Auto">
+            ColumnDefinitions="*,Auto,Auto">
             <HorizontalStackLayout
                 VerticalOptions="Center"
                 Grid.Column="0">
@@ -29,6 +29,18 @@
 
             <StackLayout
                 Grid.Column="1"
+                HorizontalOptions="End">
+                <ImageButton
+                    x:Name="RestartButton"
+                    Scale=".8"
+                    BackgroundColor="CornflowerBlue"
+                    Source="restart.svg"
+                    Padding="10"
+                    Clicked="RestartRecording"
+                    CornerRadius="8" />
+            </StackLayout>
+            <StackLayout
+                Grid.Column="2"
                 HorizontalOptions="End">
                 <Button
                     x:Name="PlayButton"

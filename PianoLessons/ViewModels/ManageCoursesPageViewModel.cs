@@ -91,7 +91,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task RemoveCourse(int courseId)
 	{
-		bool confirmDelete = await Application.Current.MainPage.DisplayAlert("Are you sure?", "Do you want to delete this recording?", "Yes", "No");
+		bool confirmDelete = await Application.Current.MainPage.DisplayAlert("Are you sure?", "Do you want to delete this course?", "Yes", "No");
 		if (confirmDelete)
 		{
 			await service.DeleteCourse(courseId);
