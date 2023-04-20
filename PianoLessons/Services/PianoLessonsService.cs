@@ -117,7 +117,8 @@ public class PianoLessonsService
     {
         try
         {
-            return await clientV1.GetFromJsonAsync<PianoLessonsUser>($"api/PianoLessons/user/{userId}");
+            var user = await clientV1.GetFromJsonAsync<PianoLessonsUser>($"api/PianoLessons/user/{userId}");
+            return user;
         }
         catch
         {

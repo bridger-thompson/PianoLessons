@@ -133,7 +133,8 @@ namespace PianoLessonsApi.Controllers
 		[HttpGet("user/{userId}")]
 		public async Task<PianoLessonsUser> GetUser(string userId)
 		{
-			return await app.GetUser(userId);
+			var user = await app.GetUser(userId);
+			return user;
 		}
 
         [HttpPost("user")]
