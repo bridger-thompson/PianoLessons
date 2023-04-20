@@ -32,21 +32,23 @@
                 HorizontalOptions="End">
                 <ImageButton
                     x:Name="RestartButton"
-                    Scale=".8"
                     BackgroundColor="CornflowerBlue"
                     Source="restart.svg"
                     Padding="10"
+                    Scale="1.1"
                     Clicked="RestartRecording"
                     CornerRadius="8" />
             </StackLayout>
             <StackLayout
                 Grid.Column="2"
+                Margin="0,2,0,0"
                 HorizontalOptions="End">
                 <Button
                     x:Name="PlayButton"
                     Text="▶"
                     FontSize="Title"
                     Padding="0"
+                    Margin="0,2,0,0"
                     Scale=".8"
                     BackgroundColor="CornflowerBlue"
                     TextColor="White"

@@ -9,11 +9,13 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 {
 	private readonly IPianoLessonsRepo repo;
 	private readonly RecordingRepo recordingRepo;
+	private readonly MailService mailService;
 
-	public PianoLessonsApplication(IPianoLessonsRepo repo, RecordingRepo recordingRepo)
+	public PianoLessonsApplication(IPianoLessonsRepo repo, RecordingRepo recordingRepo, MailService mailService)
 	{
 		this.repo = repo;
 		this.recordingRepo = recordingRepo;
+		this.mailService = mailService;
 	}
 
     public async Task AddLog(PracticeLog log)
@@ -40,6 +42,7 @@ public class PianoLessonsApplication : IPianoLessonsApplication
 	public async Task AddAppointment(Appointment appointment)
 	{
 		await repo.AddAppointment(appointment);
+		await mailService.SendEmail(appointment);
 	}
 
 	public async Task<List<Appointment>> GetAppointmentsForStudent(string studentId)

@@ -96,23 +96,23 @@ public static class MauiProgram
 
 	private static void RegisterPagesAndViewModels(MauiAppBuilder builder)
 	{
-		builder.Services.AddSingleton<SchedulePage>();
-		builder.Services.AddSingleton<SchedulePageViewModel>();
-		builder.Services.AddSingleton<AddLogPage>();
-		builder.Services.AddSingleton<AddLogPageViewModel>();
-		builder.Services.AddSingleton<PracticeLogPage>();
-		builder.Services.AddSingleton<PracticeLogPageViewModel>();
-		builder.Services.AddSingleton<ScoreboardPage>();
-		builder.Services.AddSingleton<ScoreboardPageViewModel>();
-		builder.Services.AddSingleton<AddScheduleItemPage>();
-		builder.Services.AddSingleton<AddScheduleItemPageViewModel>();
-		builder.Services.AddSingleton<ManageCoursesPage>();
-		builder.Services.AddSingleton<ManageCoursesPageViewModel>();
-		builder.Services.AddSingleton<CourseDetailPage>();
-		builder.Services.AddSingleton<CourseDetailPageViewModel>();
-		builder.Services.AddSingleton<RecordingPage>();
-		builder.Services.AddSingleton<RecordingPageViewModel>();
-		builder.Services.AddSingleton<LoginPage>();
-		builder.Services.AddSingleton<LoginPageViewModel>();
+		builder.Services.AddScoped<SchedulePage>();
+		builder.Services.AddScoped<SchedulePageViewModel>();
+		builder.Services.AddScoped<AddLogPage>();
+		builder.Services.AddScoped<AddLogPageViewModel>();
+		builder.Services.AddScoped<PracticeLogPage>();
+		builder.Services.AddScoped<PracticeLogPageViewModel>();
+		builder.Services.AddScoped<ScoreboardPage>();
+		builder.Services.AddScoped<ScoreboardPageViewModel>();
+		builder.Services.AddScoped<AddScheduleItemPage>();
+		builder.Services.AddScoped<AddScheduleItemPageViewModel>();
+		builder.Services.AddScoped<ManageCoursesPage>();
+		builder.Services.AddScoped<ManageCoursesPageViewModel>();
+		builder.Services.AddScoped<CourseDetailPage>();
+		builder.Services.AddScoped<CourseDetailPageViewModel>();
+		builder.Services.AddScoped<RecordingPage>();
+		builder.Services.AddScoped<RecordingPageViewModel>();
+		builder.Services.AddScoped<LoginPage>();
+		builder.Services.AddScoped<LoginPageViewModel>();
 	}
 }

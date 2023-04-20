@@ -11,6 +11,7 @@ namespace PianoLessons.Tests
     {
         private PianoLessonsApplication app;
         private TestPianoLessonRepo repo;
+        private MailService mailService;
         private RecordingRepo recordingRepo;
         private DateTime today;
 
@@ -18,7 +19,7 @@ namespace PianoLessons.Tests
         public void Setup()
         {
             repo = new();
-            app = new(repo, recordingRepo);
+            app = new(repo, recordingRepo, mailService);
             today = DateTime.Today;
         }
 

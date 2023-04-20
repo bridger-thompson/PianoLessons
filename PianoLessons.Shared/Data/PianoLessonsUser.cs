@@ -12,6 +12,8 @@ public class PianoLessonsUser
 {
     public string Id { get; private set; }
     public string Name { get; private set; }
+
+    public string? Email { get; private set; }
     public bool IsTeacher { get; private set; }
     public bool IsStudent => !IsTeacher;
 
@@ -21,11 +23,12 @@ public class PianoLessonsUser
     //}
 
     [JsonConstructor]
-    public PianoLessonsUser(string id, string name, bool isTeacher)
+    public PianoLessonsUser(string id, string name, bool isTeacher, string email)
     {
         Id = id;
         Name = name;    
         IsTeacher = isTeacher;
+        Email = email;
     }
 
     public PianoLessonsUser(Teacher teacher)
@@ -40,5 +43,6 @@ public class PianoLessonsUser
         Id = student.Id;
         Name = student.Name;
         IsTeacher = false;
+        Email = student.Email;
     }
 }

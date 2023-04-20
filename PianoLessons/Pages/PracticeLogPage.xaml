@@ -13,19 +13,28 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
 
-    <Grid>
-        <ActivityIndicator
-            IsVisible="{Binding IsLoading}"
-            Color="CornflowerBlue"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            IsRunning="{Binding IsLoading}" />
-        <StackLayout
-            IsVisible="{Binding IsLoading, Converter={converter:BooleanConverter}}">
-            <ScrollView
-                VerticalScrollBarVisibility="Always">
+    <ScrollView>
+        <StackLayout>
+            <ActivityIndicator
+                IsVisible="{Binding IsLoading}"
+                Color="CornflowerBlue"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsRunning="{Binding IsLoading}" />
+            <StackLayout
+                IsVisible="{Binding IsLoading, Converter={converter:BooleanConverter}}">
                 <VerticalStackLayout
                     HorizontalOptions="Center">
+                    <Button
+                        IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
+                        BackgroundColor="CornflowerBlue"
+                        Command="{Binding ToAddLogCommand}"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Padding="0"
+                        Margin="10,5"
+                        FontSize="Title"
+                        Text="+" />
                     <Grid
                         ColumnDefinitions="*,Auto">
                         <HorizontalStackLayout
@@ -126,19 +135,7 @@
                         HorizontalOptions="Center"
                         IsVisible="{Binding HasLogs, Converter={converter:BooleanConverter}}" />
                 </VerticalStackLayout>
-            </ScrollView>
-            <Button
-                IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
-                BackgroundColor="CornflowerBlue"
-                Command="{Binding ToAddLogCommand}"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                Padding="0"
-                CornerRadius="45"
-                Scale="1.2"
-                Margin="20"
-                FontSize="Title"
-                Text="+" />
+            </StackLayout>
         </StackLayout>
-    </Grid>
+    </ScrollView>
 </ContentPage>

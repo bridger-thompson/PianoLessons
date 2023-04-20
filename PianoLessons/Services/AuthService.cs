@@ -50,7 +50,8 @@ public class AuthService
     public async Task RegisterUser(bool isTeacher, string name)
     {
         var userId = identityUser.Claims.FirstOrDefault(c => c.Type == "sub").Value;
-        var user = new PianoLessonsUser(userId, name, isTeacher);
+        var email = identityUser.Claims.FirstOrDefault(c => c.Type == "name").Value;
+        var user = new PianoLessonsUser(userId, name, isTeacher, email);
         await service.RegisterUser(user);
         User = await service.GetUser(userId);
     }

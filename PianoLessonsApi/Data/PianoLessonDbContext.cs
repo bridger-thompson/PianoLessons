@@ -187,6 +187,7 @@ public partial class PianoLessonDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Email).HasColumnName("email");
         });
 
         modelBuilder.Entity<StudentCourse>(entity =>

@@ -23,6 +23,9 @@ public partial class Student
 	[JsonPropertyName("name")]
 	public string Name { get; set; } = null!;
 
+    [JsonPropertyName("email")]
+    public string? Email { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
 
     public virtual ICollection<PaymentHistory> PaymentHistories { get; } = new List<PaymentHistory>();
