@@ -133,6 +133,7 @@
             <Grid
                 Margin="0,5,0,0"
                 ColumnDefinitions="*,*"
+                RowDefinitions="*,*"
                 WidthRequest="400">
                 <Grid
                     HorizontalOptions="CenterAndExpand"
@@ -192,6 +193,11 @@
                         HorizontalOptions="Center"
                         Text="Stop" />
                 </Grid>
+                <Label
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Text="{Binding RecordTimer}" />
             </Grid>
         </StackLayout>
     </VerticalStackLayout>

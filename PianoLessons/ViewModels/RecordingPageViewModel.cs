@@ -31,6 +31,8 @@ public partial class RecordingPageViewModel : ObservableObject
 
 	IRecordAudio recordAudioService;
 	private readonly AuthService auth;
+
+	[ObservableProperty]
 	IDispatcherTimer recordTimer;
 
 	[ObservableProperty]
@@ -173,11 +175,11 @@ public partial class RecordingPageViewModel : ObservableObject
 	[RelayCommand]
 	public void CreateTimer()
 	{
-		recordTimer = Application.Current.Dispatcher.CreateTimer();
+		RecordTimer = Application.Current.Dispatcher.CreateTimer();
 
 		//timer start
-		recordTimer.Interval = new TimeSpan(0, 0, 1);
-		recordTimer.Tick += (s, e) =>
+		RecordTimer.Interval = new TimeSpan(0, 0, 1);
+		RecordTimer.Tick += (s, e) =>
 		{
 			if (isRecord)
 			{
@@ -186,6 +188,7 @@ public partial class RecordingPageViewModel : ObservableObject
 			}
 		};
 	}
+
 	[RelayCommand]
 	public async void StartRecording()
 	{
@@ -200,9 +203,9 @@ public partial class RecordingPageViewModel : ObservableObject
 				IsRecordButtonVisible = false;
 				isRecord = true;
 				timerValue = new TimeSpan(0, 0, -1);
-				if (recordTimer == null)
+				if (RecordTimer == null)
 					CreateTimer();
-				recordTimer.Start();
+				RecordTimer.Start();
 			}
 			else
 			{
@@ -235,18 +238,6 @@ public partial class RecordingPageViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	public void ResetRecording()
-	{
-		recordAudioService.ResetRecord();
-		timerValue = new TimeSpan();
-		timerLabel = string.Format("{0:mm\\:ss}", timerValue);
-		IsRecordingAudio = false;
-		IsPauseButtonVisible = false;
-		IsResumeButtonVisible = false;
-		StartRecording();
-	}
-
-	[RelayCommand]
 	public void StopRecording()
 	{
 		IsPauseButtonVisible = false;
@@ -254,7 +245,7 @@ public partial class RecordingPageViewModel : ObservableObject
 		IsRecordingAudio = false;
 		IsRecordButtonVisible = true;
 		timerValue = new TimeSpan();
-		recordTimer.Stop();
+		RecordTimer.Stop();
 		recentAudioFilePath = recordAudioService.StopRecord();
 		timerLabel = string.Format("{0:mm\\:ss}", timerValue);
 		SendRecording();
