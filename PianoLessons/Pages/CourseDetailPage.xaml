@@ -21,22 +21,28 @@
                 FontSize="Title"
                 VerticalOptions="Center"
                 Text="{Binding CurrentCourse.Name}" />
-            <Button
-                Text="Edit"
+            <ImageButton
+                Source="pencil.svg"
+                Scale=".8"
+                Padding="10"
+                CornerRadius="8"
                 IsVisible="{Binding IsTeacher}"
                 BackgroundColor="DarkGray"
                 Command="{Binding StartEditCommand}" />
         </HorizontalStackLayout>
         <HorizontalStackLayout
+            Margin="0,5"
             HorizontalOptions="Center"
             IsVisible="{Binding IsEditing}"
             Spacing="5">
             <Entry
                 WidthRequest="150"
                 Text="{Binding NewName}" />
-            <Button
-                Text="Submit"
-                TextColor="Gray"
+            <ImageButton
+                Source="check.svg"
+                CornerRadius="5"
+                Padding="5"
+                Scale="1.4"
                 BackgroundColor="LightBlue"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
