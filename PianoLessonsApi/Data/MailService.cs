@@ -19,7 +19,7 @@ public class MailService
 		if (toAddress != null)
 		{
 			var email = new TransactionalEmailBuilder()
-				.WithFrom(new SendContact("bridger.thompson@students.snow.edu"))
+				.WithFrom(new SendContact("anthony.hardman@students.snow.edu"))
 				.WithSubject("New Lesson Scheduled!")
 				.WithHtmlPart(
 				@$"
