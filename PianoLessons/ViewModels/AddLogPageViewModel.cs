@@ -18,10 +18,10 @@ public partial class AddLogPageViewModel : ObservableObject
 	[ObservableProperty]
 	private DateTime logDate;
 
-	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total))]
+	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total)), NotifyCanExecuteChangedFor(nameof(SubmitCommand))]
 	private TimeSpan startTime;
 
-	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total))]
+	[ObservableProperty, NotifyPropertyChangedFor(nameof(Total)), NotifyCanExecuteChangedFor(nameof(SubmitCommand))]
 	private TimeSpan endTime;
 
 	[ObservableProperty]
@@ -57,7 +57,7 @@ public partial class AddLogPageViewModel : ObservableObject
 		EndTime = DateTime.Now.AddHours(1).TimeOfDay;
 	}
 
-	[RelayCommand]
+	[RelayCommand(CanExecute=nameof(CanSubmit))]
 	public async Task Submit()
 	{
         var selectedCourse = Courses.Where(c => c.Name == SelectedCourseName)
@@ -86,6 +86,11 @@ public partial class AddLogPageViewModel : ObservableObject
 			await service.AddLog(log);
 		}
 		await navService.NavigateToAsync("..");
+	}
+
+	private bool CanSubmit()
+	{
+		return StartTime < EndTime;
 	}
 
 	[RelayCommand]

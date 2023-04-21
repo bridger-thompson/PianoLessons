@@ -13,7 +13,7 @@
             Command="{Binding LoadedCommand}" />
     </ContentPage.Behaviors>
 
-    <ScrollView>
+    <Grid>
         <StackLayout>
             <ActivityIndicator
                 IsVisible="{Binding IsLoading}"
@@ -25,16 +25,7 @@
                 IsVisible="{Binding IsLoading, Converter={converter:BooleanConverter}}">
                 <VerticalStackLayout
                     HorizontalOptions="Center">
-                    <Button
-                        IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
-                        BackgroundColor="CornflowerBlue"
-                        Command="{Binding ToAddLogCommand}"
-                        HorizontalOptions="End"
-                        VerticalOptions="End"
-                        Padding="0"
-                        Margin="10,5"
-                        FontSize="Title"
-                        Text="+" />
+                    
                     <Grid
                         ColumnDefinitions="*,Auto">
                         <HorizontalStackLayout
@@ -82,6 +73,7 @@
                     <CollectionView
                         HorizontalOptions="Center"
                         SelectionMode="Single"
+                        MaximumHeightRequest="600"
                         IsVisible="{Binding HasLogs}"
                         SelectedItem="{Binding SelectedLog}"
                         SelectionChangedCommand="{Binding EditLogCommand}"
@@ -137,5 +129,16 @@
                 </VerticalStackLayout>
             </StackLayout>
         </StackLayout>
-    </ScrollView>
+        <Button
+            IsVisible="{Binding IsTeacher, Converter={converter:BooleanConverter}}"
+            BackgroundColor="CornflowerBlue"
+            Command="{Binding ToAddLogCommand}"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Padding="0"
+            Margin="25"
+            CornerRadius="45"
+            FontSize="Title"
+            Text="+" />
+    </Grid>
 </ContentPage>

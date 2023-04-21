@@ -57,6 +57,7 @@
                     x:Name="StopButton"
                     Scale=".8"
                     BackgroundColor="Gray"
+                    Margin="0,2,0,0"
                     Source="pause_fill.svg"
                     Clicked="StopPlayingRecording"
                     CornerRadius="8"

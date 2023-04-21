@@ -82,7 +82,11 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[RelayCommand]
 	public async Task RemoveStudent(string studentId)
 	{
-		await service.RemoveStudent(Id, studentId);
-		LoadedCommand.Execute(this);
+		bool confirmDelete = await Application.Current.MainPage.DisplayAlert("Are you sure?", "Do you want to remove this student from the course?", "Yes", "No");
+		if (confirmDelete)
+		{
+			await service.RemoveStudent(Id, studentId);
+			LoadedCommand.Execute(this);
+		}
 	}
 }

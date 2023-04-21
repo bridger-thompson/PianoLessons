@@ -23,8 +23,7 @@
                 Text="{Binding CurrentCourse.Name}" />
             <ImageButton
                 Source="pencil.svg"
-                Scale=".8"
-                Padding="10"
+                Padding="5"
                 CornerRadius="8"
                 IsVisible="{Binding IsTeacher}"
                 BackgroundColor="DarkGray"
@@ -42,7 +41,6 @@
                 Source="check.svg"
                 CornerRadius="5"
                 Padding="5"
-                Scale="1.4"
                 BackgroundColor="LightBlue"
                 Command="{Binding EditNameCommand}" />
         </HorizontalStackLayout>
