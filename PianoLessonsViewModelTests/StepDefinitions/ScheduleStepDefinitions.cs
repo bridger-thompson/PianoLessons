@@ -21,9 +21,10 @@ namespace PianoLessonsViewModelTests.StepDefinitions
 		{
 			var mock = new Mock<IPianoLessonsService>();
             var authMock = new Mock<IAuthService>();
+            authMock.SetupGet(x => x.User).Returns(new PianoLessonsUser("1", "test", true, "test@gmail.com"));
+			SchedulePageViewModel viewModel = new(new ShellNavigationService(), mock.Object, authMock.Object);
 			context.Set(mock);
             context.Set(authMock);
-			SchedulePageViewModel viewModel = new(new ShellNavigationService(), mock.Object, authMock.Object);
             context.Set(viewModel);
         }
 
@@ -36,7 +37,7 @@ namespace PianoLessonsViewModelTests.StepDefinitions
                 appointments.Add(new Appointment());
             }
 			var mock = context.Get<Mock<IPianoLessonsService>>();
-            mock.Setup(x => x.GetAppointmentsForTeacher(It.IsAny<string>())).ReturnsAsync(appointments);
+            mock.Setup(x => x.GetAppointmentsForStudent(It.IsAny<string>())).ReturnsAsync(appointments);
         }
 
         [When(@"you load the page as a teacher")]

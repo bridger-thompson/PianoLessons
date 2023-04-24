@@ -6,7 +6,7 @@ namespace PianoLessons.Pages;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage(LoginPageViewModel vm, AuthService auth)
+	public LoginPage(LoginPageViewModel vm, IAuthService auth)
 	{
 		InitializeComponent();
 #if WINDOWS

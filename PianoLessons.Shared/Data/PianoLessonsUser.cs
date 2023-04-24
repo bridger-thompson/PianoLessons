@@ -17,10 +17,10 @@ public class PianoLessonsUser
     public bool IsTeacher { get; private set; }
     public bool IsStudent => !IsTeacher;
 
-    //public PianoLessonsUser()
-    //{
+    public PianoLessonsUser()
+    {
 
-    //}
+    }
 
     [JsonConstructor]
     public PianoLessonsUser(string id, string name, bool isTeacher, string email)

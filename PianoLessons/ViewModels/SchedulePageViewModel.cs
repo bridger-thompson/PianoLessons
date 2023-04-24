@@ -40,10 +40,10 @@ public partial class SchedulePageViewModel : ObservableObject
 	public async Task Loaded()
 	{
 		IsLoading = true;
-		IsTeacher = auth.User.IsTeacher;
 		List<Appointment> appointments = new();
-		if (IsTeacher)
+		if (auth.User != null && auth.User.IsTeacher)
 		{
+			IsTeacher = auth.User.IsTeacher;
 			//user id (teacher)
 			appointments = await service.GetAppointmentsForTeacher(auth.User.Id);
 		}
@@ -55,12 +55,13 @@ public partial class SchedulePageViewModel : ObservableObject
 		Events = new();
 		foreach (var appointment in appointments)
 		{
-			Events.Add(new SchedulerAppointment()
+			var a = new SchedulerAppointment()
 			{
 				StartTime = appointment.StartAt,
 				EndTime = appointment.EndAt,
 				Subject = appointment.Subject,
-			});
+			};
+			Events.Add(a);
 		}
 		IsLoading = false;
 	}

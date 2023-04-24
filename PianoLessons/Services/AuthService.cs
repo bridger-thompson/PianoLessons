@@ -15,17 +15,17 @@ public enum LoginResult
 public class AuthService : IAuthService
 {
 	private readonly Auth0Client auth0Client;
-	private readonly PianoLessonsService service;
+	private readonly IPianoLessonsService service;
 	private ClaimsPrincipal identityUser;
 
-	public PianoLessonsUser User { get; private set; }
+	public PianoLessonsUser User { get; set; }
 
 	public IdentityModel.OidcClient.Browser.IBrowser Browser
 	{
 		set => auth0Client.Browser = value;
 	}
 
-	public AuthService(Auth0Client auth0Client, PianoLessonsService service)
+	public AuthService(Auth0Client auth0Client, IPianoLessonsService service)
 	{
 		this.auth0Client = auth0Client;
 		this.service = service;

@@ -5,7 +5,7 @@ namespace PianoLessons.Services
 	public interface IAuthService
 	{
 		IdentityModel.OidcClient.Browser.IBrowser Browser { set; }
-		PianoLessonsUser User { get; }
+		PianoLessonsUser User { get; set; }
 
 		Task<LoginResult> LoginAsync();
 		Task Logout();

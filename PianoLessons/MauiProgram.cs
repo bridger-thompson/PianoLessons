@@ -88,7 +88,6 @@ public static class MauiProgram
 		{
 			c.BaseAddress = new Uri("https://pianolessonsapi.azurewebsites.net/");
 			//c.BaseAddress = new Uri("https://localhost:7085");
-			c.DefaultRequestHeaders.Add("version", "2.0");
 		}
 		).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler())
 			.AddHttpMessageHandler<TokenHandler>();
