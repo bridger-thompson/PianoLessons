@@ -9,8 +9,8 @@ namespace PianoLessons.ViewModels;
 public partial class AddScheduleItemPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
-	private readonly PianoLessonsService service;
-	private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+	private readonly IAuthService auth;
 	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
 	private string title;
 
@@ -44,7 +44,7 @@ public partial class AddScheduleItemPageViewModel : ObservableObject
 	[ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
 	private string selectedStudentName;
 
-	public AddScheduleItemPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
+	public AddScheduleItemPageViewModel(INavigationService navService, IPianoLessonsService service, IAuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;

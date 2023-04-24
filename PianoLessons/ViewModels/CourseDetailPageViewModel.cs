@@ -10,8 +10,8 @@ namespace PianoLessons.ViewModels;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class CourseDetailPageViewModel : ObservableObject
 {
-	private readonly PianoLessonsService service;
-	private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+	private readonly IAuthService auth;
 	[ObservableProperty]
 	private int id;
 
@@ -36,7 +36,7 @@ public partial class CourseDetailPageViewModel : ObservableObject
 	[ObservableProperty]
 	private string teacherName;
 
-    public CourseDetailPageViewModel(PianoLessonsService service, AuthService auth)
+    public CourseDetailPageViewModel(IPianoLessonsService service, IAuthService auth)
 	{
 		this.service = service;
 		this.auth = auth;

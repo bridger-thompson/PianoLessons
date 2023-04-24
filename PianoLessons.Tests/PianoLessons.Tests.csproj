@@ -22,4 +22,8 @@
     <ProjectReference Include="..\PianoLessonsApi\PianoLessonsApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModelTests\" />
+  </ItemGroup>
+
 </Project>

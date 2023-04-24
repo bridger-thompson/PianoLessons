@@ -8,8 +8,8 @@ namespace PianoLessons.ViewModels;
 
 public partial class ScoreboardPageViewModel : ObservableObject
 {
-	private readonly PianoLessonsService service;
-    private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+    private readonly IAuthService auth;
     [ObservableProperty]
 	private ObservableCollection<StudentScore> studentScores;
 
@@ -32,7 +32,7 @@ public partial class ScoreboardPageViewModel : ObservableObject
 
 	private bool isTeacher;
 
-	public ScoreboardPageViewModel(PianoLessonsService service, AuthService auth)
+	public ScoreboardPageViewModel(IPianoLessonsService service, IAuthService auth)
 	{
 		StudentScores = new();
 		courses = new();

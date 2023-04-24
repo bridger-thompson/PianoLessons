@@ -9,9 +9,9 @@ namespace PianoLessons.ViewModels;
 
 public partial class ManageCoursesPageViewModel : ObservableObject
 {
-	private readonly PianoLessonsService service;
+	private readonly IPianoLessonsService service;
 	private readonly INavigationService navService;
-    private readonly AuthService auth;
+    private readonly IAuthService auth;
     [ObservableProperty]
 	private ObservableCollection<Course> courses;
 
@@ -33,7 +33,7 @@ public partial class ManageCoursesPageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isLoading;
 
-    public ManageCoursesPageViewModel(PianoLessonsService service, INavigationService navService, AuthService auth)
+    public ManageCoursesPageViewModel(IPianoLessonsService service, INavigationService navService, IAuthService auth)
 	{
 		this.service = service;
 		this.navService = navService;

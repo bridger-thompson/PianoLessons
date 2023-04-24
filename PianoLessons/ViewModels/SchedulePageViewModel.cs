@@ -11,8 +11,8 @@ namespace PianoLessons.ViewModels;
 public partial class SchedulePageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
-	private readonly PianoLessonsService service;
-    private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+    private readonly IAuthService auth;
 
     [ObservableProperty]
 	private ObservableCollection<SchedulerAppointment> events;
@@ -23,7 +23,7 @@ public partial class SchedulePageViewModel : ObservableObject
 	[ObservableProperty]
 	private bool isLoading;
 
-	public SchedulePageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
+	public SchedulePageViewModel(INavigationService navService, IPianoLessonsService service, IAuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;

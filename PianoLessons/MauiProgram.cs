@@ -35,7 +35,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 		RegisterHttpClients(builder);
 
-		builder.Services.AddSingleton<PianoLessonsService>(provider =>
+		builder.Services.AddSingleton<IPianoLessonsService, PianoLessonsService>(provider =>
 		{
 			var clientV1 = provider.GetRequiredService<IHttpClientFactory>().CreateClient("v1");
 			var clientV2 = provider.GetRequiredService<IHttpClientFactory>().CreateClient("v2");
@@ -59,7 +59,7 @@ public static class MauiProgram
 #endif
 		}));
 
-		builder.Services.AddSingleton<AuthService>();
+		builder.Services.AddSingleton<IAuthService, AuthService>();
 
 		builder.UseMauiCommunityToolkit();
 

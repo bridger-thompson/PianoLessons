@@ -10,8 +10,8 @@ namespace PianoLessons.ViewModels;
 public partial class PracticeLogPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
-	private readonly PianoLessonsService service;
-    private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+    private readonly IAuthService auth;
     [ObservableProperty]
 	private ObservableCollection<PracticeLog> logs;
 
@@ -35,7 +35,7 @@ public partial class PracticeLogPageViewModel : ObservableObject
 
 	private List<Student> students = new();
 
-	public PracticeLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
+	public PracticeLogPageViewModel(INavigationService navService, IPianoLessonsService service, IAuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;

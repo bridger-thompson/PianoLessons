@@ -24,11 +24,11 @@ namespace PianoLessons.ViewModels
         [ObservableProperty]
         private string userName;
 
-        private readonly AuthService auth;
+        private readonly IAuthService auth;
         private readonly INavigationService nav;
-        private readonly PianoLessonsService service;
+        private readonly IPianoLessonsService service;
 
-        public LoginPageViewModel(AuthService auth, INavigationService nav, PianoLessonsService service)
+        public LoginPageViewModel(IAuthService auth, INavigationService nav, IPianoLessonsService service)
         {
             this.auth = auth;
             this.nav = nav;

@@ -12,7 +12,7 @@ namespace PianoLessons.ViewModels;
 
 public partial class RecordingPageViewModel : ObservableObject
 {
-	private readonly PianoLessonsService service;
+	private readonly IPianoLessonsService service;
 
 	private string recentAudioFilePath;
 	private TimeSpan timerValue;
@@ -33,7 +33,7 @@ public partial class RecordingPageViewModel : ObservableObject
 	private bool isResumeButtonVisible;
 
 	IRecordAudio recordAudioService;
-	private readonly AuthService auth;
+	private readonly IAuthService auth;
 	IDispatcherTimer recordTimer;
 
 	[ObservableProperty]
@@ -69,7 +69,7 @@ public partial class RecordingPageViewModel : ObservableObject
 	private Course selectedCourse;
 
 
-	public RecordingPageViewModel(PianoLessonsService service, IRecordAudio recordAudioService, AuthService auth)
+	public RecordingPageViewModel(IPianoLessonsService service, IRecordAudio recordAudioService, IAuthService auth)
 	{
 		this.service = service;
 		this.recordAudioService = recordAudioService;

@@ -10,8 +10,8 @@ namespace PianoLessons.ViewModels;
 public partial class AddLogPageViewModel : ObservableObject
 {
 	private readonly INavigationService navService;
-	private readonly PianoLessonsService service;
-	private readonly AuthService auth;
+	private readonly IPianoLessonsService service;
+	private readonly IAuthService auth;
 	[ObservableProperty]
 	private int id;
 
@@ -47,7 +47,7 @@ public partial class AddLogPageViewModel : ObservableObject
 
     public string Total => $"{(EndTime - StartTime).Hours} hour(s) {(EndTime - StartTime).Minutes} minute(s)";
 
-	public AddLogPageViewModel(INavigationService navService, PianoLessonsService service, AuthService auth)
+	public AddLogPageViewModel(INavigationService navService, IPianoLessonsService service, IAuthService auth)
 	{
 		this.navService = navService;
 		this.service = service;
