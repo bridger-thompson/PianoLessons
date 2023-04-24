@@ -19,8 +19,9 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder.ConfigureSyncfusionCore();
-		builder
-			.UseMauiApp<App>()
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBaFt/QHRqVVhkVFpFdEBBXHxAd1p/VWJYdVt5flBPcDwsT3RfQF5jS35adkVmX3xccHZSQQ==;Mgo+DSMBPh8sVXJ0S0J+XE9AflRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS31TdEVqWX9bdndXRmRbVg==;ORg4AjUWIQA/Gnt2VVhkQlFacldJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkdjUH9edXJWRGBaVUM=;MTA5NDYwOUAzMjMwMmUzNDJlMzBNTkthSzl0NEZEUzhYeEJhanBHYm1ibWllREFUbU40Q0s1L3ZhODN1V0JVPQ==;MTA5NDYxMEAzMjMwMmUzNDJlMzBQWG1SSmplSEFEQ28xQUhpcFhrcjNWT0V4YWhyc2lPcmpZQXF0UEt3L3U0PQ==;NRAiBiAaIQQuGjN/V0Z+WE9EaFtKVmJLYVB3WmpQdldgdVRMZVVbQX9PIiBoS35RdUVhWXZecHFTRWJdVEJ+;MTA5NDYxMkAzMjMwMmUzNDJlMzBkb1NqSEtPY0k1UHNCbkdvT1U3UXV3Mzd0akh5UW92S0Q3Vi9LNFhucWRVPQ==;MTA5NDYxM0AzMjMwMmUzNDJlMzBFTWVnN1BkMmJMM2U3RlY5SjM0OGxXeFZkQlpaMWVvaFF5cUJqMmlTMTFjPQ==;Mgo+DSMBMAY9C3t2VVhkQlFacldJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxQdkdjUH9edXJWRGNeV0Y=;MTA5NDYxNUAzMjMwMmUzNDJlMzBhRmFXWXhRU21PSmgybTZTa2JmRzlNbG05WFRUMEl5UzhQQzlaaGtDeEl3PQ==;MTA5NDYxNkAzMjMwMmUzNDJlMzBneEVlM0ROblIvaDdsMHVXc0pTQVRQWXlvbklwTUl6RFRNMWtmZXZkRWg0PQ==;MTA5NDYxN0AzMjMwMmUzNDJlMzBkb1NqSEtPY0k1UHNCbkdvT1U3UXV3Mzd0akh5UW92S0Q3Vi9LNFhucWRVPQ==");
+        builder
+            .UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
 			.UseMauiCommunityToolkitMediaElement()
 			.ConfigureFonts(fonts =>
