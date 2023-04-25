@@ -32,7 +32,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\Images\piano_lessons.jpg" ForegroundFile="Resources\Images\piano_lessons.jpg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\piano_lessons.jpg">
+		  <Color>#512BD4</Color>
+		  <ForegroundFile>Resources\Images\piano_lessons.jpg</ForegroundFile>
+		</MauiIcon>
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Images\piano_lessons.jpg" Color="#004E98" BaseSize="128,128" />
@@ -46,6 +49,10 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\piano_lessons.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
