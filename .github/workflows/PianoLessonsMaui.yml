@@ -95,7 +95,7 @@ jobs:
     - name: Build MAUI Windows
       run: msbuild PianoLessons/PianoLessons.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
 
-    - name: Publish Unzipped folder
+    - name: Publish Zipped Folder
       run: msbuild PianoLessons/PianoLessons.csproj /restore /t:build /p:TargetFramework=net7.0-windows10.0.19041 /p:configuration=release /p:WindowsAppSDKSelfContained=true /p:Platform=x64 /p:WindowsPackageType=None /p:RuntimeIdentifier=win10-x64
 
     - name: Upload Windows Artifact
