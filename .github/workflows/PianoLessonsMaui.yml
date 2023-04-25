@@ -102,5 +102,5 @@ jobs:
       uses: actions/upload-artifact@v2.3.1
       with:
         name: windows-ci-build
-        path: PianoLessons/bin/Release/net7.0-windows/**/PianoLessons*.msix
+        path: PianoLessons/bin/Release/net7.0-windows10.0.19041.0/win10-x64/*
   
