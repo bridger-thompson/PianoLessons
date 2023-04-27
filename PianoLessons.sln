@@ -13,12 +13,13 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41C85271-2702-4C38-9CE1-B1FD8A810A86}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		Schema_Creation.sql = Schema_Creation.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PianoLessons.Tests", "PianoLessons.Tests\PianoLessons.Tests.csproj", "{E3BF58E1-4CE9-49E5-8AA3-A7862C87BF32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileTests", "MobileTests\MobileTests.csproj", "{BF21D9FF-269F-4B5E-AE96-572F7535B034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileTests", "MobileTests\MobileTests.csproj", "{BF21D9FF-269F-4B5E-AE96-572F7535B034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

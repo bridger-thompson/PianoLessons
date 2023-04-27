@@ -43,10 +43,7 @@ public static class MauiProgram
 
 			return new PianoLessonsService(clientV1, clientV2);
 		});
-
-		builder.Services.AddTransient(
-			sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api")
-		);
+		
 		builder.Services.AddSingleton(new Auth0Client(new()
 		{
 			Domain = "dev-djtfumdg4bnzmj45.us.auth0.com",

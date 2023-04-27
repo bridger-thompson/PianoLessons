@@ -15,6 +15,7 @@ public partial class Student
     {
         Id = user.Id;
         Name = user.Name;
+        Email = user.Email;
     }
 
 	[JsonPropertyName("id")]

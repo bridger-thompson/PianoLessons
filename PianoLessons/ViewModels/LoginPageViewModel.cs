@@ -63,14 +63,14 @@ namespace PianoLessons.ViewModels
         [RelayCommand]
         public async Task Loaded()
         {
-            IsLoggingIn = true;
-            var result = await auth.SilentLogin();
-			IsLoggingIn = false;
+   //         IsLoggingIn = true;
+   //         var result = await auth.SilentLogin();
+			//IsLoggingIn = false;
 
-			if (result == LoginResult.Success)
-            {
-                await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
-            }
+			//if (result == LoginResult.Success)
+   //         {
+   //             await nav.NavigateToAsync($"///{nameof(SchedulePage)}");
+   //         }
 
             LoginViewIsVisible = true;
         }
