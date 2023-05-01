@@ -51,7 +51,8 @@ jobs:
         
   build-android:
     runs-on: windows-2022
-    needs: build
+    permissions: write-all
+    needs: [build,begin-release]
     name: Android Build
     steps:
     - name: Checkout
@@ -70,7 +71,7 @@ jobs:
 
     - name: Install MAUI Workloads
       run: |
-        dotnet workload install android --ignore-failed-sources
+        #dotnet workload install android --ignore-failed-sources
         dotnet workload install maui --ignore-failed-sources
     - name: Restore Dependencies
       run: dotnet restore PianoLessons/PianoLessons.csproj
@@ -90,8 +91,9 @@ jobs:
 
   build-windows:
     runs-on: windows-2022
+    permissions: write-all
     name: Windows Build
-    needs: build
+    needs: [build,begin-release]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
