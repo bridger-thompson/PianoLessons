@@ -24,7 +24,7 @@ jobs:
         release_name: Release windows ${{github.ref}}
         tag_name: ${{ github.ref }}
     env:
-     GITHUB_TOKEN: ${{ github.token }}
+     GITHUB_TOKEN: ${{ secrets.GITHUB.TOKEN }}
 
   build:
     runs-on: ubuntu-latest
